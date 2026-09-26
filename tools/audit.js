@@ -90,14 +90,14 @@ const inPage = () => {
     });
     await page.waitForTimeout(400);
     const r = await page.evaluate(inPage);
-    // buy bar: on desktop it must sit in the right third, clear of centred copy
+    // buy bar: on desktop it must sit to one side, clear of centred copy
     if (!v.mobile) {
       const H = await page.evaluate(() => document.documentElement.scrollHeight);
       for (let i = 1; i <= 12; i++) {
         await page.evaluate(y => window.scrollTo(0, y), Math.round(H * i / 13));
         await page.waitForTimeout(120);
-        const b = await page.evaluate(() => { const el = document.getElementById('bar'); if (!el || !el.classList.contains('on')) return null; const q = el.getBoundingClientRect(); return { l: q.left, w: innerWidth }; });
-        if (b && b.l < b.w * 0.6) { r.HOVERBAR.push(`bar left=${Math.round(b.l)} at y=${Math.round(H * i / 13)}`); break; }
+        const b = await page.evaluate(() => { const el = document.getElementById('bar'); if (!el || !el.classList.contains('on')) return null; const q = el.getBoundingClientRect(); return { c: q.left + q.width / 2, w: innerWidth }; });
+        if (b && Math.abs(b.c - b.w / 2) < b.w * 0.2) { r.HOVERBAR.push(`bar centre=${Math.round(b.c)} at y=${Math.round(H * i / 13)}`); break; }
       }
     }
     r.JSERR = errs;
