@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#fbf5eb">
 <title>Talizman Ochronny — intencja</title>
-<script>document.documentElement.classList.add('js')</script>
+<script>document.documentElement.classList.add('js');setTimeout(function(){document.documentElement.classList.add('dev-done')},4000)</script>
 <style>
 @font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:400 500;font-display:swap;src:url({{a:facc157bdd80}}) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
 @font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:400 500;font-display:swap;src:url({{a:aea3eeeac586}}) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
@@ -1125,6 +1125,15 @@ p.small,p.cnote,.pdp__acc p.small{font-size:16px;line-height:1.6}
   .beat__art{margin:0 0 16px}
   .chapter__art .gr{inset:3% 0 1% 8%}
 }
+/* ---------- szkic 15: photos develop out of navy ink ---------- */
+.rgrid figure .ink,.pcard .ph .ink{position:absolute;inset:0}
+.rgrid figure{min-height:0}
+.rgrid figcaption{z-index:2}
+.pcard .ph .badge{z-index:2}
+.heropaint{position:absolute;left:0;top:0;width:100%;height:100%;z-index:1;pointer-events:none;mix-blend-mode:normal;transition:opacity .7s ease}
+.heropaint.gone{opacity:0}
+.stage .thumbs,.stage .zoom{z-index:2}
+html.js:not(.no-gl):not(.dev-done) .stage>img:first-of-type{visibility:hidden}
 </style>
 </head>
 <body>
@@ -1200,6 +1209,7 @@ p.small,p.cnote,.pdp__acc p.small{font-size:16px;line-height:1.6}
     </div>
     <div class="pdp__media">
       <div class="stage" id="stage">
+        <div class="ink paint heropaint" data-art="paint_b" data-photo="p_hero" data-mode="hero" data-pre="1" aria-hidden="true"><canvas></canvas></div>
         <img class="on" data-img="p_hero" alt="Talizman Ochronny na trawertynie w ciepłym świetle">
         <img data-img="p_worn" alt="Talizman na nadgarstku">
         <img data-img="p_detail" alt="Koraliki z bliska">
@@ -1250,7 +1260,7 @@ p.small,p.cnote,.pdp__acc p.small{font-size:16px;line-height:1.6}
   <header class="opener">
     <div class="ink deco " data-art="w_bloom_r" data-kind="wash" data-mode="once" data-delay="900" data-alpha=".7" style="left:3%;top:36%;width:15%;aspect-ratio:1"><canvas aria-hidden="true"></canvas></div>
     <div class="ink deco " data-art="w_dab_o" data-kind="wash" data-mode="once" data-delay="1300" data-alpha=".8" style="right:4%;top:58%;width:18%;aspect-ratio:1.556"><canvas aria-hidden="true"></canvas></div>
-    <div class="numwrap"><div class="ink deco enso" data-art="w_enso_s" data-kind="wash" data-mode="once" data-dur="1900" data-alpha=".75" style=""><canvas aria-hidden="true"></canvas></div><div class="ink num" data-art="n1" data-kind="wash" data-mode="once" data-delay="350" data-dur="2300" style="--asp:0.7627"><canvas aria-hidden="true"></canvas></div></div>
+    <div class="numwrap"><div class="ink deco enso" data-art="w_enso_s" data-kind="wash" data-mode="once" data-dur="1900" data-alpha=".75" style=""><canvas aria-hidden="true"></canvas></div><div class="ink num" data-art="n1" data-kind="wash" data-mode="once" data-delay="120" data-dur="1200" data-at=".97" style="--asp:0.7627"><canvas aria-hidden="true"></canvas></div></div>
     <span class="eyebrow">Rozdział pierwszy</span>
     <div class="titlewrap"><div class="ink deco swash" data-art="w_swash_o" data-kind="wash" data-mode="once" data-delay="1000" data-dur="1700" data-alpha=".5" style=""><canvas aria-hidden="true"></canvas></div><h2 id="c1H" class="d2 bp"><span class="ln"><span>Skąd wzięły się</span></span><span class="ln"><span><em class="a" data-ul="u2">talizmany.</em></span></span></h2></div>
     <p class="serif-lead fade">Ludzie zaczęli nosić przy sobie przedmioty, zanim nauczyli się uprawiać ziemię, budować domy i pisać.</p>
@@ -1301,12 +1311,12 @@ p.small,p.cnote,.pdp__acc p.small{font-size:16px;line-height:1.6}
 </section>
 
 <div class="stones-body" id="chBody">
-<div class="ink edge up" data-art="e_band" data-kind="wash" data-mode="once" data-at="1.02" data-dur="1500" data-tint="#efe6d9" data-paper="#fbf5eb"><canvas aria-hidden="true"></canvas></div>
+<div class="ink edge up" data-art="e_band" data-kind="wash" data-mode="scrub" data-from="1.1" data-to="0.62" data-left="1" data-tint="#efe6d9" data-paper="#fbf5eb"><canvas aria-hidden="true"></canvas></div>
 <article class="chapter" id="rozdzial-2" data-stone="obs" data-chapter data-n="Rozdział II z VI" data-roman="II" data-title="Obsydian" aria-labelledby="name-obs">
   <div class="wrap">
     <figure class="chapter__art"><div class="arch spill" data-paper="#efe6d9" style="--arch:#efe6d9"><div class="ink gr" data-art="g_obs" data-kind="wash" data-mode="scroll" data-lead="1.4" data-intro="0.3" data-alpha=".95" data-paper="#efe6d9"><canvas aria-hidden="true"></canvas></div><div class="ink" data-art="obs" data-mode="scroll" data-intro="0.3"><canvas aria-hidden="true"></canvas></div><button class="redraw" type="button" data-redraw aria-label="Namaluj ponownie: Obsydian"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M16 10a6 6 0 1 1-2-4.5"/><path d="M14.5 2.5v3.4h-3.4"/></svg></button></div><figcaption>Obsydian · szkło wulkaniczne</figcaption></figure>
     <div class="chapter__text">
-      <div class="numwrap"><div class="ink deco enso" data-art="w_enso_s" data-kind="wash" data-mode="once" data-dur="1900" data-alpha=".7"><canvas aria-hidden="true"></canvas></div><div class="ink num" data-art="n2" data-kind="wash" data-mode="once" data-delay="300" data-dur="2300" style="--asp:1.3290"><canvas aria-hidden="true"></canvas></div></div>
+      <div class="numwrap"><div class="ink deco enso" data-art="w_enso_s" data-kind="wash" data-mode="once" data-dur="1900" data-alpha=".7"><canvas aria-hidden="true"></canvas></div><div class="ink num" data-art="n2" data-kind="wash" data-mode="once" data-delay="120" data-dur="1200" data-at=".97" style="--asp:1.3290"><canvas aria-hidden="true"></canvas></div></div>
       <span class="eyebrow">Rozdział drugi · lustro i tarcza</span>
       <h2 class="chapter__name bp" id="name-obs"><span class="ln"><span>Obsydian.</span></span></h2>
       <blockquote class="chapter__quote fade">Obsydian jest tarczą, która bierze na siebie to, co ciężkie, i lustrem, które pokazuje, co naprawdę ważne.</blockquote>
@@ -1324,7 +1334,7 @@ p.small,p.cnote,.pdp__acc p.small{font-size:16px;line-height:1.6}
   <div class="wrap">
     <figure class="chapter__art"><div class="arch spill" data-paper="#f5e6cf" style="--arch:#f5e6cf"><div class="ink gr" data-art="g_tig" data-kind="wash" data-mode="scroll" data-lead="1.4" data-intro="0.3" data-alpha=".95" data-paper="#f5e6cf"><canvas aria-hidden="true"></canvas></div><div class="ink" data-art="tig" data-mode="scroll" data-intro="0.3"><canvas aria-hidden="true"></canvas></div><button class="redraw" type="button" data-redraw aria-label="Namaluj ponownie: Tygrysie oko"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M16 10a6 6 0 1 1-2-4.5"/><path d="M14.5 2.5v3.4h-3.4"/></svg></button></div><figcaption>Tygrysie oko · kwarc ze złotym połyskiem</figcaption></figure>
     <div class="chapter__text">
-      <div class="numwrap"><div class="ink deco enso" data-art="w_enso_o" data-kind="wash" data-mode="once" data-dur="1900" data-alpha=".7"><canvas aria-hidden="true"></canvas></div><div class="ink num" data-art="n3" data-kind="wash" data-mode="once" data-delay="300" data-dur="2300" style="--asp:1.8969"><canvas aria-hidden="true"></canvas></div></div>
+      <div class="numwrap"><div class="ink deco enso" data-art="w_enso_o" data-kind="wash" data-mode="once" data-dur="1900" data-alpha=".7"><canvas aria-hidden="true"></canvas></div><div class="ink num" data-art="n3" data-kind="wash" data-mode="once" data-delay="120" data-dur="1200" data-at=".97" style="--asp:1.8969"><canvas aria-hidden="true"></canvas></div></div>
       <span class="eyebrow">Rozdział trzeci · oko i słońce</span>
       <h2 class="chapter__name bp" id="name-tig"><span class="ln"><span>Tygrysie oko.</span></span></h2>
       <blockquote class="chapter__quote fade">Tygrysie oko patrzy za Ciebie, gdy Ty patrzysz w swoją stronę — i dodaje odwagi, żeby tam pójść.</blockquote>
@@ -1342,7 +1352,7 @@ p.small,p.cnote,.pdp__acc p.small{font-size:16px;line-height:1.6}
   <div class="wrap">
     <figure class="chapter__art"><div class="arch spill" data-paper="#f3e1d5" style="--arch:#f3e1d5"><div class="ink gr" data-art="g_hem" data-kind="wash" data-mode="scroll" data-lead="1.4" data-intro="0.3" data-alpha=".95" data-paper="#f3e1d5"><canvas aria-hidden="true"></canvas></div><div class="ink" data-art="hem" data-mode="scroll" data-intro="0.3"><canvas aria-hidden="true"></canvas></div><button class="redraw" type="button" data-redraw aria-label="Namaluj ponownie: Hematyt"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M16 10a6 6 0 1 1-2-4.5"/><path d="M14.5 2.5v3.4h-3.4"/></svg></button></div><figcaption>Hematyt · kamień z żelaza</figcaption></figure>
     <div class="chapter__text">
-      <div class="numwrap"><div class="ink deco enso" data-art="w_enso_s" data-kind="wash" data-mode="once" data-dur="1900" data-alpha=".7"><canvas aria-hidden="true"></canvas></div><div class="ink num" data-art="n4" data-kind="wash" data-mode="once" data-delay="300" data-dur="2300" style="--asp:1.8992"><canvas aria-hidden="true"></canvas></div></div>
+      <div class="numwrap"><div class="ink deco enso" data-art="w_enso_s" data-kind="wash" data-mode="once" data-dur="1900" data-alpha=".7"><canvas aria-hidden="true"></canvas></div><div class="ink num" data-art="n4" data-kind="wash" data-mode="once" data-delay="120" data-dur="1200" data-at=".97" style="--asp:1.8992"><canvas aria-hidden="true"></canvas></div></div>
       <span class="eyebrow">Rozdział czwarty · żelazo i krew</span>
       <h2 class="chapter__name bp" id="name-hem"><span class="ln"><span>Hematyt.</span></span></h2>
       <blockquote class="chapter__quote fade">Hematyt jest kotwicą: najstarszy kamień człowieka, który przez cały ten czas mówił jedno — stój pewnie.</blockquote>
@@ -1362,7 +1372,7 @@ p.small,p.cnote,.pdp__acc p.small{font-size:16px;line-height:1.6}
   <header class="opener">
     <div class="ink deco " data-art="w_swash_s" data-kind="wash" data-mode="once" data-delay="800" data-dur="1700" data-alpha=".55" style="left:-2%;top:16%;width:30%;aspect-ratio:3.95"><canvas aria-hidden="true"></canvas></div>
     <div class="ink deco " data-art="w_bloom_o" data-kind="wash" data-mode="once" data-delay="1200" data-alpha=".75" style="right:5%;top:48%;width:14%;aspect-ratio:1"><canvas aria-hidden="true"></canvas></div>
-    <div class="numwrap"><div class="ink deco enso" data-art="w_enso_o" data-kind="wash" data-mode="once" data-dur="1900" data-alpha=".8" style=""><canvas aria-hidden="true"></canvas></div><div class="ink num" data-art="n5" data-kind="wash" data-mode="once" data-delay="350" data-dur="2300" style="--asp:1.3388"><canvas aria-hidden="true"></canvas></div></div>
+    <div class="numwrap"><div class="ink deco enso" data-art="w_enso_o" data-kind="wash" data-mode="once" data-dur="1900" data-alpha=".8" style=""><canvas aria-hidden="true"></canvas></div><div class="ink num" data-art="n5" data-kind="wash" data-mode="once" data-delay="120" data-dur="1200" data-at=".97" style="--asp:1.3388"><canvas aria-hidden="true"></canvas></div></div>
     <span class="eyebrow">Rozdział piąty</span>
     <div class="titlewrap"><div class="ink deco swash" data-art="w_swash_r" data-kind="wash" data-mode="once" data-delay="1000" data-dur="1700" data-alpha=".45" style=""><canvas aria-hidden="true"></canvas></div><h2 id="c5H" class="d2 bp"><span class="ln"><span>Trzy w jednym.</span></span><span class="ln"><span><em class="a" data-ul="u3">Razem mocniej.</em></span></span></h2></div>
     <p class="serif-lead fade">Każdy z tych kamieni jest mocny osobno. Ale dopiero razem tworzą całość, w której każdy robi to, czego nie zrobią dwa pozostałe.</p>
@@ -1406,10 +1416,10 @@ p.small,p.cnote,.pdp__acc p.small{font-size:16px;line-height:1.6}
 </section>
 
 <section class="wear" id="rozdzial-6" data-chapter data-n="Rozdział VI z VI" data-roman="VI" data-title="Jak nosić Talizman" aria-labelledby="c6H">
-  <div class="ink edge" data-art="e_band" data-kind="wash" data-mode="once" data-at="1.02" data-dur="1500" data-fy="1" data-tint="#f2e6d5" data-paper="#fbf5eb" style="top:-2px"><canvas aria-hidden="true"></canvas></div>
+  <div class="ink edge" data-art="e_band" data-kind="wash" data-mode="scrub" data-from="1.1" data-to="0.62" data-left="1" data-fy="1" data-tint="#f2e6d5" data-paper="#fbf5eb" style="top:-2px"><canvas aria-hidden="true"></canvas></div>
   <div class="wrap grid" style="padding-top:clamp(110px,12vw,190px)">
     <div class="wear__text">
-      <div class="numwrap" style="isolation:isolate"><div class="ink deco enso" data-art="w_enso_s" data-kind="wash" data-mode="once" data-dur="1900" data-alpha=".75" style=""><canvas aria-hidden="true"></canvas></div><div class="ink num" data-art="n6" data-kind="wash" data-mode="once" data-delay="350" data-dur="2300" style="--asp:1.8081"><canvas aria-hidden="true"></canvas></div></div>
+      <div class="numwrap" style="isolation:isolate"><div class="ink deco enso" data-art="w_enso_s" data-kind="wash" data-mode="once" data-dur="1900" data-alpha=".75" style=""><canvas aria-hidden="true"></canvas></div><div class="ink num" data-art="n6" data-kind="wash" data-mode="once" data-delay="120" data-dur="1200" data-at=".97" style="--asp:1.8081"><canvas aria-hidden="true"></canvas></div></div>
       <span class="eyebrow">Rozdział szósty</span>
       <h2 id="c6H" class="d2 bp"><span class="ln"><span>Jak nosić</span></span><span class="ln"><span><em class="a" data-ul="u1">Talizman.</em></span></span></h2>
       <p class="serif-lead fade">Zrób z pierwszego założenia małą chwilę tylko dla siebie. Od niej zaczyna się Twoja część tej opowieści.</p>
@@ -1462,7 +1472,7 @@ p.small,p.cnote,.pdp__acc p.small{font-size:16px;line-height:1.6}
 </section>
 
 <section class="price" id="epilog" data-chapter data-n="Epilog" data-roman="Ep." data-title="Nic tu nie jest przypadkiem" aria-labelledby="epH">
-  <div class="ink edge up" data-art="e_band" data-kind="wash" data-mode="once" data-at="1.02" data-dur="1500" data-tint="#e9eddf" data-paper="#fbf5eb"><canvas aria-hidden="true"></canvas></div>
+  <div class="ink edge up" data-art="e_band" data-kind="wash" data-mode="scrub" data-from="1.1" data-to="0.62" data-left="1" data-tint="#e9eddf" data-paper="#fbf5eb"><canvas aria-hidden="true"></canvas></div>
   <header class="opener" style="padding-bottom:0">
     <div class="ink deco " data-art="w_bloom_o" data-kind="wash" data-mode="once" data-delay="400" data-alpha=".6" data-paper="#e9eddf" style="left:6%;top:30%;width:13%;aspect-ratio:1"><canvas aria-hidden="true"></canvas></div>
     <div class="ink deco " data-art="w_dab_s" data-kind="wash" data-mode="once" data-delay="800" data-alpha=".6" data-paper="#e9eddf" style="right:3%;top:74%;width:13%;aspect-ratio:1.556"><canvas aria-hidden="true"></canvas></div>
@@ -1495,7 +1505,7 @@ p.small,p.cnote,.pdp__acc p.small{font-size:16px;line-height:1.6}
 </div>
 
 <section class="gallery" id="album" aria-labelledby="galH">
-  <div class="ink edge up" data-art="e_band" data-kind="wash" data-mode="once" data-at="1.02" data-dur="1500" data-tint="#2f231c" data-paper="#e9eddf"><canvas aria-hidden="true"></canvas></div>
+  <div class="ink edge up" data-art="e_band" data-kind="wash" data-mode="scrub" data-from="1.1" data-to="0.62" data-left="1" data-tint="#2f231c" data-paper="#e9eddf"><canvas aria-hidden="true"></canvas></div>
   <div class="wrap">
     <div class="ghead"><div><span class="eyebrow">Album</span><h2 id="galH" class="d2 bp"><span class="ln"><span>W ciepłym <em class="a">świetle.</em></span></span></h2></div><p class="fade">Obsydian, tygrysie oko i hematyt — surowe, polerowane i w codziennych chwilach.</p></div>
     <div class="bleed" id="bleed" data-lb="p_materials"><div class="ink paint" data-art="paint_a" data-photo="p_materials" data-mode="paint" data-line="#c9b597" data-from="1.0" data-to="0.12"><canvas aria-hidden="true"></canvas><img data-img="p_materials" alt="Surowy obsydian, tygrysie oko i hematyt na trawertynie"></div></div>
@@ -1508,14 +1518,14 @@ p.small,p.cnote,.pdp__acc p.small{font-size:16px;line-height:1.6}
 </section>
 
 <section class="real" aria-labelledby="realH">
-  <div class="ink edge" data-art="e_band" data-kind="wash" data-mode="once" data-at="1.02" data-dur="1500" data-fy="1" data-tint="#2f231c" data-paper="#fbf5eb" style="top:-2px"><canvas aria-hidden="true"></canvas></div>
+  <div class="ink edge" data-art="e_band" data-kind="wash" data-mode="scrub" data-from="1.1" data-to="0.62" data-left="1" data-fy="1" data-tint="#2f231c" data-paper="#fbf5eb" style="top:-2px"><canvas aria-hidden="true"></canvas></div>
   <div class="wrap">
     <div class="ghead"><div><span class="eyebrow">Z bliska</span><h2 id="realH" class="d2 bp"><span class="ln"><span>Tak wygląda</span></span><span class="ln"><span><em class="a">Twój talizman.</em></span></span></h2></div><p class="fade muted">Prawdziwe proporcje, kolory i faktura koralików — w dłoniach, na nadgarstku i z bliska.</p></div>
     <div class="rgrid m-snap">
-      <figure class="r1" data-lb="p_ritual"><img data-img="p_ritual" alt="Talizman w dłoniach"><figcaption>W dłoniach</figcaption></figure>
-      <figure class="r2" data-lb="p_light"><img data-img="p_light" alt="Cała bransoletka na trawertynie"><figcaption>Cała bransoletka</figcaption></figure>
-      <figure class="r3" data-lb="p_variation"><img data-img="p_variation" alt="Trzy egzemplarze obok siebie"><figcaption>Każdy jest inny</figcaption></figure>
-      <figure class="r4" data-lb="p_everyday"><img data-img="p_everyday" alt="Talizman na nadgarstku przy książce"><figcaption>Na co dzień</figcaption></figure>
+      <figure class="r1" data-lb="p_ritual"><div class="ink paint" data-art="paint_a" data-photo="p_ritual" data-mode="paint" data-from="1.0" data-to="0.32"><canvas aria-hidden="true"></canvas><img data-img="p_ritual" alt="Talizman w dłoniach"></div><figcaption>W dłoniach</figcaption></figure>
+      <figure class="r2" data-lb="p_light"><div class="ink paint" data-art="paint_b" data-flip="1" data-photo="p_light" data-mode="paint" data-from="1.0" data-to="0.32"><canvas aria-hidden="true"></canvas><img data-img="p_light" alt="Cała bransoletka na trawertynie"></div><figcaption>Cała bransoletka</figcaption></figure>
+      <figure class="r3" data-lb="p_variation"><div class="ink paint" data-art="paint_b" data-photo="p_variation" data-mode="paint" data-from="1.0" data-to="0.32"><canvas aria-hidden="true"></canvas><img data-img="p_variation" alt="Trzy egzemplarze obok siebie"></div><figcaption>Każdy jest inny</figcaption></figure>
+      <figure class="r4" data-lb="p_everyday"><div class="ink paint" data-art="paint_a" data-flip="1" data-photo="p_everyday" data-mode="paint" data-from="1.0" data-to="0.32"><canvas aria-hidden="true"></canvas><img data-img="p_everyday" alt="Talizman na nadgarstku przy książce"></div><figcaption>Na co dzień</figcaption></figure>
     </div>
     <div class="rnote">
       <p class="fade">Kamienie są naturalne, dlatego każdy egzemplarz nieznacznie różni się odcieniem i rysunkiem. <em class="a">Twój jest jedyny na świecie.</em></p>
@@ -1538,15 +1548,15 @@ p.small,p.cnote,.pdp__acc p.small{font-size:16px;line-height:1.6}
 </section>
 
 <section class="coll" id="kolekcja" aria-labelledby="collH">
-  <div class="ink edge up" data-art="e_band" data-kind="wash" data-mode="once" data-at="1.02" data-dur="1500" data-tint="#f2e6d5" data-paper="#fbf5eb"><canvas aria-hidden="true"></canvas></div>
-  <div class="ink edge" data-art="e_band" data-kind="wash" data-mode="once" data-at="1.0" data-dur="1500" data-tint="#2f231c" data-paper="#f2e6d5" style="bottom:-1px"><canvas aria-hidden="true"></canvas></div>
+  <div class="ink edge up" data-art="e_band" data-kind="wash" data-mode="scrub" data-from="1.1" data-to="0.62" data-left="1" data-tint="#f2e6d5" data-paper="#fbf5eb"><canvas aria-hidden="true"></canvas></div>
+  <div class="ink edge" data-art="e_band" data-kind="wash" data-mode="scrub" data-from="1.1" data-to="0.62" data-left="1" data-tint="#2f231c" data-paper="#f2e6d5" style="bottom:-1px"><canvas aria-hidden="true"></canvas></div>
   <div class="wrap">
     <div class="ghead"><div><span class="eyebrow">Kolekcja</span><h2 id="collH" class="d2 bp"><span class="ln"><span>Inne <em class="a">kompozycje.</em></span></span></h2></div><p class="fade muted">Jedna forma, jeden rodzaj kamienia. Wybierz to, które jest Ci dziś najbliższe.</p></div>
     <ul class="cgrid m-snap">
-      <li class="pcard pcard--current"><div class="ph"><img data-img="p_packshot" alt="Talizman Ochronny"><span class="badge">Oglądasz teraz</span></div><span class="eyebrow">Trzy kamienie · 8 mm</span><h3>Talizman Ochronny</h3><em>Trzy warstwy jednej tarczy.</em><div class="row"><strong>75 zł</strong><button class="btn btn--sm" type="button" data-add><span>Do sakiewki</span><i><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 10h12M11 5l5 5-5 5"/></svg></i></button></div></li>
-      <li class="pcard"><div class="ph"><img data-img="c_obs" alt="Bransoletka Cień z obsydianu"></div><span class="eyebrow">Obsydian · 6 mm</span><h3>Cień</h3><em>Moja przestrzeń. Moje granice.</em><div class="row"><strong>59 zł</strong><button class="btn btn--sm" type="button" data-add-id="cien"><span>Do sakiewki</span><i><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 10h12M11 5l5 5-5 5"/></svg></i></button></div></li>
-      <li class="pcard"><div class="ph"><img data-img="c_tig" alt="Bransoletka Splot światła z tygrysiego oka"></div><span class="eyebrow">Tygrysie oko · 6 mm</span><h3>Splot światła</h3><em>Mam odwagę zrobić pierwszy krok.</em><div class="row"><strong>69 zł</strong><button class="btn btn--sm" type="button" data-add-id="splot"><span>Do sakiewki</span><i><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 10h12M11 5l5 5-5 5"/></svg></i></button></div></li>
-      <li class="pcard"><div class="ph"><img data-img="c_hem" alt="Bransoletka Punkt oparcia z hematytu"></div><span class="eyebrow">Hematyt · 6 mm</span><h3>Punkt oparcia</h3><em>Wracam do tego, co ważne.</em><div class="row"><strong>59 zł</strong><button class="btn btn--sm" type="button" data-add-id="punkt"><span>Do sakiewki</span><i><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 10h12M11 5l5 5-5 5"/></svg></i></button></div></li>
+      <li class="pcard pcard--current"><div class="ph"><div class="ink paint" data-art="paint_a" data-photo="p_packshot" data-mode="once" data-dur="1500" data-delay="0" data-at=".92"><canvas aria-hidden="true"></canvas><img data-img="p_packshot" alt="Talizman Ochronny"></div><span class="badge">Oglądasz teraz</span></div><span class="eyebrow">Trzy kamienie · 8 mm</span><h3>Talizman Ochronny</h3><em>Trzy warstwy jednej tarczy.</em><div class="row"><strong>75 zł</strong><button class="btn btn--sm" type="button" data-add><span>Do sakiewki</span><i><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 10h12M11 5l5 5-5 5"/></svg></i></button></div></li>
+      <li class="pcard"><div class="ph"><div class="ink paint" data-art="paint_b" data-photo="c_obs" data-mode="once" data-dur="1500" data-delay="140" data-at=".92"><canvas aria-hidden="true"></canvas><img data-img="c_obs" alt="Bransoletka Cień z obsydianu"></div></div><span class="eyebrow">Obsydian · 6 mm</span><h3>Cień</h3><em>Moja przestrzeń. Moje granice.</em><div class="row"><strong>59 zł</strong><button class="btn btn--sm" type="button" data-add-id="cien"><span>Do sakiewki</span><i><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 10h12M11 5l5 5-5 5"/></svg></i></button></div></li>
+      <li class="pcard"><div class="ph"><div class="ink paint" data-art="paint_a" data-photo="c_tig" data-mode="once" data-dur="1500" data-delay="280" data-at=".92"><canvas aria-hidden="true"></canvas><img data-img="c_tig" alt="Bransoletka Splot światła z tygrysiego oka"></div></div><span class="eyebrow">Tygrysie oko · 6 mm</span><h3>Splot światła</h3><em>Mam odwagę zrobić pierwszy krok.</em><div class="row"><strong>69 zł</strong><button class="btn btn--sm" type="button" data-add-id="splot"><span>Do sakiewki</span><i><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 10h12M11 5l5 5-5 5"/></svg></i></button></div></li>
+      <li class="pcard"><div class="ph"><div class="ink paint" data-art="paint_b" data-photo="c_hem" data-mode="once" data-dur="1500" data-delay="420" data-at=".92"><canvas aria-hidden="true"></canvas><img data-img="c_hem" alt="Bransoletka Punkt oparcia z hematytu"></div></div><span class="eyebrow">Hematyt · 6 mm</span><h3>Punkt oparcia</h3><em>Wracam do tego, co ważne.</em><div class="row"><strong>59 zł</strong><button class="btn btn--sm" type="button" data-add-id="punkt"><span>Do sakiewki</span><i><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 10h12M11 5l5 5-5 5"/></svg></i></button></div></li>
     </ul>
     <p class="cnote fine">Trzy autorskie propozycje z orientacyjnymi cenami. Zdjęcia przedstawiają koncepcje bransoletek; szczegóły i dostępność potwierdzimy przed premierą.</p>
   </div>
@@ -1727,6 +1737,8 @@ uniform float uT;
 uniform float uFlip;
 uniform vec3 uBg;
 uniform vec3 uLine;
+uniform vec3 uInk;
+uniform float uPre;
 vec3 permute(vec3 x){ return mod(((x*34.0)+1.0)*x, 289.0); }
 float snoise(vec2 v){
   const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
@@ -1755,19 +1767,31 @@ void main(){
   float edge = smoothstep(0.05, 0.22, length(vec2(gx, gy)));
   float tone = smoothstep(0.75, 0.15, lum(ph));
   vec2 q = vUv*vec2(casp, 1.0);
-  vec3 sketch = mix(uBg, uLine, clamp(edge*0.6 + tone*0.12, 0.0, 0.8));
   vec2 muv = vec2(mix(vUv.x, 1.0 - vUv.x, uFlip), vUv.y);
   float A = texture2D(uArrive, muv).r;
-  float streak = 0.016*snoise(q*vec2(1.6, 34.0)) + 0.007*snoise(q*vec2(6.0, 95.0));
-  float front = uT*1.10 - 0.03 - A + streak;
-  float a = smoothstep(0.0, 0.022, front);
-  float wet = exp(-max(front, 0.0)*26.0)*step(0.0, front);
+  // ink travels in from the left: the arrival map only adds the organic unevenness
+  float A2 = 0.42*A + 0.58*muv.x + 0.03*snoise(q*3.0);
+  float streak = 0.008*snoise(q*vec2(1.6, 34.0)) + 0.004*snoise(q*vec2(6.0, 95.0));
+  // 1. cyanotype: the photo first appears as a navy ink print (pale blue on dark paper)
+  float dark = step(lum(uBg), 0.3);
+  vec3 printL = mix(uBg, uInk, clamp(smoothstep(0.95, 0.08, lum(ph))*0.92 + edge*0.3, 0.0, 1.0));
+  vec3 printD = mix(uBg, vec3(0.62, 0.70, 0.84), clamp(smoothstep(0.08, 0.95, lum(ph))*0.85 + edge*0.25, 0.0, 1.0));
+  vec3 print = mix(printL, printD, dark);
+  float f1 = uT*2.1 - 0.02 - A2 + streak;
+  float c1 = max(smoothstep(0.0, 0.07, f1), uPre);
+  float tide = exp(-max(f1, 0.0)*28.0)*step(0.0, f1)*(1.0 - uPre);
+  vec3 base = mix(uBg, print, c1);
+  base = mix(base, mix(uInk, vec3(0.75, 0.8, 0.9), dark), 0.3*tide);
+  // 2. colour follows the ink, wet at its front
+  float front = uT*1.4 - 0.34 - A2 + streak;
+  float a = smoothstep(0.0, 0.05, front);
+  float wet = exp(-max(front, 0.0)*22.0)*step(0.0, front);
   float grain = 0.5 + 0.5*snoise(gl_FragCoord.xy*vec2(0.035, 0.32));
-  a *= 1.0 - 0.6*wet*smoothstep(0.30, 0.85, grain);
-  vec3 col = ph*(1.0 - 0.16*wet);
-  col = mix(col, col*col*1.08, 0.22*wet);
-  a = mix(a, 1.0, smoothstep(0.95, 1.0, uT));
-  gl_FragColor = vec4(mix(sketch, col, a), 1.0);
+  a *= 1.0 - 0.45*wet*smoothstep(0.30, 0.85, grain);
+  vec3 col = ph*(1.0 - 0.12*wet);
+  col = mix(col, col*col*1.08, 0.2*wet);
+  a = mix(a, 1.0, smoothstep(0.94, 1.0, uT));
+  gl_FragColor = vec4(mix(base, col, a), 1.0);
 }
 
 </script>
@@ -1785,6 +1809,7 @@ uniform float uAlpha;
 uniform vec3 uTint;
 uniform float uUseTint;
 uniform vec2 uFlip;
+uniform float uLeft;
 vec3 permute(vec3 x){ return mod(((x*34.0)+1.0)*x, 289.0); }
 float snoise(vec2 v){
   const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
@@ -1808,6 +1833,7 @@ void main(){
   float I = 1.0 - dot(ill, vec3(0.299, 0.587, 0.114));
   vec2 p = auv*vec2(uArtAsp, 1.0);
   float A = texture2D(uArrive, auv).r + 0.012*snoise(p*14.0 + vec2(uT*2.0, -uT*1.3)) + 0.006*snoise(p*48.0);
+  A = mix(A, 0.35*A + 0.65*vUv.x, uLeft);
   float flowT = clamp((uT - 0.02)/0.82, 0.0, 1.0);
   float since = flowT - A;
   float D = 0.05 + 0.22*smoothstep(0.02, 0.5, I);
@@ -1941,8 +1967,8 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
     let INK, PNT, WSH, SPL;
     try {
       INK = mk('fs', ['uIllus','uArrive','uRes','uArtAsp','uFocus','uSrc','uT','uPoolR','uZoom','uBg','uFit','uLeft']);
-      PNT = mk('fsPaint', ['uPhoto','uArrive','uRes','uAsp','uFocus','uT','uFlip','uBg','uLine']);
-      WSH = mk('fsWash', ['uIllus','uArrive','uRes','uArtAsp','uT','uFit','uPaper','uAlpha','uTint','uUseTint','uFlip']);
+      PNT = mk('fsPaint', ['uPhoto','uArrive','uRes','uAsp','uFocus','uT','uFlip','uBg','uLine','uInk','uPre']);
+      WSH = mk('fsWash', ['uIllus','uArrive','uRes','uArtAsp','uT','uFit','uPaper','uAlpha','uTint','uUseTint','uFlip','uLeft']);
       SPL = mk('fsSpill', ['uRes','uT','uPaper','uAlpha','uSeed','uReach']);
     } catch(e){ console.warn(e); return null; }
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
@@ -1982,12 +2008,12 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
         if(e.type === 'paint'){
           const U = PNT.U; gl.useProgram(PNT.pr);
           gl.uniform2f(U.uRes, w, h); gl.uniform1f(U.uAsp, e.asp); gl.uniform2f(U.uFocus, plate.focus[0], plate.focus[1]); gl.uniform1f(U.uT, plate.t); gl.uniform1f(U.uFlip, plate.flip);
-          gl.uniform3fv(U.uBg, plate.paper()); gl.uniform3fv(U.uLine, plate.line);
+          gl.uniform3fv(U.uBg, plate.paper()); gl.uniform3fv(U.uLine, plate.line); gl.uniform3fv(U.uInk, plate.ink); gl.uniform1f(U.uPre, plate.pre);
         } else if(plate.kind === 'wash'){
           const U = WSH.U, a = e.a; gl.useProgram(WSH.pr);
           gl.uniform2f(U.uRes, w, h); gl.uniform1f(U.uArtAsp, a.asp || 1); gl.uniform1f(U.uT, plate.t); gl.uniform1f(U.uFit, a.fit == null ? 1 : a.fit);
           gl.uniform3fv(U.uPaper, plate.paper()); gl.uniform1f(U.uAlpha, plate.alpha);
-          gl.uniform3fv(U.uTint, plate.tint || [1,1,1]); gl.uniform1f(U.uUseTint, plate.tint ? 1 : 0); gl.uniform2f(U.uFlip, plate.fx, plate.fy);
+          gl.uniform3fv(U.uTint, plate.tint || [1,1,1]); gl.uniform1f(U.uUseTint, plate.tint ? 1 : 0); gl.uniform2f(U.uFlip, plate.fx, plate.fy); gl.uniform1f(U.uLeft, plate.left);
         } else {
           const U = INK.U, a = e.a; gl.useProgram(INK.pr);
           gl.uniform2f(U.uRes, w, h); gl.uniform2f(U.uFocus, a.focus[0], a.focus[1]); gl.uniform2f(U.uSrc, a.src[0], a.src[1]);
@@ -2021,6 +2047,7 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
       this.at = d.at ? +d.at : 0.86; this.dur = d.dur ? +d.dur : 1600; this.delay = d.delay ? +d.delay : 0;
       this.lead = d.lead ? +d.lead : 1; this.intro = d.intro ? +d.intro : 0.16;
       this.left = d.left ? +d.left : 0; this.seed = d.seed ? +d.seed : 1; this.reach = d.reach ? +d.reach : 0.6;
+      this.ink = d.ink ? hex(d.ink) : [0.12, 0.18, 0.32]; this.pre = d.pre ? +d.pre : 0;
       this.canvas = el.querySelector('canvas'); this.ctx = this.canvas.getContext('2d'); this.dirty = true; this.visible = false;
       this.hs = !!el.closest('.beats'); this.near = false; el.__plate = this; nearIO.observe(el);   // lives in a swipe deck on phones: paint only once the card is in front
       this.dprMax = this.kind === 'spill' ? 1 : this.photo ? 1.5 : (this.kind === 'wash' && !el.classList.contains('num') && !el.classList.contains('ul') ? 1.25 : 2);
@@ -2146,7 +2173,7 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
     }
   });
   /* chapter numerals: click to write them again */
-  document.querySelectorAll('.num').forEach(el => el.addEventListener('click', () => { const p = plateOf(el); if(p){ p.setT(0); p.animate(1, 2300); } }));
+  document.querySelectorAll('.num').forEach(el => el.addEventListener('click', () => { const p = plateOf(el); if(p){ p.setT(0); p.animate(1, 1200); } }));
 
   const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold:.18, rootMargin:'0px 0px -6% 0px'});
   document.querySelectorAll('.rv, .fade').forEach(el => io.observe(el));
@@ -2404,6 +2431,16 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
   const show = i => { cur = i; slides.forEach((s, j) => s.classList.toggle('on', j === i)); thumbs.forEach((b, j) => { b.classList.toggle('on', j === i); b.setAttribute('aria-selected', j === i); }); setCap(i); };
   thumbs.forEach(b => b.addEventListener('click', () => show(+b.dataset.i)));
   stage.addEventListener('scroll', () => { const k = clamp(Math.round(stage.scrollLeft/Math.max(1, stage.clientWidth)), 0, slides.length - 1); if(k !== cur){ cur = k; setCap(k); } }, { passive: true });
+  const hp = plates.find(p => p.el.classList.contains('heropaint'));
+  let devDoneYet = false;
+  const devDone = () => {
+    if(devDoneYet) return; devDoneYet = true; document.documentElement.classList.add('dev-done');
+    if(hp){ hp.el.classList.add('gone'); setTimeout(() => { hp.el.style.display = 'none'; const i = plates.indexOf(hp); if(i >= 0) plates.splice(i, 1); }, 750); }
+  };
+  if(hp) R.prepare(hp.texKey).then(() => { hp.dirty = true; if(reduce || SNAP){ devDone(); return; } setTimeout(() => { hp.animate(1, 2400); setTimeout(devDone, 2450); }, 450); }).catch(devDone);
+  else devDone();
+  thumbs.forEach(b => b.addEventListener('click', devDone));
+  stage.addEventListener('scroll', devDone, { passive: true, once: true });
   const galList = () => slides.map(s => ({ src: s.src, alt: s.alt }));
   stage.addEventListener('click', e => { if(e.target.closest('.thumbs, .zoom') || e.target.tagName !== 'IMG') return; openLb(galList(), cur, e.target); });
   document.getElementById('zoom').addEventListener('click', () => openLb(galList(), cur, slides[cur]));
