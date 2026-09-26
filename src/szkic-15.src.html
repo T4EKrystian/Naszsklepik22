@@ -16,8 +16,8 @@
 :root{
   --cream:#fbf5eb; --sand:#f2e6d5; --sand-2:#ecdfcb; --chip:#ede1cf; --card:#f3e9da;
   --ochre:#c8964e; --sienna:#b0673f; --rose:#c98d7f;
-  --text:#34271e; --text-2:#45362b; --muted:#6a5645; --eyebrow:#82603f; --accent:#a3774c;
-  --sage:#e9eddf; --sage-2:#dfe5d2; --sage-accent:#6c774a; --olive:#4d5636;
+  --text:#34271e; --text-2:#45362b; --muted:#5b4838; --eyebrow:#6f4f30; --accent:#7f5a36;
+  --sage:#e9eddf; --sage-2:#dfe5d2; --sage-accent:#525c35; --olive:#4d5636;
   --dark:#2f231c; --dark-2:#3a2d24; --dark-accent:#d0bda1; --on-dark:#f3eadc;
   --line:rgba(52,39,30,.12); --line-2:rgba(52,39,30,.22);
   --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
@@ -521,7 +521,7 @@ body.sb-on{--sb:46px}
 .foot__row ul{list-style:none;display:grid;gap:6px}
 .foot__row ul:nth-of-type(1){grid-column:7/10}.foot__row ul:nth-of-type(2){grid-column:10/13}
 .foot a{text-decoration:none}.foot a:hover{color:#fff}
-.foot small{display:block;margin-top:36px;padding-top:18px;border-top:1px solid rgba(243,234,220,.16);font-size:12px}
+.foot small{display:block;margin-top:36px;padding-top:18px;border-top:1px solid rgba(243,234,220,.16);font-size:14px}
 
 /* gallery extras, sheets, toasts, gift, carousels */
 .pdp__media{--act:0}
@@ -1061,12 +1061,37 @@ body.era-wedjat .scrolly__frame .sign--oko{visibility:visible}
 .wbead{position:fixed;left:0;top:0;width:12px;height:12px;border-radius:50%;object-fit:cover;z-index:97;pointer-events:none}
 .moon{display:flex;align-items:center;gap:10px;font:italic 500 17px/1.3 var(--serif);color:var(--accent)}
 .moon svg{width:18px;height:18px;fill:var(--ochre);flex:none}
+
+/* ---------- szkic 15: readable type scale (nothing under 13px, body copy 17-18px) ---------- */
+body{font-size:18px}
+.eyebrow,.trio__grid .eyebrow,.reasons .eyebrow,.pcard .eyebrow{font-size:13px;letter-spacing:.14em}
+.ann{font-size:13px}
+.nav,.bag{font-size:14px}
+.crumbs,.sizehelp,.trust,.pricerow span,.link,.toc small,.tocp small,.cnote,.small,.giftrow small,.dr-note{font-size:14px}
+.sbar__n,.next small,.scard dt{font-size:13px}
+.card-acc summary{font-size:16.5px}
+.card-acc .body,.spec div,.rnote dl div,.faqlist li,.steps li{font-size:16.5px}
+.stones span,.bridge li,.trio__grid p,.reasons span,.who li,.handsw p,.howto p,.tempo li span,.hook p,.ritual p,.beat p{font-size:17px}
+.scard dd{font-size:17px}
+.chapter__facts span,.chapter__art figcaption,.rgrid figcaption,.pcard .badge,.solo span,.intent__out small,.scta__t{font-size:14px}
+.eras button{font-size:14px;padding:8px 12px}
+.bar__info em{font-size:13.5px}
+.sizeopt span small,.intopt small{font-size:14px}
+p.small,p.cnote,.pdp__acc p.small{font-size:16px;line-height:1.6}
+.scrolly__year{opacity:.14}
+@media (max-width:900px){
+  body{font-size:17px}
+  .eyebrow,.trio__grid .eyebrow,.reasons .eyebrow,.pcard .eyebrow{font-size:13px;letter-spacing:.12em}
+  .scard dt,.next small,.sbar__n{font-size:13px}
+  .chapter__facts span,.figcaption,.chapter__art figcaption,.rgrid figcaption,.pcard .badge,.bar__info em{font-size:14px}
+  p.small,p.cnote{font-size:16px}
+}
 </style>
 </head>
 <body>
 <div class="ann"><span class="ann__short">Woreczek i karta w każdym zamówieniu</span><span class="ann__long">Lniany woreczek i karta z historią kamieni w każdym zamówieniu</span><span>Planowana dostawa InPost</span><span>14 dni na zwrot</span></div>
 <header class="top" id="top"><div class="wrap">
-  <a class="wordmark" href="#">intencja<sup class="wdot">●</sup></a>
+  <a class="wordmark" href="#">intencja<sup class="wdot" aria-hidden="true">●</sup></a>
   <nav class="nav" aria-label="Menu"><a href="#produkt">Talizman</a><a href="#opowiesc">Opowieść</a><a href="#rozdzial-2">Kamienie</a><a href="#rozdzial-6">Jak nosić</a><a href="#kolekcja">Kolekcja</a><a href="#faq" data-open="faq">Pytania</a></nav>
   <button class="bag" type="button" id="bagBtn" aria-label="Otwórz sakiewkę"><span class="bag__t">Sakiewka</span><span class="pouch is-empty" aria-hidden="true"><svg viewBox="0 0 24 24" class="pouch__svg"><path class="pouch__body" d="M7.2 8.4 6 18.9a1.8 1.8 0 0 0 1.8 2h8.4a1.8 1.8 0 0 0 1.8-2L16.8 8.4"/><path class="pouch__neck" d="M7.2 8.4c.6-.7 1.8-.7 2.4 0s1.8.7 2.4 0 1.8-.7 2.4 0 1.8.7 2.4 0M7.1 10.3h9.8"/><g class="pouch__cord"><path d="M16.8 10.3c.9 1 1.3 2.4 1.2 4"/><circle cx="18" cy="15.4" r="1.05"/></g></svg><b class="pouch__n" id="bagCount">0</b></span></button>
 </div></header>
