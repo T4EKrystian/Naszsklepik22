@@ -1,0 +1,841 @@
+{
+ "mobile": [
+  {
+   "id": "produkt",
+   "cls": "pdp",
+   "title": "Nie ma tu przypadku",
+   "top": 102,
+   "height": 2503,
+   "screens": 2.97,
+   "words": 239,
+   "headings": [
+    "Nie ma tu przypadku"
+   ],
+   "images": 8,
+   "plates": 4,
+   "decoPlates": 0,
+   "arts": [
+    "w_hl",
+    "measure",
+    "pouch",
+    "paint_b"
+   ],
+   "longestTextRun": {
+    "px": 1416,
+    "screens": 1.68,
+    "at": 518
+   },
+   "paperTop": "rgb(251, 245, 235)",
+   "edgeTop": false
+  },
+  {
+   "id": "opowiesc",
+   "cls": "prolog",
+   "title": "Opowieść o Talizmanie",
+   "top": 2606,
+   "height": 1648,
+   "screens": 1.95,
+   "words": 108,
+   "headings": [
+    "Ludzie noszą przy sobie kamienie od ponad 150 000 lat."
+   ],
+   "images": 0,
+   "plates": 6,
+   "decoPlates": 0,
+   "arts": [
+    "__spill",
+    "g_st_o",
+    "hero",
+    "u1",
+    "w_hl"
+   ],
+   "longestTextRun": {
+    "px": 0,
+    "screens": 0,
+    "at": 0
+   },
+   "paperTop": "rgb(251, 245, 235)",
+   "edgeTop": false
+  },
+  {
+   "id": "rozdzial-1",
+   "cls": "history",
+   "title": "Skąd wzięły się talizmany",
+   "top": 4254,
+   "height": 6260,
+   "screens": 7.42,
+   "words": 329,
+   "headings": [
+    "Skąd wzięły się talizmany.",
+    "Trzydzieści trzy muszelki.",
+    "Kolor, który coś znaczył.",
+    "Amulety nosili wszyscy.",
+    "Podpis, który można było nosić.",
+    "Dziewiąty dzień.",
+    "Księżyc noszony przy ciele.",
+    "Czerwony ślad.",
+    "Dlaczego akurat te trzy kamienie?",
+    "Twoja bransoletka wpisuje się w tę samą, nieprzerwaną opowieść."
+   ],
+   "images": 3,
+   "plates": 14,
+   "decoPlates": 5,
+   "arts": [
+    "w_enso_s",
+    "n1",
+    "w_swash_o",
+    "u2",
+    "w_hl",
+    "w_bloom_o",
+    "w_bloom_r",
+    "w_bloom_s",
+    "__spill",
+    "g_st_o",
+    "pass"
+   ],
+   "longestTextRun": {
+    "px": 240,
+    "screens": 0.28,
+    "at": 10174
+   },
+   "paperTop": "rgb(251, 245, 235)",
+   "edgeTop": false
+  },
+  {
+   "id": "rozdzial-2",
+   "cls": "chapter",
+   "title": "Obsydian",
+   "top": 10514,
+   "height": 2570,
+   "screens": 3.04,
+   "words": 223,
+   "headings": [
+    "Obsydian.",
+    "Pochodzenie",
+    "Początek wierzeń"
+   ],
+   "images": 1,
+   "plates": 6,
+   "decoPlates": 1,
+   "arts": [
+    "__spill",
+    "g_obs",
+    "obs",
+    "w_enso_s",
+    "n2",
+    "w_hl"
+   ],
+   "longestTextRun": {
+    "px": 56,
+    "screens": 0.07,
+    "at": 13034
+   },
+   "paperTop": "rgb(239, 230, 217)",
+   "edgeTop": false
+  },
+  {
+   "id": "rozdzial-3",
+   "cls": "chapter",
+   "title": "Tygrysie oko",
+   "top": 13084,
+   "height": 2697,
+   "screens": 3.2,
+   "words": 224,
+   "headings": [
+    "Tygrysie oko.",
+    "Pochodzenie",
+    "Początek wierzeń"
+   ],
+   "images": 1,
+   "plates": 9,
+   "decoPlates": 1,
+   "arts": [
+    "__spill",
+    "g_tig",
+    "tig",
+    "w_enso_o",
+    "n3",
+    "w_hl"
+   ],
+   "longestTextRun": {
+    "px": 56,
+    "screens": 0.07,
+    "at": 15732
+   },
+   "paperTop": "rgb(239, 230, 217)",
+   "edgeTop": false
+  },
+  {
+   "id": "rozdzial-4",
+   "cls": "chapter",
+   "title": "Hematyt",
+   "top": 15781,
+   "height": 2604,
+   "screens": 3.09,
+   "words": 206,
+   "headings": [
+    "Hematyt.",
+    "Pochodzenie",
+    "Początek wierzeń"
+   ],
+   "images": 1,
+   "plates": 8,
+   "decoPlates": 1,
+   "arts": [
+    "__spill",
+    "g_hem",
+    "hem",
+    "w_enso_s",
+    "n4",
+    "w_hl"
+   ],
+   "longestTextRun": {
+    "px": 24,
+    "screens": 0.03,
+    "at": 18357
+   },
+   "paperTop": "rgb(239, 230, 217)",
+   "edgeTop": false
+  },
+  {
+   "id": "rozdzial-5",
+   "cls": "trio",
+   "title": "Trzy w jednym",
+   "top": 18385,
+   "height": 3264,
+   "screens": 3.87,
+   "words": 234,
+   "headings": [
+    "Trzy w jednym. Razem mocniej.",
+    "Obsydian oczyszcza.",
+    "Tygrysie oko czuwa.",
+    "Hematyt trzyma przy ziemi.",
+    "Potrójna ochrona",
+    "Trzy różne tempa czasu."
+   ],
+   "images": 1,
+   "plates": 8,
+   "decoPlates": 2,
+   "arts": [
+    "w_enso_o",
+    "n5",
+    "w_swash_r",
+    "u3",
+    "b_obs",
+    "b_tig",
+    "b_hem",
+    "w_hl"
+   ],
+   "longestTextRun": {
+    "px": 944,
+    "screens": 1.12,
+    "at": 20113
+   },
+   "paperTop": "rgb(242, 230, 213)",
+   "edgeTop": false
+  },
+  {
+   "id": "rozdzial-6",
+   "cls": "wear",
+   "title": "Jak nosić Talizman",
+   "top": 21649,
+   "height": 3962,
+   "screens": 4.69,
+   "words": 285,
+   "headings": [
+    "Jak nosić Talizman.",
+    "Może właśnie teraz jest Ci bliski.",
+    "Z jaką intencją zaczniesz dzień?",
+    "Która ręka",
+    "Pierwsze założenie",
+    "Talizman, który pęka, zrobił swoje."
+   ],
+   "images": 1,
+   "plates": 14,
+   "decoPlates": 1,
+   "arts": [
+    "e_band",
+    "w_enso_s",
+    "n6",
+    "u1",
+    "w_hl",
+    "__spill",
+    "g_st_s",
+    "hands",
+    "g_st_r",
+    "broken"
+   ],
+   "longestTextRun": {
+    "px": 344,
+    "screens": 0.41,
+    "at": 25113
+   },
+   "paperTop": "rgb(251, 245, 235)",
+   "edgeTop": true
+  },
+  {
+   "id": "epilog",
+   "cls": "price",
+   "title": "Nic tu nie jest przypadkiem",
+   "top": 25610,
+   "height": 2873,
+   "screens": 3.4,
+   "words": 223,
+   "headings": [
+    "Nic tu nie jest przypadkiem, nawet cena.",
+    "Dlaczego akurat trójka chroni"
+   ],
+   "images": 0,
+   "plates": 5,
+   "decoPlates": 0,
+   "arts": [
+    "e_band",
+    "w_bloom_o",
+    "w_swash_s",
+    "w_hl"
+   ],
+   "longestTextRun": {
+    "px": 512,
+    "screens": 0.61,
+    "at": 27594
+   },
+   "paperTop": "rgb(233, 237, 223)",
+   "edgeTop": true
+  },
+  {
+   "id": "album",
+   "cls": "gallery",
+   "title": "W ciepłym świetle.",
+   "top": 28484,
+   "height": 1426,
+   "screens": 1.69,
+   "words": 15,
+   "headings": [
+    "W ciepłym świetle."
+   ],
+   "images": 0,
+   "plates": 5,
+   "decoPlates": 0,
+   "arts": [
+    "e_band",
+    "paint_a",
+    "paint_b"
+   ],
+   "longestTextRun": {
+    "px": 120,
+    "screens": 0.14,
+    "at": 28580
+   },
+   "paperTop": "rgb(47, 35, 28)",
+   "edgeTop": true
+  },
+  {
+   "id": null,
+   "cls": "real",
+   "title": "Tak wygląda\nTwój talizman.",
+   "top": 29909,
+   "height": 1132,
+   "screens": 1.34,
+   "words": 66,
+   "headings": [
+    "Tak wygląda Twój talizman."
+   ],
+   "images": 0,
+   "plates": 5,
+   "decoPlates": 0,
+   "arts": [
+    "e_band",
+    "paint_a",
+    "paint_b"
+   ],
+   "longestTextRun": {
+    "px": 224,
+    "screens": 0.27,
+    "at": 30661
+   },
+   "paperTop": "rgb(251, 245, 235)",
+   "edgeTop": true
+  },
+  {
+   "id": null,
+   "cls": "closing",
+   "title": "Trzy kamienie.\nTrzy warstwy ochrony.\nTrzy w cenie.",
+   "top": 31041,
+   "height": 1026,
+   "screens": 1.22,
+   "words": 34,
+   "headings": [
+    "Trzy kamienie. Trzy warstwy ochrony. Trzy w cenie."
+   ],
+   "images": 0,
+   "plates": 3,
+   "decoPlates": 0,
+   "arts": [
+    "__spill",
+    "g_st_o",
+    "pouch"
+   ],
+   "longestTextRun": {
+    "px": 280,
+    "screens": 0.33,
+    "at": 31641
+   },
+   "paperTop": "rgb(251, 245, 235)",
+   "edgeTop": false
+  },
+  {
+   "id": "kolekcja",
+   "cls": "coll",
+   "title": "Inne kompozycje.",
+   "top": 32068,
+   "height": 940,
+   "screens": 1.11,
+   "words": 92,
+   "headings": [
+    "Inne kompozycje.",
+    "Talizman Ochronny",
+    "Cień",
+    "Splot światła",
+    "Punkt oparcia"
+   ],
+   "images": 0,
+   "plates": 6,
+   "decoPlates": 0,
+   "arts": [
+    "e_band",
+    "paint_a",
+    "paint_b"
+   ],
+   "longestTextRun": {
+    "px": 176,
+    "screens": 0.21,
+    "at": 32620
+   },
+   "paperTop": "rgb(242, 230, 213)",
+   "edgeTop": true
+  }
+ ],
+ "desktop": [
+  {
+   "id": "produkt",
+   "cls": "pdp",
+   "title": "Nie ma tu przypadku",
+   "top": 118,
+   "height": 2039,
+   "screens": 2.27,
+   "words": 243,
+   "headings": [
+    "Nie ma tu przypadku"
+   ],
+   "images": 9,
+   "plates": 5,
+   "decoPlates": 0,
+   "arts": [
+    "w_hl",
+    "measure",
+    "pouch",
+    "paint_b"
+   ],
+   "longestTextRun": {
+    "px": 0,
+    "screens": 0,
+    "at": 0
+   },
+   "paperTop": "rgb(251, 245, 235)",
+   "edgeTop": false
+  },
+  {
+   "id": "opowiesc",
+   "cls": "prolog",
+   "title": "Opowieść o Talizmanie",
+   "top": 2156,
+   "height": 979,
+   "screens": 1.09,
+   "words": 108,
+   "headings": [
+    "Ludzie noszą przy sobie kamienie od ponad 150 000 lat."
+   ],
+   "images": 0,
+   "plates": 6,
+   "decoPlates": 0,
+   "arts": [
+    "__spill",
+    "g_st_o",
+    "hero",
+    "u1",
+    "w_hl"
+   ],
+   "longestTextRun": {
+    "px": 16,
+    "screens": 0.02,
+    "at": 2260
+   },
+   "paperTop": "rgb(251, 245, 235)",
+   "edgeTop": false
+  },
+  {
+   "id": "rozdzial-1",
+   "cls": "history",
+   "title": "Skąd wzięły się talizmany",
+   "top": 3136,
+   "height": 5699,
+   "screens": 6.33,
+   "words": 342,
+   "headings": [
+    "Skąd wzięły się talizmany.",
+    "Trzydzieści trzy muszelki.",
+    "Kolor, który coś znaczył.",
+    "Amulety nosili wszyscy.",
+    "Podpis, który można było nosić.",
+    "Dziewiąty dzień.",
+    "Księżyc noszony przy ciele.",
+    "Czerwony ślad.",
+    "Dlaczego akurat te trzy kamienie?",
+    "Twoja bransoletka wpisuje się w tę samą, nieprzerwaną opowieść."
+   ],
+   "images": 3,
+   "plates": 16,
+   "decoPlates": 7,
+   "arts": [
+    "w_bloom_r",
+    "w_dab_o",
+    "w_enso_s",
+    "n1",
+    "w_swash_o",
+    "u2",
+    "w_hl",
+    "w_bloom_o",
+    "w_bloom_s",
+    "__spill",
+    "g_st_o",
+    "pass"
+   ],
+   "longestTextRun": {
+    "px": 176,
+    "screens": 0.2,
+    "at": 7376
+   },
+   "paperTop": "rgb(251, 245, 235)",
+   "edgeTop": false
+  },
+  {
+   "id": "rozdzial-2",
+   "cls": "chapter",
+   "title": "Obsydian",
+   "top": 8834,
+   "height": 2926,
+   "screens": 3.25,
+   "words": 390,
+   "headings": [
+    "Obsydian.",
+    "Pochodzenie",
+    "Początek wierzeń",
+    "Karta kamienia"
+   ],
+   "images": 1,
+   "plates": 6,
+   "decoPlates": 1,
+   "arts": [
+    "__spill",
+    "g_obs",
+    "obs",
+    "w_enso_s",
+    "n2",
+    "w_hl"
+   ],
+   "longestTextRun": {
+    "px": 0,
+    "screens": 0,
+    "at": 0
+   },
+   "paperTop": "rgb(239, 230, 217)",
+   "edgeTop": false
+  },
+  {
+   "id": "rozdzial-3",
+   "cls": "chapter",
+   "title": "Tygrysie oko",
+   "top": 11760,
+   "height": 3124,
+   "screens": 3.47,
+   "words": 421,
+   "headings": [
+    "Tygrysie oko.",
+    "Pochodzenie",
+    "Początek wierzeń",
+    "Karta kamienia"
+   ],
+   "images": 1,
+   "plates": 9,
+   "decoPlates": 1,
+   "arts": [
+    "__spill",
+    "g_tig",
+    "tig",
+    "w_enso_o",
+    "n3",
+    "w_hl"
+   ],
+   "longestTextRun": {
+    "px": 0,
+    "screens": 0,
+    "at": 0
+   },
+   "paperTop": "rgb(239, 230, 217)",
+   "edgeTop": false
+  },
+  {
+   "id": "rozdzial-4",
+   "cls": "chapter",
+   "title": "Hematyt",
+   "top": 14884,
+   "height": 2973,
+   "screens": 3.3,
+   "words": 363,
+   "headings": [
+    "Hematyt.",
+    "Pochodzenie",
+    "Początek wierzeń",
+    "Karta kamienia"
+   ],
+   "images": 1,
+   "plates": 8,
+   "decoPlates": 1,
+   "arts": [
+    "__spill",
+    "g_hem",
+    "hem",
+    "w_enso_s",
+    "n4",
+    "w_hl"
+   ],
+   "longestTextRun": {
+    "px": 0,
+    "screens": 0,
+    "at": 0
+   },
+   "paperTop": "rgb(239, 230, 217)",
+   "edgeTop": false
+  },
+  {
+   "id": "rozdzial-5",
+   "cls": "trio",
+   "title": "Trzy w jednym",
+   "top": 17856,
+   "height": 2328,
+   "screens": 2.59,
+   "words": 234,
+   "headings": [
+    "Trzy w jednym. Razem mocniej.",
+    "Obsydian oczyszcza.",
+    "Tygrysie oko czuwa.",
+    "Hematyt trzyma przy ziemi.",
+    "Potrójna ochrona",
+    "Trzy różne tempa czasu."
+   ],
+   "images": 1,
+   "plates": 10,
+   "decoPlates": 4,
+   "arts": [
+    "w_swash_s",
+    "w_bloom_o",
+    "w_enso_o",
+    "n5",
+    "w_swash_r",
+    "u3",
+    "b_obs",
+    "b_tig",
+    "b_hem",
+    "w_hl"
+   ],
+   "longestTextRun": {
+    "px": 504,
+    "screens": 0.56,
+    "at": 19136
+   },
+   "paperTop": "rgb(242, 230, 213)",
+   "edgeTop": false
+  },
+  {
+   "id": "rozdzial-6",
+   "cls": "wear",
+   "title": "Jak nosić Talizman",
+   "top": 20184,
+   "height": 3184,
+   "screens": 3.54,
+   "words": 285,
+   "headings": [
+    "Jak nosić Talizman.",
+    "Może właśnie teraz jest Ci bliski.",
+    "Z jaką intencją zaczniesz dzień?",
+    "Która ręka",
+    "Pierwsze założenie",
+    "Talizman, który pęka, zrobił swoje."
+   ],
+   "images": 1,
+   "plates": 14,
+   "decoPlates": 1,
+   "arts": [
+    "e_band",
+    "w_enso_s",
+    "n6",
+    "u1",
+    "w_hl",
+    "__spill",
+    "g_st_s",
+    "hands",
+    "g_st_r",
+    "broken"
+   ],
+   "longestTextRun": {
+    "px": 88,
+    "screens": 0.1,
+    "at": 22416
+   },
+   "paperTop": "rgb(251, 245, 235)",
+   "edgeTop": true
+  },
+  {
+   "id": "epilog",
+   "cls": "price",
+   "title": "Nic tu nie jest przypadkiem",
+   "top": 23368,
+   "height": 3249,
+   "screens": 3.61,
+   "words": 223,
+   "headings": [
+    "Nic tu nie jest przypadkiem, nawet cena.",
+    "Dlaczego akurat trójka chroni"
+   ],
+   "images": 0,
+   "plates": 7,
+   "decoPlates": 2,
+   "arts": [
+    "e_band",
+    "w_bloom_o",
+    "w_dab_s",
+    "w_swash_s",
+    "w_hl"
+   ],
+   "longestTextRun": {
+    "px": 456,
+    "screens": 0.51,
+    "at": 25800
+   },
+   "paperTop": "rgb(233, 237, 223)",
+   "edgeTop": true
+  },
+  {
+   "id": "album",
+   "cls": "gallery",
+   "title": "W ciepłym świetle.",
+   "top": 26617,
+   "height": 1686,
+   "screens": 1.87,
+   "words": 15,
+   "headings": [
+    "W ciepłym świetle."
+   ],
+   "images": 0,
+   "plates": 5,
+   "decoPlates": 0,
+   "arts": [
+    "e_band",
+    "paint_a",
+    "paint_b"
+   ],
+   "longestTextRun": {
+    "px": 112,
+    "screens": 0.12,
+    "at": 26753
+   },
+   "paperTop": "rgb(47, 35, 28)",
+   "edgeTop": true
+  },
+  {
+   "id": null,
+   "cls": "real",
+   "title": "Tak wygląda\nTwój talizman.",
+   "top": 28304,
+   "height": 1683,
+   "screens": 1.87,
+   "words": 66,
+   "headings": [
+    "Tak wygląda Twój talizman."
+   ],
+   "images": 0,
+   "plates": 5,
+   "decoPlates": 0,
+   "arts": [
+    "e_band",
+    "paint_a",
+    "paint_b"
+   ],
+   "longestTextRun": {
+    "px": 176,
+    "screens": 0.2,
+    "at": 28440
+   },
+   "paperTop": "rgb(251, 245, 235)",
+   "edgeTop": true
+  },
+  {
+   "id": null,
+   "cls": "closing",
+   "title": "Trzy kamienie.\nTrzy warstwy ochrony.\nTrzy w cenie.",
+   "top": 29987,
+   "height": 986,
+   "screens": 1.1,
+   "words": 34,
+   "headings": [
+    "Trzy kamienie. Trzy warstwy ochrony. Trzy w cenie."
+   ],
+   "images": 0,
+   "plates": 3,
+   "decoPlates": 0,
+   "arts": [
+    "__spill",
+    "g_st_o",
+    "pouch"
+   ],
+   "longestTextRun": {
+    "px": 0,
+    "screens": 0,
+    "at": 0
+   },
+   "paperTop": "rgb(251, 245, 235)",
+   "edgeTop": false
+  },
+  {
+   "id": "kolekcja",
+   "cls": "coll",
+   "title": "Inne kompozycje.",
+   "top": 30973,
+   "height": 963,
+   "screens": 1.07,
+   "words": 92,
+   "headings": [
+    "Inne kompozycje.",
+    "Talizman Ochronny",
+    "Cień",
+    "Splot światła",
+    "Punkt oparcia"
+   ],
+   "images": 0,
+   "plates": 6,
+   "decoPlates": 0,
+   "arts": [
+    "e_band",
+    "paint_a",
+    "paint_b"
+   ],
+   "longestTextRun": {
+    "px": 152,
+    "screens": 0.17,
+    "at": 31597
+   },
+   "paperTop": "rgb(242, 230, 213)",
+   "edgeTop": true
+  }
+ ]
+}

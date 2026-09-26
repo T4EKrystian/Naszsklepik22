@@ -1963,6 +1963,9 @@ uniform vec3 uPaper;
 uniform float uAlpha;
 uniform float uSeed;
 uniform float uReach;
+uniform float uFull;
+uniform float uDir;
+uniform vec3 uK;
 vec3 permute(vec3 x){ return mod(((x*34.0)+1.0)*x, 289.0); }
 float snoise(vec2 v){
   const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
@@ -1976,25 +1979,31 @@ float snoise(vec2 v){
   vec3 g; g.x = a0.x*x0.x + h.x*x0.y; g.yz = a0.yz*x12.xz + h.yz*x12.yw;
   return 130.0*dot(m, g);
 }
-// ink poured in from beyond the left edge of the page: a tongue of navy wash with a darker tide line at its front
+// ink poured in from beyond the left edge of the page: a tongue of navy wash with a darker tide line at its front.
+// uFull floods the whole plate (curtains), uDir 1 pours upward from the bottom edge (a seam), uK is the pigment
 void main(){
-  float casp = uRes.x/uRes.y;
-  vec2 q = vec2(vUv.x*casp, vUv.y);
+  vec2 uv = uDir > 0.5 ? vec2(vUv.y, vUv.x) : vUv;
+  vec2 res = uDir > 0.5 ? uRes.yx : uRes;
+  float casp = res.x/res.y;
+  vec2 q = vec2(uv.x*casp, uv.y);
   float n1 = snoise(q*vec2(1.1, 1.6) + uSeed), n2 = snoise(q*4.5 + uSeed*2.3), n3 = snoise(q*13.0 - uSeed);
   float t = clamp(uT, 0.0, 1.0);
-  float front = t*uReach*1.08 + 0.07*n1 + 0.025*n2 + 0.008*n3;
-  float d = front - vUv.x;
+  float front = t*uReach*1.08 + 0.07*n1 + 0.025*n2 + 0.008*n3 - 0.06*uFull*(1.0 - t);
+  float d = front - uv.x;
   float inside = smoothstep(-0.004, 0.012, d);
   // the tongue narrows as it travels right; at the page edge it fills the whole height
-  float span = mix(0.43, 0.2, smoothstep(0.0, uReach, vUv.x)) + 0.045*n1 + 0.02*n2;
-  float band = smoothstep(0.0, 0.07, span - abs(vUv.y - 0.5 - 0.04*n1));
-  float body = pow(1.0 - smoothstep(0.0, max(front, 0.05), vUv.x), 1.25);
+  float span = mix(0.43, 0.2, smoothstep(0.0, uReach, uv.x)) + 0.045*n1 + 0.02*n2;
+  float band = mix(smoothstep(0.0, 0.07, span - abs(uv.y - 0.5 - 0.04*n1)), 1.0, uFull);
+  float body = pow(1.0 - smoothstep(0.0, max(front, 0.05), uv.x), 1.25);
+  body = mix(body, 0.62 + 0.38*body, uFull*smoothstep(0.35, 0.9, t));
   float tide = exp(-max(d, 0.0)*36.0)*inside*(1.0 - 0.55*smoothstep(0.75, 1.0, t));
   float gran = 0.5 + 0.5*snoise(gl_FragCoord.xy*vec2(0.21, 0.19) + uSeed*9.0);
   float cloud = 0.55 + 0.45*smoothstep(-0.6, 0.8, snoise(q*2.2 + uSeed*3.1));
   float dens = inside*band*(0.56*body*cloud + 0.4*tide)*(0.74 + 0.42*gran);
   dens += inside*band*0.07*smoothstep(0.2, 0.9, n2);                 // back-runs inside the pour
-  vec3 T = exp(-vec3(2.3, 1.7, 0.78)*dens*1.2);
+  dens *= 1.0 + 0.75*uFull;
+  dens = mix(dens, 0.85, uDir*max(smoothstep(0.8, 1.0, t), 1.0 - smoothstep(0.0, 0.35, uv.x)));   // a seam settles into the flat paper of the next section
+  vec3 T = exp(-uK*dens*1.2);
   float a = clamp(1.0 - min(T.r, min(T.g, T.b)), 0.0, 1.0);
   vec3 target = uPaper*T;
   vec3 col = a > 0.0005 ? clamp((target - uPaper*(1.0 - a))/a, 0.0, 1.0) : vec3(0.0);
@@ -2075,7 +2084,7 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
       INK = mk('fs', ['uIllus','uArrive','uRes','uArtAsp','uFocus','uSrc','uT','uPoolR','uZoom','uBg','uFit','uLeft']);
       PNT = mk('fsPaint', ['uPhoto','uArrive','uRes','uAsp','uFocus','uT','uFlip','uBg','uLine','uInk','uPre']);
       WSH = mk('fsWash', ['uIllus','uArrive','uRes','uArtAsp','uT','uFit','uPaper','uAlpha','uTint','uUseTint','uFlip','uLeft']);
-      SPL = mk('fsSpill', ['uRes','uT','uPaper','uAlpha','uSeed','uReach']);
+      SPL = mk('fsSpill', ['uRes','uT','uPaper','uAlpha','uSeed','uReach','uFull','uDir','uK']);
     } catch(e){ console.warn(e); return null; }
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
@@ -2105,6 +2114,7 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
           const U = SPL.U; gl.useProgram(SPL.pr);
           gl.uniform2f(U.uRes, w, h); gl.uniform1f(U.uT, plate.t); gl.uniform3fv(U.uPaper, plate.paper());
           gl.uniform1f(U.uAlpha, plate.alpha); gl.uniform1f(U.uSeed, plate.seed); gl.uniform1f(U.uReach, plate.reach);
+          gl.uniform1f(U.uFull, plate.full); gl.uniform1f(U.uDir, plate.dir); gl.uniform3fv(U.uK, plate.pigment());
           gl.drawArrays(gl.TRIANGLES, 0, 3);
           plate.ctx.clearRect(0, 0, w, h); plate.ctx.drawImage(cv, 0, cv.height - h, w, h, 0, 0, w, h);
           return;
@@ -2153,6 +2163,7 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
       this.at = d.at ? +d.at : 0.86; this.dur = d.dur ? +d.dur : 1600; this.delay = d.delay ? +d.delay : 0;
       this.lead = d.lead ? +d.lead : 1; this.intro = d.intro ? +d.intro : 0.32;
       this.left = d.left ? +d.left : 0; this.seed = d.seed ? +d.seed : 1; this.reach = d.reach ? +d.reach : 0.6;
+      this.full = d.full ? +d.full : 0; this.dir = d.dir === 'up' ? 1 : 0; this.col = d.col ? hex(d.col) : null;
       const tw = el.closest('[data-track]'); this.track = tw ? document.querySelector(tw.dataset.track) : null;   // pinned scenes paint as their chapter is read
       this.ink = d.ink ? hex(d.ink) : [0.12, 0.18, 0.32]; this.pre = d.pre ? +d.pre : 0;
       this.canvas = el.querySelector('canvas'); this.ctx = this.canvas.getContext('2d'); this.dirty = true; this.visible = false;
@@ -2167,6 +2178,8 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
     }
     get texKey(){ return this.photo ? this.photo + '|' + this.key : this.key; }
     paper(){ if(!this.paperC) this.paperC = bgOf(this.el.parentElement); return this.paperC; }
+    // absorption per channel: navy by default, or whatever pigment lands exactly on data-col at full strength
+    pigment(){ if(!this.col) return [2.3, 1.7, 0.78]; const p = this.paper(); return this.col.map((c, i) => -Math.log(clamp(c/Math.max(p[i], 0.02), 0.02, 1))/1.02); }
     setKey(k){ if(k !== this.key){ this.key = k; this.dirty = true; R.prepare(this.texKey).then(() => this.dirty = true).catch(() => {}); } }
     resize(){ const d = Math.min(devicePixelRatio || 1, this.dprMax); const w = Math.round(this.el.clientWidth*d), h = Math.round(this.el.clientHeight*d); if(w && h && (this.canvas.width !== w || this.canvas.height !== h)){ this.canvas.width = w; this.canvas.height = h; } this.cw = this.canvas.width; this.ch = this.canvas.height; }
     setT(v){ v = clamp(v); if(Math.abs(v - this.t) > 1e-4){ this.t = v; this.dirty = true; } }
@@ -2236,6 +2249,9 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
       } else if(p.mode === 'scrub' || p.mode === 'paint'){
         const r = p.el.getBoundingClientRect();
         if(r.bottom > -60 && r.top < vh + 60) p.ease(reduce ? 1 : clamp((vh*p.from - r.top)/(vh*(p.from - p.to))));
+      } else if(p.mode === 'seam'){
+        const r = p.el.getBoundingClientRect();
+        if(r.bottom > -60 && r.top < vh + 60) p.ease(reduce ? 0.62 : clamp((vh*0.96 - r.top)/(vh*0.42 + r.height*0.8)), 0.12);
       } else if(p.mode === 'once' && !p.fired){
         const r = p.el.getBoundingClientRect();
         if(p.hs && r.width && mobile()){ const cx = (r.left + r.right)/2; if(cx < 0 || cx > innerWidth) continue; }
@@ -2247,6 +2263,117 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
     for(const p of plates){ if(p.dirty && p.visible && !p.busy){ p.dirty = false; p.busy = true; R.render(p).catch(() => {}).finally(() => p.busy = false); } }
     requestAnimationFrame(loop);
   })();
+
+  /* ---------- brush: bristle strokes painted along a path (seams, dividers, marks); plain 2D canvas, works without WebGL ---------- */
+  const brushes = (() => {
+    const NS = 'http://www.w3.org/2000/svg';
+    const host = document.createElementNS(NS, 'svg'); host.setAttribute('aria-hidden', 'true');
+    Object.assign(host.style, { position: 'absolute', width: '0', height: '0', overflow: 'hidden' });
+    const probe = document.createElementNS(NS, 'path'); host.appendChild(probe); document.body.appendChild(host);
+    const hash = n => { const x = Math.sin(n*127.1 + 311.7)*43758.5453; return x - Math.floor(x); };
+    const vn = x => { const i = Math.floor(x), f = x - i, u = f*f*(3 - 2*f); return hash(i)*(1 - u) + hash(i + 1)*u; };
+    const rgba = (h, a) => { const c = hex(h); return `rgba(${Math.round(c[0]*255)},${Math.round(c[1]*255)},${Math.round(c[2]*255)},${a})`; };
+    const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { if(e.target.__brush) e.target.__brush.near = e.isIntersecting; }), { rootMargin: '60% 0px' }) : null;
+    class Stroke {
+      constructor(el){
+        const d = el.dataset;
+        this.el = el; this.cv = el.querySelector('canvas') || el.appendChild(document.createElement('canvas')); this.ctx = this.cv.getContext('2d');
+        this.path = d.d; this.vb = (d.vb || '1000 200').split(/[ ,]+/).map(Number);
+        this.wr = d.w ? +d.w : 0.4;                       // brush width as a share of the element's height
+        this.col = d.col || '#1f2d52'; this.fill = d.fill || null;   // fill: paper laid down under the stroke (seams)
+        this.seed = d.seed ? +d.seed : 1; this.dry = d.dry ? +d.dry : 0.55; this.mode = d.mode || 'once';
+        this.dur = d.dur ? +d.dur : 1400; this.delay = d.delay ? +d.delay : 0; this.at = d.at ? +d.at : 0.88;
+        this.from = d.from ? +d.from : 0.98; this.to = d.to ? +d.to : 0.6;
+        this.t = 0; this.drawn = -1; this.near = !io; this.pts = null;
+        el.__brush = this; io && io.observe(el);
+        new ResizeObserver(() => { this.pts = null; this.drawn = -1; }).observe(el);
+      }
+      layout(){
+        const W = this.el.clientWidth, H = this.el.clientHeight; if(!W || !H || !this.path) return false;
+        const dpr = Math.min(devicePixelRatio || 1, 1.5); this.cv.width = Math.round(W*dpr); this.cv.height = Math.round(H*dpr);
+        probe.setAttribute('d', this.path);
+        const L = probe.getTotalLength(), sx = W/this.vb[0]*dpr, sy = H/this.vb[1]*dpr;
+        let est = 0, prev = null;
+        for(let k = 0; k <= 48; k++){ const q = probe.getPointAtLength(L*k/48), x = q.x*sx, y = q.y*sy; if(prev) est += Math.hypot(x - prev[0], y - prev[1]); prev = [x, y]; }
+        const n = Math.max(40, Math.min(1400, Math.ceil(est/2)));
+        const P = []; for(let k = 0; k <= n; k++){ const q = probe.getPointAtLength(L*k/n); P.push([q.x*sx, q.y*sy]); }
+        this.nrm = P.map((_, k) => { const a = P[Math.max(0, k - 2)], b = P[Math.min(n, k + 2)], dx = b[0] - a[0], dy = b[1] - a[1], l = Math.hypot(dx, dy) || 1; return [-dy/l, dx/l]; });
+        this.pts = P; this.bw = this.wr*H*dpr;
+        const nb = Math.max(12, Math.min(64, Math.round(this.bw/2.4)));
+        this.bristles = Array.from({ length: nb }, (_, i) => ({
+          o: (i + 0.5)/nb - 0.5 + (hash(this.seed + i*3.3) - 0.5)*0.7/nb,   // place across the brush
+          load: 0.55 + 0.45*hash(i*5.1 + this.seed),                       // how much ink this hair carries
+          lw: this.bw/nb*(1.3 + 1.1*hash(this.seed*7.1 + i*1.37)), a: 0.26 + 0.5*hash(i*9.7 + this.seed*2), ph: hash(i*2.9 + this.seed)*100 }));
+        return true;
+      }
+      press(u){ return Math.min(1, u/0.06)*(1 - 0.62*Math.pow(Math.max(0, (u - 0.7)/0.3), 1.4))*(0.86 + 0.14*vn(u*7 + this.seed*3)); }
+      draw(){
+        if(!this.pts && !this.layout()) return;
+        const c = this.ctx, P = this.pts, N = this.nrm, n = P.length - 1, end = Math.round(n*this.t), W = this.cv.width, H = this.cv.height;
+        c.clearRect(0, 0, W, H); this.drawn = this.t;
+        if(end < 1) return;
+        const half = k => 0.5*this.bw*this.press(k/n);
+        if(this.fill){   // the new paper follows the brush: everything under its centre line, up to the tip
+          c.fillStyle = this.fill; c.beginPath(); c.moveTo(P[0][0] - 2, H + 2);
+          for(let k = 0; k <= end; k++) c.lineTo(P[k][0], P[k][1] + half(k)*0.15);
+          c.lineTo(P[end][0] - H*0.35, H + 2); c.closePath(); c.fill();
+        }
+        // wet body with a darker, pooled rim
+        c.beginPath();
+        for(let k = 0; k <= end; k++){ const h = half(k); c.lineTo(P[k][0] + N[k][0]*h, P[k][1] + N[k][1]*h); }
+        for(let k = end; k >= 0; k--){ const h = half(k); c.lineTo(P[k][0] - N[k][0]*h, P[k][1] - N[k][1]*h); }
+        c.closePath(); c.fillStyle = rgba(this.col, 0.16); c.fill(); c.lineWidth = 1.2; c.strokeStyle = rgba(this.col, 0.1); c.stroke();
+        // hairs: each carries its own load of ink and runs dry towards the end of the stroke
+        c.lineCap = 'round'; c.lineJoin = 'round';
+        for(const b of this.bristles){
+          c.strokeStyle = rgba(this.col, b.a); c.lineWidth = b.lw; c.beginPath(); let on = false;
+          for(let k = 0; k <= end; k++){
+            const u = k/n, h = half(k), ink = b.load - this.dry*u*(0.7 + 0.6*vn(u*3 + b.ph));
+            if(vn(u*38 + b.ph) > ink + 0.35 || h < 0.6){ on = false; continue; }
+            const x = P[k][0] + N[k][0]*b.o*2*h, y = P[k][1] + N[k][1]*b.o*2*h;
+            if(on) c.lineTo(x, y); else { c.moveTo(x, y); on = true; }
+          }
+          c.stroke();
+        }
+        if(this.t < 1){   // wet tip where the brush still touches the paper
+          const k = end, h = half(k) + 1, g = c.createRadialGradient(P[k][0], P[k][1], 0, P[k][0], P[k][1], h*1.2);
+          g.addColorStop(0, rgba(this.col, 0.22)); g.addColorStop(1, rgba(this.col, 0)); c.fillStyle = g; c.fillRect(P[k][0] - h*1.3, P[k][1] - h*1.3, h*2.6, h*2.6);
+        }
+      }
+      tick(vh){
+        const r = this.el.getBoundingClientRect();
+        if(this.mode === 'scroll'){ if(r.bottom > -60 && r.top < vh + 60) this.t += ((reduce ? 1 : clamp((vh*this.from - r.top)/(vh*(this.from - this.to)))) - this.t)*(SNAP || reduce ? 1 : 0.16); }
+        else if(this.mode === 'once' && !this.fired && r.width && r.top < vh*this.at && r.bottom > -40){
+          this.fired = true;
+          if(reduce || SNAP) this.t = 1;
+          else { const t0 = performance.now() + this.delay; const step = now => { const x = clamp((now - t0)/this.dur); this.t = easeOut(x); if(x < 1) requestAnimationFrame(step); }; requestAnimationFrame(step); }
+        }
+        if(SNAP && this.mode !== 'manual') this.t = 1;
+        if(this.near && Math.abs(this.t - this.drawn) > 0.002) this.draw();
+      }
+    }
+    const list = [...document.querySelectorAll('.brush[data-d]')].map(el => new Stroke(el));
+    painters.push(vh => list.forEach(b => b.tick(vh)));
+    return list;
+  })();
+
+  /* ---------- curtains: ink floods the whole screen between chapters, the paper changes underneath, then the ink withdraws ---------- */
+  const curtains = [...document.querySelectorAll('.curtain')].map(c => ({ c, p: plateOf(c.querySelector('.spillink')), title: c.querySelector('.curtain__t'), b: false, full: false }));
+  painters.push(vh => curtains.forEach(C => {
+    const r = C.c.getBoundingClientRect(); if(r.bottom < -vh || r.top > vh*2) return;
+    const enter = clamp((vh - r.top)/vh), run = clamp(-r.top/Math.max(1, r.height - vh));
+    const goal = run < 0.5 ? enter : 1 - clamp((run - 0.5)/0.45);
+    if(C.p) C.p.ease(goal, SNAP ? 1 : 0.2);
+    const t = C.p ? C.p.t : goal, flooded = t > 0.96;
+    if(flooded && !C.full) document.dispatchEvent(new CustomEvent('inkfull'));
+    C.full = flooded;
+    const wantB = run > 0.25 || r.bottom < vh*0.5;
+    if(wantB !== C.b && (flooded || run >= 0.98 || run <= 0.02)){
+      C.b = wantB; C.c.classList.toggle('b', wantB);
+      if(C.p){ C.p.paperC = hex(wantB ? C.c.dataset.b : C.c.dataset.a); C.p.dirty = true; }
+    }
+    if(C.title){ const o = clamp((t - 0.7)/0.22); C.title.style.opacity = o; C.title.style.transform = `translateY(calc(-50% + ${Math.round((1 - o)*18)}px))`; }
+  }));
 
   /* ---------- headings are painted once they arrive, and stay painted ---------- */
   const applyHead = H => {
@@ -2966,7 +3093,7 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
   const rc = CH.findIndex(c => c.id === resume);
   if(rc >= 2) setTimeout(() => { if(scrollY > 200 || Layers.any()) return; toast(`Ostatnio czytane: ${CH[rc].r} · ${CH[rc].t}`, { label: 'Wróć', fn: () => goTo(CH[rc].id) }, 7000); }, 1600);
 
-  window.__ink = { plates, heads, hls, applyHead, snap: v => { SNAP = !!v; plates.forEach(p => { if(p.mode === 'scroll') p.introState = 'done'; }); } };
+  window.__ink = { plates, brushes, curtains, heads, hls, applyHead, snap: v => { SNAP = !!v; plates.forEach(p => { if(p.mode === 'scroll') p.introState = 'done'; }); } };
   window.__ui = { Layers, openSize, openLb, openDrawer, toast, galList, openFinale };
 })();
 
