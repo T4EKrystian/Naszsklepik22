@@ -1086,6 +1086,45 @@ p.small,p.cnote,.pdp__acc p.small{font-size:16px;line-height:1.6}
   .chapter__facts span,.figcaption,.chapter__art figcaption,.rgrid figcaption,.pcard .badge,.bar__info em{font-size:14px}
   p.small,p.cnote{font-size:16px}
 }
+/* ---------- szkic 15: frameless ink windows that spill in from the left edge of the page ---------- */
+:root{--bleed:calc((100vw - min(100vw, var(--max)))/2 + var(--pad))}
+.ink.spillink{position:absolute;inset:0;z-index:0;pointer-events:none;mix-blend-mode:normal}
+.prolog__art,.chapter__art,.wear__art,.chclose__art,.brk__art,.closing__art,.scrolly__stage{mix-blend-mode:multiply}
+.spill>.gr{-webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 58%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 58%,transparent 100%)}
+.chapter__art .arch{border-radius:0;background:none;overflow:visible}
+.chapter__art .gr{inset:3% 0 1% 14%}
+.redraw{left:auto;right:9%;bottom:14px;transform:none}
+.redraw:hover{transform:rotate(-40deg)}
+.stage{border-radius:4px}
+.rgrid .r1,.trip figure:first-child,.reasons.m-snap>li{border-radius:4px}
+@media (min-width:901px){
+  .prolog__art{grid-column:1/8;aspect-ratio:auto;height:min(88svh,880px);margin-left:calc(-1*var(--bleed))}
+  .prolog__text{grid-column:8/13;padding-left:8px}
+  .prolog__art .gr,.chclose__art .gr,.brk__art .gr,.wear__art .gr,.closing__art .gr{inset:5% 2% 3% 16%}
+  .scrolly__stage{grid-column:1/8;margin-left:calc(-1*var(--bleed))}
+  .scrolly__frame{width:100%;aspect-ratio:auto}
+  .scrolly__frame .gr{inset:4% 2% 2% 18%}
+  .eras{padding-left:var(--bleed)}
+  .beats{grid-column:8/13;margin-left:0;padding-left:8px}
+  .chapter__art{grid-column:1/8;margin-left:calc(-1*var(--bleed))}
+  .chapter__art .arch{aspect-ratio:auto;height:calc(100svh - var(--hdr-now) - var(--sb,0px) - 96px);max-height:920px;min-height:520px}
+  .chapter__art figcaption{padding-left:var(--bleed)}
+  .wear__art{grid-column:1/8;margin-right:0;margin-left:calc(-1*var(--bleed));aspect-ratio:auto;height:calc(100svh - var(--hdr-now) - var(--sb,0px) - 40px);max-height:920px}
+  .wear__text{grid-column:8/13}
+  .chclose__art,.brk__art,.closing__art{grid-column:1/8;margin-left:calc(-1*var(--bleed));aspect-ratio:auto;height:min(84svh,820px)}
+  .chclose__text,.brk__text,.closing__text{grid-column:8/13}
+}
+@media (max-width:599px){
+  .spill{margin-left:calc(var(--pad)*-1)!important;margin-right:calc(var(--pad)*-1)!important;width:auto!important}
+  .chapter__art .arch{aspect-ratio:4/5;height:auto}
+}
+@media (max-width:900px){
+  .stage{border-radius:0}
+  .rgrid .r1,.rgrid.m-snap>figure:first-child,.rgrid.m-snap>figure{border-radius:4px!important}
+  .beat{background:none;border-radius:0;padding:0 2px 14px 0}
+  .beat__art{margin:0 0 16px}
+  .chapter__art .gr{inset:3% 0 1% 8%}
+}
 </style>
 </head>
 <body>
@@ -1188,7 +1227,7 @@ p.small,p.cnote,.pdp__acc p.small{font-size:16px;line-height:1.6}
 <div class="story" id="story">
 <section class="prolog" id="opowiesc" data-chapter data-n="Prolog" data-roman="·" data-title="Opowieść o Talizmanie" aria-labelledby="proH">
   <div class="wrap">
-    <div class="prolog__art"><div class="ink gr" data-art="g_st_o" data-kind="wash" data-mode="scroll" data-lead="1.35" data-alpha=".85"><canvas aria-hidden="true"></canvas></div><div class="ink" data-art="hero" data-mode="scroll"><canvas aria-hidden="true"></canvas></div></div>
+    <div class="prolog__art spill"><div class="ink gr" data-art="g_st_o" data-kind="wash" data-mode="scroll" data-lead="1.35" data-alpha=".85"><canvas aria-hidden="true"></canvas></div><div class="ink" data-art="hero" data-mode="scroll"><canvas aria-hidden="true"></canvas></div></div>
     <div class="prolog__text">
       <span class="eyebrow">Opowieść o Talizmanie · ok. 11 min czytania</span>
       <h2 id="proH" class="d2 bp"><span class="ln"><span>Ludzie noszą przy sobie</span></span><span class="ln"><span>kamienie od ponad</span></span><span class="ln"><span><em class="a" data-ul="u1">150 000 lat.</em></span></span></h2>
@@ -1220,7 +1259,7 @@ p.small,p.cnote,.pdp__acc p.small{font-size:16px;line-height:1.6}
     <div class="scrolly__stage">
       <ol class="eras" id="eras" aria-label="Epoki"><li><button type="button" data-beat="0">150 000 lat temu</button></li><li><button type="button" data-beat="1">164 000 lat temu</button></li><li><button type="button" data-beat="2">Egipt</button></li><li><button type="button" data-beat="3">Babilon</button></li><li><button type="button" data-beat="4">Rzym</button></li><li><button type="button" data-beat="5">Słowianie</button></li><li><button type="button" data-beat="6">Dziś</button></li></ol>
       <div class="scrolly__year" id="stYear" aria-hidden="true">150 000</div>
-      <div class="scrolly__frame">
+      <div class="scrolly__frame spill" data-reach=".5">
         <div class="ink gr" data-art="g_st_o" data-kind="wash" data-mode="story" data-slot="ga" data-alpha=".9"><canvas aria-hidden="true"></canvas></div>
         <div class="ink gr" data-art="g_st_s" data-kind="wash" data-mode="story" data-slot="gb" data-alpha=".9"><canvas aria-hidden="true"></canvas></div>
         <div class="ink" data-art="shells" data-mode="story" data-slot="a"><canvas aria-hidden="true"></canvas></div>
@@ -1251,7 +1290,7 @@ p.small,p.cnote,.pdp__acc p.small{font-size:16px;line-height:1.6}
     <p class="close fade">Ochrona, jasne widzenie i siła — trzy rzeczy, których człowiek potrzebował zawsze.</p>
   </div>
   <div class="wrap chclose">
-    <div class="chclose__art"><div class="ink gr" data-art="g_st_o" data-kind="wash" data-mode="scroll" data-lead="1.35" data-alpha=".85"><canvas aria-hidden="true"></canvas></div><div class="ink" data-art="pass" data-mode="scroll"><canvas aria-hidden="true"></canvas></div></div>
+    <div class="chclose__art spill"><div class="ink gr" data-art="g_st_o" data-kind="wash" data-mode="scroll" data-lead="1.35" data-alpha=".85"><canvas aria-hidden="true"></canvas></div><div class="ink" data-art="pass" data-mode="scroll"><canvas aria-hidden="true"></canvas></div></div>
     <div class="chclose__text">
       <span class="eyebrow">I Twoja bransoletka</span>
       <h3 class="d3 fade">Twoja bransoletka wpisuje się w tę samą, <em class="a">nieprzerwaną opowieść.</em></h3>
@@ -1265,7 +1304,7 @@ p.small,p.cnote,.pdp__acc p.small{font-size:16px;line-height:1.6}
 <div class="ink edge up" data-art="e_band" data-kind="wash" data-mode="once" data-at="1.02" data-dur="1500" data-tint="#efe6d9" data-paper="#fbf5eb"><canvas aria-hidden="true"></canvas></div>
 <article class="chapter" id="rozdzial-2" data-stone="obs" data-chapter data-n="Rozdział II z VI" data-roman="II" data-title="Obsydian" aria-labelledby="name-obs">
   <div class="wrap">
-    <figure class="chapter__art"><div class="arch" style="--arch:#e6dccd"><div class="ink gr" data-art="g_obs" data-kind="wash" data-mode="scroll" data-lead="1.4" data-intro="0.3" data-alpha=".95" data-paper="#e6dccd"><canvas aria-hidden="true"></canvas></div><div class="ink" data-art="obs" data-mode="scroll" data-intro="0.3"><canvas aria-hidden="true"></canvas></div><button class="redraw" type="button" data-redraw aria-label="Namaluj ponownie: Obsydian"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M16 10a6 6 0 1 1-2-4.5"/><path d="M14.5 2.5v3.4h-3.4"/></svg></button></div><figcaption>Obsydian · szkło wulkaniczne</figcaption></figure>
+    <figure class="chapter__art"><div class="arch spill" data-paper="#efe6d9" style="--arch:#efe6d9"><div class="ink gr" data-art="g_obs" data-kind="wash" data-mode="scroll" data-lead="1.4" data-intro="0.3" data-alpha=".95" data-paper="#efe6d9"><canvas aria-hidden="true"></canvas></div><div class="ink" data-art="obs" data-mode="scroll" data-intro="0.3"><canvas aria-hidden="true"></canvas></div><button class="redraw" type="button" data-redraw aria-label="Namaluj ponownie: Obsydian"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M16 10a6 6 0 1 1-2-4.5"/><path d="M14.5 2.5v3.4h-3.4"/></svg></button></div><figcaption>Obsydian · szkło wulkaniczne</figcaption></figure>
     <div class="chapter__text">
       <div class="numwrap"><div class="ink deco enso" data-art="w_enso_s" data-kind="wash" data-mode="once" data-dur="1900" data-alpha=".7"><canvas aria-hidden="true"></canvas></div><div class="ink num" data-art="n2" data-kind="wash" data-mode="once" data-delay="300" data-dur="2300" style="--asp:1.3290"><canvas aria-hidden="true"></canvas></div></div>
       <span class="eyebrow">Rozdział drugi · lustro i tarcza</span>
@@ -1283,7 +1322,7 @@ p.small,p.cnote,.pdp__acc p.small{font-size:16px;line-height:1.6}
 </article>
 <article class="chapter" id="rozdzial-3" data-stone="tig" data-chapter data-n="Rozdział III z VI" data-roman="III" data-title="Tygrysie oko" aria-labelledby="name-tig">
   <div class="wrap">
-    <figure class="chapter__art"><div class="arch" style="--arch:#eed9b9"><div class="ink gr" data-art="g_tig" data-kind="wash" data-mode="scroll" data-lead="1.4" data-intro="0.3" data-alpha=".95" data-paper="#eed9b9"><canvas aria-hidden="true"></canvas></div><div class="ink" data-art="tig" data-mode="scroll" data-intro="0.3"><canvas aria-hidden="true"></canvas></div><button class="redraw" type="button" data-redraw aria-label="Namaluj ponownie: Tygrysie oko"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M16 10a6 6 0 1 1-2-4.5"/><path d="M14.5 2.5v3.4h-3.4"/></svg></button></div><figcaption>Tygrysie oko · kwarc ze złotym połyskiem</figcaption></figure>
+    <figure class="chapter__art"><div class="arch spill" data-paper="#f5e6cf" style="--arch:#f5e6cf"><div class="ink gr" data-art="g_tig" data-kind="wash" data-mode="scroll" data-lead="1.4" data-intro="0.3" data-alpha=".95" data-paper="#f5e6cf"><canvas aria-hidden="true"></canvas></div><div class="ink" data-art="tig" data-mode="scroll" data-intro="0.3"><canvas aria-hidden="true"></canvas></div><button class="redraw" type="button" data-redraw aria-label="Namaluj ponownie: Tygrysie oko"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M16 10a6 6 0 1 1-2-4.5"/><path d="M14.5 2.5v3.4h-3.4"/></svg></button></div><figcaption>Tygrysie oko · kwarc ze złotym połyskiem</figcaption></figure>
     <div class="chapter__text">
       <div class="numwrap"><div class="ink deco enso" data-art="w_enso_o" data-kind="wash" data-mode="once" data-dur="1900" data-alpha=".7"><canvas aria-hidden="true"></canvas></div><div class="ink num" data-art="n3" data-kind="wash" data-mode="once" data-delay="300" data-dur="2300" style="--asp:1.8969"><canvas aria-hidden="true"></canvas></div></div>
       <span class="eyebrow">Rozdział trzeci · oko i słońce</span>
@@ -1301,7 +1340,7 @@ p.small,p.cnote,.pdp__acc p.small{font-size:16px;line-height:1.6}
 </article>
 <article class="chapter" id="rozdzial-4" data-stone="hem" data-chapter data-n="Rozdział IV z VI" data-roman="IV" data-title="Hematyt" aria-labelledby="name-hem">
   <div class="wrap">
-    <figure class="chapter__art"><div class="arch" style="--arch:#ecd3c5"><div class="ink gr" data-art="g_hem" data-kind="wash" data-mode="scroll" data-lead="1.4" data-intro="0.3" data-alpha=".95" data-paper="#ecd3c5"><canvas aria-hidden="true"></canvas></div><div class="ink" data-art="hem" data-mode="scroll" data-intro="0.3"><canvas aria-hidden="true"></canvas></div><button class="redraw" type="button" data-redraw aria-label="Namaluj ponownie: Hematyt"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M16 10a6 6 0 1 1-2-4.5"/><path d="M14.5 2.5v3.4h-3.4"/></svg></button></div><figcaption>Hematyt · kamień z żelaza</figcaption></figure>
+    <figure class="chapter__art"><div class="arch spill" data-paper="#f3e1d5" style="--arch:#f3e1d5"><div class="ink gr" data-art="g_hem" data-kind="wash" data-mode="scroll" data-lead="1.4" data-intro="0.3" data-alpha=".95" data-paper="#f3e1d5"><canvas aria-hidden="true"></canvas></div><div class="ink" data-art="hem" data-mode="scroll" data-intro="0.3"><canvas aria-hidden="true"></canvas></div><button class="redraw" type="button" data-redraw aria-label="Namaluj ponownie: Hematyt"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M16 10a6 6 0 1 1-2-4.5"/><path d="M14.5 2.5v3.4h-3.4"/></svg></button></div><figcaption>Hematyt · kamień z żelaza</figcaption></figure>
     <div class="chapter__text">
       <div class="numwrap"><div class="ink deco enso" data-art="w_enso_s" data-kind="wash" data-mode="once" data-dur="1900" data-alpha=".7"><canvas aria-hidden="true"></canvas></div><div class="ink num" data-art="n4" data-kind="wash" data-mode="once" data-delay="300" data-dur="2300" style="--asp:1.8992"><canvas aria-hidden="true"></canvas></div></div>
       <span class="eyebrow">Rozdział czwarty · żelazo i krew</span>
@@ -1408,10 +1447,10 @@ p.small,p.cnote,.pdp__acc p.small{font-size:16px;line-height:1.6}
         <details><summary>Odświeżanie<i></i></summary><div class="body"><p>Raz na jakiś czas przetrzyj koraliki suchą ściereczką z mikrofibry. Jeśli bliskie jest Ci oczyszczanie energetyczne, wybierz metody suche: dym, dźwięk misy albo noc na parapecie w świetle księżyca. Unikaj wody i soli — hematyt ich nie lubi.</p><p class="moon"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M13.5 3.2A7.5 7.5 0 1 0 16.8 14 6 6 0 0 1 13.5 3.2z"/></svg><span id="moonT"></span></p></div></details>
       </div>
     </div>
-    <div class="wear__art"><div class="ink gr" data-art="g_st_s" data-kind="wash" data-mode="scroll" data-lead="1.35" data-alpha=".8"><canvas aria-hidden="true"></canvas></div><div class="ink" data-art="hands" data-mode="scroll"><canvas aria-hidden="true"></canvas></div></div>
+    <div class="wear__art spill"><div class="ink gr" data-art="g_st_s" data-kind="wash" data-mode="scroll" data-lead="1.35" data-alpha=".8"><canvas aria-hidden="true"></canvas></div><div class="ink" data-art="hands" data-mode="scroll"><canvas aria-hidden="true"></canvas></div></div>
   </div>
   <div class="wrap brk">
-    <div class="brk__art"><div class="ink gr" data-art="g_st_r" data-kind="wash" data-mode="scrub" data-from="1.05" data-to="0.35" data-alpha=".75"><canvas aria-hidden="true"></canvas></div><div class="ink" data-art="broken" data-mode="scrub" data-from="1.0" data-to="0.3"><canvas aria-hidden="true"></canvas></div></div>
+    <div class="brk__art spill" data-spill-mode="scrub"><div class="ink gr" data-art="g_st_r" data-kind="wash" data-mode="scrub" data-from="1.05" data-to="0.35" data-alpha=".75"><canvas aria-hidden="true"></canvas></div><div class="ink" data-art="broken" data-mode="scrub" data-from="1.0" data-to="0.3"><canvas aria-hidden="true"></canvas></div></div>
     <div class="brk__text">
       <span class="eyebrow">Gdy bransoletka się zerwie</span>
       <h3 class="fade">Talizman, który pęka, <em class="a">zrobił swoje.</em></h3>
@@ -1487,7 +1526,7 @@ p.small,p.cnote,.pdp__acc p.small{font-size:16px;line-height:1.6}
 
 <section class="closing" aria-labelledby="closeH">
   <div class="wrap">
-    <div class="closing__art"><div class="ink gr" data-art="g_st_o" data-kind="wash" data-mode="scroll" data-lead="1.35" data-alpha=".85"><canvas aria-hidden="true"></canvas></div><div class="ink" data-art="pouch" data-mode="scroll"><canvas aria-hidden="true"></canvas></div></div>
+    <div class="closing__art spill"><div class="ink gr" data-art="g_st_o" data-kind="wash" data-mode="scroll" data-lead="1.35" data-alpha=".85"><canvas aria-hidden="true"></canvas></div><div class="ink" data-art="pouch" data-mode="scroll"><canvas aria-hidden="true"></canvas></div></div>
     <div class="closing__text">
     <span class="eyebrow">Talizman Ochronny</span>
     <h2 id="closeH" class="d2 bp"><span class="ln"><span>Trzy kamienie.</span></span><span class="ln"><span>Trzy warstwy ochrony.</span></span><span class="ln"><span><em class="a">Trzy w cenie.</em></span></span></h2>
@@ -1608,6 +1647,7 @@ uniform float uPoolR;
 uniform float uZoom;
 uniform vec3 uBg;
 uniform float uFit;
+uniform float uLeft;
 vec3 permute(vec3 x){ return mod(((x*34.0)+1.0)*x, 289.0); }
 float snoise(vec2 v){
   const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
@@ -1633,7 +1673,10 @@ void main(){
   vec3 ill = texture2D(uIllus, auv).rgb;
   float I = 1.0 - dot(ill, vec3(0.299,0.587,0.114));
   float T = texture2D(uArrive, auv).r + 0.010*snoise(p*24.0 + vec2(uT*3.0, -uT*2.0)) + 0.005*snoise(p*64.0);
-  float hasPool = step(0.001, uPoolR);
+  // spill windows: the drawing is carried in by ink that arrives from the left edge of the page
+  float Tx = clamp(vUv.x*0.95 + 0.05*snoise(vec2(vUv.y*5.0, 1.7)) + 0.02*snoise(p*9.0), 0.0, 1.0);
+  T = mix(T, 0.4*T + 0.6*Tx, uLeft);
+  float hasPool = step(0.001, uPoolR)*(1.0 - uLeft);
   float impact = 0.07*hasPool;
   float flowT = clamp((uT - mix(0.02, 0.10, hasPool))/0.76, 0.0, 1.0);
   float since = flowT - T;
@@ -1667,6 +1710,8 @@ void main(){
   float tailMask = step(0.0, dq2.y)*step(dq2.y, 0.045*fx);
   float dropA = max(smoothstep(0.0015, -0.0015, body), smoothstep(0.0012, -0.0008, tail)*tailMask*0.8);
   col = ink(col, dropA*1.25*hasPool*step(uT, impact)*step(0.0005, uT));
+  float keep = smoothstep(1.0, 0.84, vUv.x)*smoothstep(0.0, 0.06, vUv.y)*smoothstep(1.0, 0.94, vUv.y);
+  col = mix(col, mix(vec3(1.0), col, keep), uLeft);
   gl_FragColor = vec4(col*uBg, 1.0);
 }
 </script>
@@ -1778,6 +1823,53 @@ void main(){
 }
 
 </script>
+<script id="fsSpill" type="x-shader/x-fragment">
+precision highp float;
+varying vec2 vUv;
+uniform vec2 uRes;
+uniform float uT;
+uniform vec3 uPaper;
+uniform float uAlpha;
+uniform float uSeed;
+uniform float uReach;
+vec3 permute(vec3 x){ return mod(((x*34.0)+1.0)*x, 289.0); }
+float snoise(vec2 v){
+  const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
+  vec2 i = floor(v + dot(v, C.yy)); vec2 x0 = v - i + dot(i, C.xx);
+  vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+  vec4 x12 = x0.xyxy + C.xxzz; x12.xy -= i1; i = mod(i, 289.0);
+  vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0)) + i.x + vec3(0.0, i1.x, 1.0));
+  vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0); m = m*m; m = m*m;
+  vec3 x = 2.0*fract(p*C.www) - 1.0; vec3 h = abs(x) - 0.5; vec3 ox = floor(x + 0.5); vec3 a0 = x - ox;
+  m *= 1.79284291400159 - 0.85373472095314*(a0*a0 + h*h);
+  vec3 g; g.x = a0.x*x0.x + h.x*x0.y; g.yz = a0.yz*x12.xz + h.yz*x12.yw;
+  return 130.0*dot(m, g);
+}
+// ink poured in from beyond the left edge of the page: a tongue of navy wash with a darker tide line at its front
+void main(){
+  float casp = uRes.x/uRes.y;
+  vec2 q = vec2(vUv.x*casp, vUv.y);
+  float n1 = snoise(q*vec2(1.1, 1.6) + uSeed), n2 = snoise(q*4.5 + uSeed*2.3), n3 = snoise(q*13.0 - uSeed);
+  float t = clamp(uT, 0.0, 1.0);
+  float front = t*uReach*1.08 + 0.07*n1 + 0.025*n2 + 0.008*n3;
+  float d = front - vUv.x;
+  float inside = smoothstep(-0.004, 0.012, d);
+  // the tongue narrows as it travels right; at the page edge it fills the whole height
+  float span = mix(0.43, 0.2, smoothstep(0.0, uReach, vUv.x)) + 0.045*n1 + 0.02*n2;
+  float band = smoothstep(0.0, 0.07, span - abs(vUv.y - 0.5 - 0.04*n1));
+  float body = pow(1.0 - smoothstep(0.0, max(front, 0.05), vUv.x), 1.25);
+  float tide = exp(-max(d, 0.0)*36.0)*inside*(1.0 - 0.55*smoothstep(0.75, 1.0, t));
+  float gran = 0.5 + 0.5*snoise(gl_FragCoord.xy*vec2(0.21, 0.19) + uSeed*9.0);
+  float dens = inside*band*(0.62*body + 0.42*tide)*(0.82 + 0.3*gran);
+  dens += inside*band*0.07*smoothstep(0.2, 0.9, n2);                 // back-runs inside the pour
+  vec3 T = exp(-vec3(2.3, 1.7, 0.78)*dens*1.35);
+  float a = clamp(1.0 - min(T.r, min(T.g, T.b)), 0.0, 1.0);
+  vec3 target = uPaper*T;
+  vec3 col = a > 0.0005 ? clamp((target - uPaper*(1.0 - a))/a, 0.0, 1.0) : vec3(0.0);
+  a *= uAlpha;
+  gl_FragColor = vec4(col*a, a);
+}
+</script>
 <script>
 const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}", "bead_hem": "{{a:0cb163131868}}", "c_obs": "{{a:b4b18e86f211}}", "c_tig": "{{a:4ef68a296926}}", "c_hem": "{{a:ad599edd461a}}", "p_hero": "{{a:71a5d8e5b521}}", "p_worn": "{{a:f2584b3b8b9b}}", "p_man": "{{a:16fab6362d37}}", "p_detail": "{{a:8800961484d4}}", "p_packshot": "{{a:adb772de4bdb}}", "p_pouch": "{{a:8eebcada7c41}}", "p_ritual": "{{a:99ee65a489f9}}", "p_light": "{{a:db9913aa3450}}", "p_everyday": "{{a:fb291e4199cf}}", "p_variation": "{{a:afb58efbe2be}}", "p_materials": "{{a:e8bb2833649c}}", "p_crystal": "{{a:daf1525db76b}}", "p_journal": "{{a:0dd1a8e40e8d}}", "p_care": "{{a:02318adc73ea}}"};
 /* photos: the first screen gets them at once, every other section a screen or two before it scrolls in */
@@ -1796,7 +1888,7 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
   later.forEach((_, g) => io.observe(g));
 })();
 (() => {
-  const ART = {"hero": {"illus": "{{a:b74a150b7149}}", "arrive": "{{a:daa51e2a67fb}}", "src": [0.49358439522653724, 0.4295631067961165], "focus": [0.49358439522653724, 0.4295631067961165], "pool": 0.072, "zoom": 1.0, "zoomMobile": 1.06, "asp": 0.8}, "obs": {"illus": "{{a:90f9e8e27d68}}", "arrive": "{{a:1692afd0a62e}}", "src": [0.715, 0.655], "focus": [0.47, 0.56], "pool": 0.05, "zoom": 1.14, "zoomMobile": 1.16, "asp": 0.8}, "tig": {"illus": "{{a:11be21f451fc}}", "arrive": "{{a:d63fd1ce4b9d}}", "src": [0.64, 0.57], "focus": [0.52, 0.53], "pool": 0.05, "zoom": 1.18, "zoomMobile": 1.2, "asp": 0.8}, "hem": {"illus": "{{a:b6cf4a51ce72}}", "arrive": "{{a:3d310288bfa5}}", "src": [0.585, 0.515], "focus": [0.52, 0.5], "pool": 0.05, "zoom": 1.14, "zoomMobile": 1.16, "asp": 0.8}, "hands": {"illus": "{{a:4cc7630f65b3}}", "arrive": "{{a:447ca38af83a}}", "src": [0.5094809957069926, 0.5743758702042079], "focus": [0.5, 0.5], "pool": 0.055, "zoom": 1.02, "zoomMobile": 1.08, "asp": 0.8}, "ochre": {"illus": "{{a:8d9df3bcf5da}}", "arrive": "{{a:09f651c14a59}}", "src": [0.6378682086124186, 0.62857587346126], "focus": [0.5, 0.5], "pool": 0.045, "zoom": 1.12, "zoomMobile": 1.12, "asp": 0.8}, "shells": {"illus": "{{a:02d75157ee54}}", "arrive": "{{a:a8646b4524f0}}", "src": [0.4695660354454965, 0.5792143724204905], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1.08, "zoomMobile": 1.08, "asp": 0.8}, "wedjat": {"illus": "{{a:48c990514bd0}}", "arrive": "{{a:27b25b114697}}", "src": [0.5145926018495376, 0.4966953261684579], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1.3, "zoomMobile": 1.3, "asp": 0.8}, "seal": {"illus": "{{a:28b7aad49b6c}}", "arrive": "{{a:cc94f925c189}}", "src": [0.380255016722408, 0.5606655518394649], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1.18, "zoomMobile": 1.18, "asp": 0.8}, "bulla": {"illus": "{{a:75a8889caec1}}", "arrive": "{{a:634f91132b6c}}", "src": [0.4688098747236551, 0.5363483173667404], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1.18, "zoomMobile": 1.18, "asp": 0.8}, "lunula": {"illus": "{{a:e3c55e2b8a83}}", "arrive": "{{a:d344d1025539}}", "src": [0.4991355721393035, 0.5645], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1.18, "zoomMobile": 1.18, "asp": 0.8}, "ribbon": {"illus": "{{a:28bbc38ef88c}}", "arrive": "{{a:f101716283f4}}", "src": [0.5478535044394289, 0.4893547541162902], "focus": [0.5, 0.5], "pool": 0.04, "zoom": 1.08, "zoomMobile": 1.08, "asp": 0.8}, "measure": {"illus": "{{a:c20b64c61d3d}}", "arrive": "{{a:4260649a0cd5}}", "src": [0.404592606330366, 0.5591216617210683], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1.25, "zoomMobile": 1.25, "asp": 0.8}, "pouch": {"illus": "{{a:7460160a40be}}", "arrive": "{{a:8679fa99a02f}}", "src": [0.3378716968832129, 0.6451456759198424], "focus": [0.5, 0.52], "pool": 0.04, "zoom": 1.25, "zoomMobile": 1.25, "asp": 0.8}, "pass": {"illus": "{{a:d3c1af02dea3}}", "arrive": "{{a:3b96fa7a060e}}", "src": [0.45534537546860354, 0.5140628660965323], "focus": [0.5, 0.5], "pool": 0.06, "zoom": 1.04, "zoomMobile": 1.04, "asp": 0.8}, "broken": {"illus": "{{a:3aa5c0ddee4b}}", "arrive": "{{a:e9ef045eef2b}}", "src": [0.4653956808551618, 0.4271855739599384], "focus": [0.5, 0.5], "pool": 0.05, "zoom": 1.1, "zoomMobile": 1.1, "asp": 0.8}, "three": {"illus": "{{a:bc08922c6882}}", "arrive": "{{a:d4cc6ce57955}}", "src": [0.4482421875, 0.2177734375], "focus": [0.5, 0.5], "pool": 0.035, "zoom": 1.0, "zoomMobile": 1.0, "asp": 1.0}, "b_obs": {"illus": "{{a:dec6e822f35d}}", "arrive": "{{a:ff5c76c84bee}}", "src": [0.5, 0.4700811359026369], "focus": [0.5, 0.5], "pool": 0.06, "zoom": 1.25, "zoomMobile": 1.25, "asp": 1.0}, "b_tig": {"illus": "{{a:f68f444873ab}}", "arrive": "{{a:f85077d941bb}}", "src": [0.5, 0.470736629667003], "focus": [0.5, 0.5], "pool": 0.06, "zoom": 1.25, "zoomMobile": 1.25, "asp": 1.0}, "b_hem": {"illus": "{{a:8c806b06c456}}", "arrive": "{{a:c2a821c665e5}}", "src": [0.5005307855626328, 0.470276008492569], "focus": [0.5, 0.5], "pool": 0.06, "zoom": 1.25, "zoomMobile": 1.25, "asp": 1.0}, "n1": {"illus": "{{a:7fc03c5bd82e}}", "arrive": "{{a:caf256ea847b}}", "src": [0.4227467811158798, 0.10638297872340426], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 0.762684124386252, "fit": 1}, "n2": {"illus": "{{a:cc8060d5ddd5}}", "arrive": "{{a:81b301a50aa0}}", "src": [0.30295566502463056, 0.10801963993453355], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 1.3289689034369885, "fit": 1}, "n3": {"illus": "{{a:b32667824b9d}}", "arrive": "{{a:fe5d962fe1e1}}", "src": [0.2553925798101812, 0.10638297872340426], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 1.8968903436988542, "fit": 1}, "n4": {"illus": "{{a:1b20d6b5bda2}}", "arrive": "{{a:3ec03ef22a52}}", "src": [0.2542808219178082, 0.10894308943089431], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 1.8991869918699187, "fit": 1}, "n5": {"illus": "{{a:c5e9cd954353}}", "arrive": "{{a:20dd43c3418d}}", "src": [0.2542579075425791, 0.10423452768729642], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 1.3387622149837133, "fit": 1}, "n6": {"illus": "{{a:cf0280841f47}}", "arrive": "{{a:e0f2a8749ce6}}", "src": [0.22571942446043167, 0.1040650406504065], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 1.808130081300813, "fit": 1}, "u1": {"illus": "{{a:74498aa81e36}}", "arrive": "{{a:85fa559846a2}}", "src": [0.03, 0.43999999999999995], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 12.5, "fit": 1}, "u2": {"illus": "{{a:ce0025c75cd6}}", "arrive": "{{a:a25409ed0ec1}}", "src": [0.03, 0.43999999999999995], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 12.5, "fit": 1}, "u3": {"illus": "{{a:037385a65d15}}", "arrive": "{{a:d6ccd671b970}}", "src": [0.03, 0.43999999999999995], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 12.5, "fit": 1}, "w_swash_o": {"illus": "{{a:f457df9ff615}}", "arrive": "{{a:6f7ead99ab5c}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 3.9473684210526314, "fit": 1}, "w_swash_s": {"illus": "{{a:44b8940935e4}}", "arrive": "{{a:1521477b4391}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 3.9473684210526314, "fit": 1}, "w_swash_r": {"illus": "{{a:f15f749abf1d}}", "arrive": "{{a:6062732c0a60}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 3.9473684210526314, "fit": 1}, "w_bloom_o": {"illus": "{{a:816d491cdabf}}", "arrive": "{{a:372d255d3b4f}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 1.0, "fit": 1}, "w_bloom_s": {"illus": "{{a:c5f700da1b53}}", "arrive": "{{a:89526d8ec4cf}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 1.0, "fit": 1}, "w_bloom_r": {"illus": "{{a:4926de4f38f2}}", "arrive": "{{a:18b4e47ffc95}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 1.0, "fit": 1}, "w_enso_s": {"illus": "{{a:4e828b3a6184}}", "arrive": "{{a:d8a313743b15}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 1.0, "fit": 1}, "w_enso_o": {"illus": "{{a:dc59892e67a7}}", "arrive": "{{a:d8a313743b15}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 1.0, "fit": 1}, "w_dab_o": {"illus": "{{a:83728ecae2b0}}", "arrive": "{{a:ae0c1449df08}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 1.5555555555555556, "fit": 1}, "w_dab_s": {"illus": "{{a:fdec59dc2dac}}", "arrive": "{{a:89060d36c7a6}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 1.5555555555555556, "fit": 1}, "w_dab_r": {"illus": "{{a:9da308d85347}}", "arrive": "{{a:323af51acdfe}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 1.5555555555555556, "fit": 1}, "w_hl": {"illus": "{{a:68d1dfcd0bdd}}", "arrive": "{{a:9f3a1cfcd192}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 10.0, "fit": 1}, "g_obs": {"illus": "{{a:37ec04fb7ea2}}", "arrive": "{{a:763fd118cb4f}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 0.8, "fit": 1}, "g_tig": {"illus": "{{a:ecf664e8816d}}", "arrive": "{{a:944aef7b46b5}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 0.8, "fit": 1}, "g_hem": {"illus": "{{a:b404b378cc99}}", "arrive": "{{a:657fcfea8bf2}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 0.8, "fit": 1}, "g_st_o": {"illus": "{{a:1d87e7184818}}", "arrive": "{{a:557e92f5ef7e}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 0.8, "fit": 1}, "g_st_s": {"illus": "{{a:d1cb900df2a3}}", "arrive": "{{a:aaa782e4db49}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 0.8, "fit": 1}, "g_st_r": {"illus": "{{a:00f3c4dc672e}}", "arrive": "{{a:c4c37ff9d685}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 0.8, "fit": 1}, "e_band": {"illus": "{{a:ffa60a329904}}", "arrive": "{{a:fe8666247344}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 12.0, "fit": 1}}, PAINT = {"paint_a": "{{a:a9db3b26d11d}}", "paint_b": "{{a:87188bf827fc}}"};
+  const ART = {"hero": {"illus": "{{a:b74a150b7149}}", "arrive": "{{a:daa51e2a67fb}}", "src": [0.49358439522653724, 0.4295631067961165], "focus": [0.49358439522653724, 0.4295631067961165], "pool": 0.072, "zoom": 1.12, "zoomMobile": 1.12, "asp": 0.8}, "obs": {"illus": "{{a:90f9e8e27d68}}", "arrive": "{{a:1692afd0a62e}}", "src": [0.715, 0.655], "focus": [0.44, 0.54], "pool": 0.05, "zoom": 1.06, "zoomMobile": 1.2, "asp": 0.8}, "tig": {"illus": "{{a:11be21f451fc}}", "arrive": "{{a:d63fd1ce4b9d}}", "src": [0.64, 0.57], "focus": [0.46, 0.52], "pool": 0.05, "zoom": 1.1, "zoomMobile": 1.24, "asp": 0.8}, "hem": {"illus": "{{a:b6cf4a51ce72}}", "arrive": "{{a:3d310288bfa5}}", "src": [0.585, 0.515], "focus": [0.46, 0.5], "pool": 0.05, "zoom": 1.06, "zoomMobile": 1.2, "asp": 0.8}, "hands": {"illus": "{{a:4cc7630f65b3}}", "arrive": "{{a:447ca38af83a}}", "src": [0.5094809957069926, 0.5743758702042079], "focus": [0.5, 0.5], "pool": 0.055, "zoom": 1.08, "zoomMobile": 1.12, "asp": 0.8}, "ochre": {"illus": "{{a:8d9df3bcf5da}}", "arrive": "{{a:09f651c14a59}}", "src": [0.6378682086124186, 0.62857587346126], "focus": [0.5, 0.5], "pool": 0.045, "zoom": 1.45, "zoomMobile": 1.3, "asp": 0.8}, "shells": {"illus": "{{a:02d75157ee54}}", "arrive": "{{a:a8646b4524f0}}", "src": [0.4695660354454965, 0.5792143724204905], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1.5, "zoomMobile": 1.3, "asp": 0.8}, "wedjat": {"illus": "{{a:48c990514bd0}}", "arrive": "{{a:27b25b114697}}", "src": [0.5145926018495376, 0.4966953261684579], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1.55, "zoomMobile": 1.45, "asp": 0.8}, "seal": {"illus": "{{a:28b7aad49b6c}}", "arrive": "{{a:cc94f925c189}}", "src": [0.380255016722408, 0.5606655518394649], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1.45, "zoomMobile": 1.32, "asp": 0.8}, "bulla": {"illus": "{{a:75a8889caec1}}", "arrive": "{{a:634f91132b6c}}", "src": [0.4688098747236551, 0.5363483173667404], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1.45, "zoomMobile": 1.32, "asp": 0.8}, "lunula": {"illus": "{{a:e3c55e2b8a83}}", "arrive": "{{a:d344d1025539}}", "src": [0.4991355721393035, 0.5645], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1.45, "zoomMobile": 1.32, "asp": 0.8}, "ribbon": {"illus": "{{a:28bbc38ef88c}}", "arrive": "{{a:f101716283f4}}", "src": [0.5478535044394289, 0.4893547541162902], "focus": [0.5, 0.5], "pool": 0.04, "zoom": 1.35, "zoomMobile": 1.2, "asp": 0.8}, "measure": {"illus": "{{a:c20b64c61d3d}}", "arrive": "{{a:4260649a0cd5}}", "src": [0.404592606330366, 0.5591216617210683], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1.25, "zoomMobile": 1.25, "asp": 0.8}, "pouch": {"illus": "{{a:7460160a40be}}", "arrive": "{{a:8679fa99a02f}}", "src": [0.3378716968832129, 0.6451456759198424], "focus": [0.5, 0.52], "pool": 0.04, "zoom": 1.3, "zoomMobile": 1.3, "asp": 0.8}, "pass": {"illus": "{{a:d3c1af02dea3}}", "arrive": "{{a:3b96fa7a060e}}", "src": [0.45534537546860354, 0.5140628660965323], "focus": [0.5, 0.5], "pool": 0.06, "zoom": 1.12, "zoomMobile": 1.1, "asp": 0.8}, "broken": {"illus": "{{a:3aa5c0ddee4b}}", "arrive": "{{a:e9ef045eef2b}}", "src": [0.4653956808551618, 0.4271855739599384], "focus": [0.5, 0.5], "pool": 0.05, "zoom": 1.18, "zoomMobile": 1.16, "asp": 0.8}, "three": {"illus": "{{a:bc08922c6882}}", "arrive": "{{a:d4cc6ce57955}}", "src": [0.4482421875, 0.2177734375], "focus": [0.5, 0.5], "pool": 0.035, "zoom": 1.0, "zoomMobile": 1.0, "asp": 1.0}, "b_obs": {"illus": "{{a:dec6e822f35d}}", "arrive": "{{a:ff5c76c84bee}}", "src": [0.5, 0.4700811359026369], "focus": [0.5, 0.5], "pool": 0.06, "zoom": 1.25, "zoomMobile": 1.25, "asp": 1.0}, "b_tig": {"illus": "{{a:f68f444873ab}}", "arrive": "{{a:f85077d941bb}}", "src": [0.5, 0.470736629667003], "focus": [0.5, 0.5], "pool": 0.06, "zoom": 1.25, "zoomMobile": 1.25, "asp": 1.0}, "b_hem": {"illus": "{{a:8c806b06c456}}", "arrive": "{{a:c2a821c665e5}}", "src": [0.5005307855626328, 0.470276008492569], "focus": [0.5, 0.5], "pool": 0.06, "zoom": 1.25, "zoomMobile": 1.25, "asp": 1.0}, "n1": {"illus": "{{a:7fc03c5bd82e}}", "arrive": "{{a:caf256ea847b}}", "src": [0.4227467811158798, 0.10638297872340426], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 0.762684124386252, "fit": 1}, "n2": {"illus": "{{a:cc8060d5ddd5}}", "arrive": "{{a:81b301a50aa0}}", "src": [0.30295566502463056, 0.10801963993453355], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 1.3289689034369885, "fit": 1}, "n3": {"illus": "{{a:b32667824b9d}}", "arrive": "{{a:fe5d962fe1e1}}", "src": [0.2553925798101812, 0.10638297872340426], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 1.8968903436988542, "fit": 1}, "n4": {"illus": "{{a:1b20d6b5bda2}}", "arrive": "{{a:3ec03ef22a52}}", "src": [0.2542808219178082, 0.10894308943089431], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 1.8991869918699187, "fit": 1}, "n5": {"illus": "{{a:c5e9cd954353}}", "arrive": "{{a:20dd43c3418d}}", "src": [0.2542579075425791, 0.10423452768729642], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 1.3387622149837133, "fit": 1}, "n6": {"illus": "{{a:cf0280841f47}}", "arrive": "{{a:e0f2a8749ce6}}", "src": [0.22571942446043167, 0.1040650406504065], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 1.808130081300813, "fit": 1}, "u1": {"illus": "{{a:74498aa81e36}}", "arrive": "{{a:85fa559846a2}}", "src": [0.03, 0.43999999999999995], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 12.5, "fit": 1}, "u2": {"illus": "{{a:ce0025c75cd6}}", "arrive": "{{a:a25409ed0ec1}}", "src": [0.03, 0.43999999999999995], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 12.5, "fit": 1}, "u3": {"illus": "{{a:037385a65d15}}", "arrive": "{{a:d6ccd671b970}}", "src": [0.03, 0.43999999999999995], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 12.5, "fit": 1}, "w_swash_o": {"illus": "{{a:f457df9ff615}}", "arrive": "{{a:6f7ead99ab5c}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 3.9473684210526314, "fit": 1}, "w_swash_s": {"illus": "{{a:44b8940935e4}}", "arrive": "{{a:1521477b4391}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 3.9473684210526314, "fit": 1}, "w_swash_r": {"illus": "{{a:f15f749abf1d}}", "arrive": "{{a:6062732c0a60}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 3.9473684210526314, "fit": 1}, "w_bloom_o": {"illus": "{{a:816d491cdabf}}", "arrive": "{{a:372d255d3b4f}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 1.0, "fit": 1}, "w_bloom_s": {"illus": "{{a:c5f700da1b53}}", "arrive": "{{a:89526d8ec4cf}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 1.0, "fit": 1}, "w_bloom_r": {"illus": "{{a:4926de4f38f2}}", "arrive": "{{a:18b4e47ffc95}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 1.0, "fit": 1}, "w_enso_s": {"illus": "{{a:4e828b3a6184}}", "arrive": "{{a:d8a313743b15}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 1.0, "fit": 1}, "w_enso_o": {"illus": "{{a:dc59892e67a7}}", "arrive": "{{a:d8a313743b15}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 1.0, "fit": 1}, "w_dab_o": {"illus": "{{a:83728ecae2b0}}", "arrive": "{{a:ae0c1449df08}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 1.5555555555555556, "fit": 1}, "w_dab_s": {"illus": "{{a:fdec59dc2dac}}", "arrive": "{{a:89060d36c7a6}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 1.5555555555555556, "fit": 1}, "w_dab_r": {"illus": "{{a:9da308d85347}}", "arrive": "{{a:323af51acdfe}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 1.5555555555555556, "fit": 1}, "w_hl": {"illus": "{{a:68d1dfcd0bdd}}", "arrive": "{{a:9f3a1cfcd192}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 10.0, "fit": 1}, "g_obs": {"illus": "{{a:37ec04fb7ea2}}", "arrive": "{{a:763fd118cb4f}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 0.8, "fit": 1}, "g_tig": {"illus": "{{a:ecf664e8816d}}", "arrive": "{{a:944aef7b46b5}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 0.8, "fit": 1}, "g_hem": {"illus": "{{a:b404b378cc99}}", "arrive": "{{a:657fcfea8bf2}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 0.8, "fit": 1}, "g_st_o": {"illus": "{{a:1d87e7184818}}", "arrive": "{{a:557e92f5ef7e}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 0.8, "fit": 1}, "g_st_s": {"illus": "{{a:d1cb900df2a3}}", "arrive": "{{a:aaa782e4db49}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 0.8, "fit": 1}, "g_st_r": {"illus": "{{a:00f3c4dc672e}}", "arrive": "{{a:c4c37ff9d685}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 0.8, "fit": 1}, "e_band": {"illus": "{{a:ffa60a329904}}", "arrive": "{{a:fe8666247344}}", "src": [0.5, 0.5], "focus": [0.5, 0.5], "pool": 0.0, "zoom": 1, "zoomMobile": 1, "asp": 12.0, "fit": 1}}, PAINT = {"paint_a": "{{a:a9db3b26d11d}}", "paint_b": "{{a:87188bf827fc}}"};
   const HAND = {
     l: ['Lewa ręka — przyjmująca', 'W tradycji lewa strona jest „przyjmująca”: talizman na lewej ręce ma chronić przed tym, co przychodzi z zewnątrz, i wspierać spokój. Nie wiesz, którą wybrać? Zacznij od lewej. Tak zaczyna większość osób.'],
     r: ['Prawa ręka — dająca', 'Prawa strona jest „dająca”: wzmacnia to, co Ty wysyłasz w świat — odwagę, działanie, pewność siebie. Po kilku tygodniach spróbuj prawej i sprawdź, na której czujesz się lepiej.']
@@ -1846,11 +1938,12 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
       if(!gl.getProgramParameter(pr, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(pr));
       const U = {}; names.forEach(n => U[n] = gl.getUniformLocation(pr, n)); return { pr, U };
     };
-    let INK, PNT, WSH;
+    let INK, PNT, WSH, SPL;
     try {
-      INK = mk('fs', ['uIllus','uArrive','uRes','uArtAsp','uFocus','uSrc','uT','uPoolR','uZoom','uBg','uFit']);
+      INK = mk('fs', ['uIllus','uArrive','uRes','uArtAsp','uFocus','uSrc','uT','uPoolR','uZoom','uBg','uFit','uLeft']);
       PNT = mk('fsPaint', ['uPhoto','uArrive','uRes','uAsp','uFocus','uT','uFlip','uBg','uLine']);
       WSH = mk('fsWash', ['uIllus','uArrive','uRes','uArtAsp','uT','uFit','uPaper','uAlpha','uTint','uUseTint','uFlip']);
+      SPL = mk('fsSpill', ['uRes','uT','uPaper','uAlpha','uSeed','uReach']);
     } catch(e){ console.warn(e); return null; }
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
@@ -1865,7 +1958,8 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
       prepare(key){
         if(cache.has(key)) return cache.get(key);
         let p;
-        if(key.includes('|')){ const [ph, map] = key.split('|'); p = Promise.all([load(IMG[ph]), load(PAINT[map])]).then(([i, r]) => ({ type:'paint', i: tex(i), r: tex(r), asp: i.width/i.height })); }
+        if(key === '__spill') p = Promise.resolve({ type:'spill' });
+        else if(key.includes('|')){ const [ph, map] = key.split('|'); p = Promise.all([load(IMG[ph]), load(PAINT[map])]).then(([i, r]) => ({ type:'paint', i: tex(i), r: tex(r), asp: i.width/i.height })); }
         else { const a = ART[key]; p = Promise.all([load(a.illus), load(a.arrive)]).then(([i, r]) => ({ type:'art', i: tex(i), r: tex(r), a })); }
         cache.set(key, p); return p;
       },
@@ -1875,6 +1969,14 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
         const w = plate.cw, h = plate.ch; if(!w || !h) return;
         if(cv.width < w || cv.height < h){ cv.width = Math.max(cv.width, w); cv.height = Math.max(cv.height, h); }
         gl.viewport(0, 0, w, h);
+        if(e.type === 'spill'){
+          const U = SPL.U; gl.useProgram(SPL.pr);
+          gl.uniform2f(U.uRes, w, h); gl.uniform1f(U.uT, plate.t); gl.uniform3fv(U.uPaper, plate.paper());
+          gl.uniform1f(U.uAlpha, plate.alpha); gl.uniform1f(U.uSeed, plate.seed); gl.uniform1f(U.uReach, plate.reach);
+          gl.drawArrays(gl.TRIANGLES, 0, 3);
+          plate.ctx.clearRect(0, 0, w, h); plate.ctx.drawImage(cv, 0, cv.height - h, w, h, 0, 0, w, h);
+          return;
+        }
         gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, e.i);
         gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, e.r);
         if(e.type === 'paint'){
@@ -1891,6 +1993,7 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
           gl.uniform2f(U.uRes, w, h); gl.uniform2f(U.uFocus, a.focus[0], a.focus[1]); gl.uniform2f(U.uSrc, a.src[0], a.src[1]);
           gl.uniform1f(U.uPoolR, a.pool); gl.uniform1f(U.uT, plate.t); gl.uniform1f(U.uArtAsp, a.asp || 0.8);
           gl.uniform1f(U.uZoom, (mobile() ? a.zoomMobile : a.zoom) || 1); gl.uniform3fv(U.uBg, plate.bg); gl.uniform1f(U.uFit, a.fit || 0);
+          gl.uniform1f(U.uLeft, plate.left);
         }
         gl.drawArrays(gl.TRIANGLES, 0, 3);
         plate.ctx.clearRect(0, 0, w, h);
@@ -1917,9 +2020,10 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
       this.from = d.from ? +d.from : 0.95; this.to = d.to ? +d.to : 0.45;
       this.at = d.at ? +d.at : 0.86; this.dur = d.dur ? +d.dur : 1600; this.delay = d.delay ? +d.delay : 0;
       this.lead = d.lead ? +d.lead : 1; this.intro = d.intro ? +d.intro : 0.16;
+      this.left = d.left ? +d.left : 0; this.seed = d.seed ? +d.seed : 1; this.reach = d.reach ? +d.reach : 0.6;
       this.canvas = el.querySelector('canvas'); this.ctx = this.canvas.getContext('2d'); this.dirty = true; this.visible = false;
       this.hs = !!el.closest('.beats'); this.near = false; el.__plate = this; nearIO.observe(el);   // lives in a swipe deck on phones: paint only once the card is in front
-      this.dprMax = this.photo ? 1.5 : (this.kind === 'wash' && !el.classList.contains('num') && !el.classList.contains('ul') ? 1.25 : 2);
+      this.dprMax = this.kind === 'spill' ? 1 : this.photo ? 1.5 : (this.kind === 'wash' && !el.classList.contains('num') && !el.classList.contains('ul') ? 1.25 : 2);
       new ResizeObserver(() => { this.resize(); this.dirty = true; }).observe(el);
       new IntersectionObserver(es => es.forEach(e => {
         this.visible = e.isIntersecting;
@@ -1953,6 +2057,15 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
     Object.assign(u.el.style, { left: (er.left - hr.left - fs*0.05) + 'px', top: (er.bottom - hr.top - fs*0.2) + 'px', width: (er.width + fs*0.12) + 'px', height: (fs*0.19) + 'px' });
   }));
 
+  /* spill windows: a pour of navy ink comes in from the left edge of the page under every illustration */
+  if(R) document.querySelectorAll('.spill').forEach((w, i) => {
+    const el = document.createElement('div'); el.className = 'ink spillink'; el.setAttribute('aria-hidden', 'true');
+    Object.assign(el.dataset, { art: '__spill', kind: 'spill', mode: w.dataset.spillMode || 'scroll', lead: w.dataset.spillLead || '1.7', seed: String(1.3 + i*2.71), reach: w.dataset.reach || '.58', alpha: w.dataset.spillAlpha || '.9' });
+    el.dataset.paper = '#ffffff';                     // the window multiplies onto the page, so washes inside are mixed against white
+    w.querySelectorAll('.gr').forEach(g => { g.dataset.paper = '#ffffff'; });
+    el.innerHTML = '<canvas></canvas>'; w.prepend(el);
+    w.querySelectorAll('.ink[data-art]:not(.gr):not(.spillink):not(.paint)').forEach(x => { if(!x.dataset.left) x.dataset.left = '1'; });
+  });
   const plates = R ? [...document.querySelectorAll('.ink[data-art]')].map(el => new Plate(el)) : [];
   const plateOf = el => plates.find(p => p.el === el);
   heads.forEach(H => H.uls.forEach(u => u.plate = plateOf(u.el)));
