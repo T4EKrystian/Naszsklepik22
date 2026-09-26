@@ -63,6 +63,8 @@ const inPage = () => {
   const push = el => { const r = el.getBoundingClientRect(); boxes.push([r.top + scrollY, r.bottom + scrollY]); };
   owners.forEach(el => { if (visible(el) && el.closest('main, footer, .ann, .top')) push(el); });
   document.querySelectorAll('main img, footer img, main .ink:not(.deco):not(.edge):not(.hlp):not(.ul), main button, main input').forEach(el => { if (visible(el)) push(el); });
+  // a pinned (sticky) element is on screen across the whole block it sticks in
+  document.querySelectorAll('main *').forEach(el => { if (getComputedStyle(el).position === 'sticky' && visible(el)) { const q = el.parentElement.getBoundingClientRect(); boxes.push([q.top + scrollY, q.bottom + scrollY]); } });
   boxes.sort((x, y) => x[0] - y[0]);
   let reach = 0;
   const main = document.querySelector('main'), mainTop = main.getBoundingClientRect().top + scrollY;
@@ -104,14 +106,14 @@ const inPage = () => {
     if (v.mobile) {
       Object.assign(r, { STAGE: [], THREAD: [], CURTAIN: [], GESTURE: [] });
       const top = sel => page.evaluate(q => { const el = document.querySelector(q); return el ? el.getBoundingClientRect().top + scrollY : null; }, sel);
-      // the illustration stays on screen while its chapter is read
-      for (const [ch, art] of [['#rozdzial-2', '#rozdzial-2 .arch'], ['#rozdzial-3', '#rozdzial-3 .arch'], ['#rozdzial-4', '#rozdzial-4 .arch'], ['#rozdzial-6', '#rozdzial-6 .wear__art']]) {
+      // the illustration stays on screen, full width, while its chapter is read
+      for (const [ch, art] of [['#scrolly', '#scrolly .scrolly__frame'], ['#rozdzial-2', '#rozdzial-2 .arch'], ['#rozdzial-3', '#rozdzial-3 .arch'], ['#rozdzial-4', '#rozdzial-4 .arch'], ['#rozdzial-6', '#rozdzial-6 .wear__art']]) {
         const t0 = await top(ch), h = await page.evaluate(q => document.querySelector(q).offsetHeight, ch);
         let seen = 0, n = 0;
         for (let k = 1; k < 10; k++) {
           await page.evaluate(y => window.scrollTo(0, y), Math.round(t0 + h * k / 10 - v.height / 2));
           await page.waitForTimeout(60);
-          const vis = await page.evaluate(q => { const r = document.querySelector(q).getBoundingClientRect(); return (Math.min(r.bottom, innerHeight) - Math.max(r.top, 0)) / innerHeight; }, art);
+          const vis = await page.evaluate(q => { const r = document.querySelector(q).getBoundingClientRect(); return r.width < innerWidth * 0.6 ? 0 : (Math.min(r.bottom, innerHeight) - Math.max(r.top, 0)) / innerHeight; }, art);
           n++; if (vis >= 0.35) seen++;
         }
         if (seen / n < 0.7) r.STAGE.push(`${ch}: illustration on screen in ${seen}/${n} samples`);
