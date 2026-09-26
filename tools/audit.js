@@ -1,0 +1,117 @@
+// DOM audit for a single-file draft. Exit code = number of failing categories.
+// Usage: node tools/audit.js <file.html>
+const path = require('path');
+const { chromium } = require(process.env.PW || '/opt/node22/lib/node_modules/playwright');
+
+const file = path.resolve(process.argv[2]);
+const LIMITS = { SMALL: 0, BODY: 0, CONTRAST: 0, DASH: 0, EYEBROWS: 12, GAPS: 0, HOVERBAR: 0, JSERR: 0 };
+const VIEWS = [{ name: 'desktop', width: 1440, height: 900, mobile: false }, { name: 'mobile', width: 390, height: 844, mobile: true }];
+
+const inPage = () => {
+  const EXCLUDE = 'script,style,[hidden],[aria-hidden="true"],.sheet,.drawer,.lb,.tocp,.toast,.fly,.wbead';
+  const lum = c => {
+    const m = c.match(/[\d.]+/g).map(Number);
+    const f = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+    return 0.2126 * f(m[0]) + 0.7152 * f(m[1]) + 0.0722 * f(m[2]);
+  };
+  const bgOf = el => {
+    for (let e = el; e; e = e.parentElement) {
+      const c = getComputedStyle(e).backgroundColor, m = c.match(/[\d.]+/g);
+      if (m && (m.length < 4 || +m[3] > 0.5)) return c;
+    }
+    return 'rgb(251,245,235)';
+  };
+  const label = el => (el.className && typeof el.className === 'string' ? '.' + el.className.trim().split(/\s+/).join('.') : el.tagName.toLowerCase());
+  const visible = el => {
+    if (el.closest(EXCLUDE)) return false;
+    const cs = getComputedStyle(el);
+    if (cs.visibility === 'hidden' || cs.display === 'none' || +cs.opacity === 0) return false;
+    const r = el.getBoundingClientRect();
+    return r.width > 0 && r.height > 0;
+  };
+  const out = { SMALL: [], BODY: [], CONTRAST: [], DASH: [], EYEBROWS: [], GAPS: [], HOVERBAR: [] };
+  const W = innerWidth, VH = innerHeight;
+
+  // text checks: every element that owns a non-empty text node
+  const owners = new Set();
+  const tw = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  while (tw.nextNode()) { const t = tw.currentNode; if (t.textContent.trim()) owners.add(t.parentElement); }
+  owners.forEach(el => {
+    if (!visible(el)) return;
+    const cs = getComputedStyle(el), fs = parseFloat(cs.fontSize), txt = [...el.childNodes].filter(n => n.nodeType === 3).map(n => n.textContent).join('').trim();
+    if (fs < 13) out.SMALL.push(`${label(el)} ${fs}px "${txt.slice(0, 40)}"`);
+    if (el.tagName === 'P' && el.closest('main') && fs < 16) out.BODY.push(`${label(el)} ${fs}px "${txt.slice(0, 40)}"`);
+    const a = lum(cs.color), b = lum(bgOf(el)), cr = (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+    const big = fs >= 24 || (fs >= 18.5 && +cs.fontWeight >= 600);
+    if (cr < (big ? 3 : 4.5)) out.CONTRAST.push(`${label(el)} ${fs}px cr=${cr.toFixed(2)} "${txt.slice(0, 40)}"`);
+    const d = (txt.match(/[–—]/g) || []).length;
+    if (d) out.DASH.push(`${label(el)} x${d} "${txt.slice(0, 50)}"`);
+  });
+  // dashes hidden in script strings (toasts, captions, quotes shown later)
+  document.querySelectorAll('script:not([type])').forEach(s => {
+    const lines = s.textContent.split('\n').filter(l => /[–—]/.test(l) && !/^\s*(\/\/|\/\*)/.test(l));
+    lines.forEach(l => out.DASH.push('script: ' + l.trim().slice(0, 70)));
+  });
+
+  document.querySelectorAll('main .eyebrow').forEach(e => { if (visible(e)) out.EYEBROWS.push(e.textContent.trim().slice(0, 40)); });
+
+  // vertical gaps: document ranges no visible content covers
+  const boxes = [];
+  const pin = document.getElementById('pricePin');
+  const pr = pin ? [pin.getBoundingClientRect().top + scrollY, pin.getBoundingClientRect().bottom + scrollY] : [0, 0];
+  const push = el => { const r = el.getBoundingClientRect(); boxes.push([r.top + scrollY, r.bottom + scrollY]); };
+  owners.forEach(el => { if (visible(el) && el.closest('main, footer, .ann, .top')) push(el); });
+  document.querySelectorAll('main img, footer img, main .ink:not(.deco):not(.edge):not(.hlp):not(.ul), main button, main input').forEach(el => { if (visible(el)) push(el); });
+  boxes.sort((x, y) => x[0] - y[0]);
+  let reach = 0;
+  const main = document.querySelector('main'), mainTop = main.getBoundingClientRect().top + scrollY;
+  reach = mainTop;
+  boxes.forEach(([t, b]) => {
+    if (t - reach > VH * 0.45 && !(t <= pr[1] && reach >= pr[0] - 1)) out.GAPS.push(`${Math.round(reach)}..${Math.round(t)} (${Math.round((t - reach) / VH * 100)}vh)`);
+    reach = Math.max(reach, b);
+  });
+  return out;
+};
+
+(async () => {
+  const browser = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
+  const fails = {};
+  for (const v of VIEWS) {
+    const ctx = await browser.newContext({ viewport: { width: v.width, height: v.height }, isMobile: v.mobile, hasTouch: v.mobile });
+    const page = await ctx.newPage();
+    const errs = [];
+    page.on('pageerror', e => errs.push(e.message));
+    await page.goto('file://' + file, { waitUntil: 'load', timeout: 180000 });
+    await page.waitForTimeout(1500);
+    await page.evaluate(() => {
+      window.__ink && window.__ink.snap(true);
+      document.querySelectorAll('.fade').forEach(e => e.classList.add('in'));
+      document.querySelectorAll('main details').forEach(d => { d.open = true; });
+    });
+    await page.waitForTimeout(400);
+    const r = await page.evaluate(inPage);
+    // buy bar: on desktop it must sit in the right third, clear of centred copy
+    if (!v.mobile) {
+      const H = await page.evaluate(() => document.documentElement.scrollHeight);
+      for (let i = 1; i <= 12; i++) {
+        await page.evaluate(y => window.scrollTo(0, y), Math.round(H * i / 13));
+        await page.waitForTimeout(120);
+        const b = await page.evaluate(() => { const el = document.getElementById('bar'); if (!el || !el.classList.contains('on')) return null; const q = el.getBoundingClientRect(); return { l: q.left, w: innerWidth }; });
+        if (b && b.l < b.w * 0.6) { r.HOVERBAR.push(`bar left=${Math.round(b.l)} at y=${Math.round(H * i / 13)}`); break; }
+      }
+    }
+    r.JSERR = errs;
+    console.log(`\n=== ${v.name} ${v.width}x${v.height} ===`);
+    for (const k of Object.keys(LIMITS)) {
+      const list = r[k] || [], n = list.length, bad = n > LIMITS[k];
+      if (bad) fails[k] = true;
+      console.log(`${bad ? 'FAIL' : 'ok  '} ${k.padEnd(9)} ${n} (limit ${LIMITS[k]})`);
+      if (bad) list.slice(0, 14).forEach(x => console.log('       - ' + x));
+    }
+    await ctx.close();
+  }
+  await browser.close();
+  const n = Object.keys(fails).length;
+  console.log(`\n${n ? 'AUDIT FAILED: ' + Object.keys(fails).join(', ') : 'AUDIT PASSED'}`);
+  process.exit(n);
+})();
