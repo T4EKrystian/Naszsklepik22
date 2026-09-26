@@ -1198,6 +1198,19 @@ h3.sub{font:italic 500 23px/1.2 var(--serif);color:var(--text);margin:0 0 12px;l
   .chapter__facts span{margin-top:0}
   .sblock p,.moments span,.scard p:not(.symbol),.forwho li,.howto p{font-size:17px}
 }
+/* ---------- szkic 15: no dead gaps, buy bar clear of centred copy ---------- */
+.opener{padding-top:clamp(56px,5vw,88px);padding-bottom:clamp(28px,3vw,44px)}
+.d2{text-wrap:balance}
+.prolog__text h2{font-size:clamp(38px,3.6vw,56px);text-wrap:balance}
+.layers,.tempo,.trio__close{margin-top:clamp(48px,5vw,80px)}
+.brk{margin-top:clamp(56px,6vw,96px)}
+.price__pin{height:230vh}
+.price__sticky{padding-top:calc(var(--hdr) + 8px)}
+.chapter{padding:clamp(56px,5.5vw,90px) 0}
+.chclose{padding-bottom:clamp(56px,6vw,96px)}
+.bridge ul{margin-top:36px}.bridge .close{margin-top:36px}
+@media (min-width:901px){.bar{left:auto;right:24px;transform:translateY(160%)}.bar.on{transform:none}}
+@media (max-width:900px){.price__pin{height:200vh}.rnote dl{margin-top:16px}.rnote{margin-top:24px}.real{padding-bottom:56px}}
 </style>
 </head>
 <body>
@@ -1547,7 +1560,7 @@ h3.sub{font:italic 500 23px/1.2 var(--serif);color:var(--text);margin:0 0 12px;l
   <div class="price__pin" id="pricePin">
     <div class="price__sticky">
       <div class="ink pw" data-art="w_bloom_o" data-kind="wash" data-mode="manual" data-alpha=".7" data-paper="#e9eddf" id="pw1" style="left:50%;top:50%;width:min(62vw,640px);aspect-ratio:1;transform:translate(-50%,-50%)"><canvas aria-hidden="true"></canvas></div>
-      <div class="ink pw" data-art="w_swash_s" data-kind="wash" data-mode="manual" data-alpha=".45" data-paper="#e9eddf" id="pw2" style="left:12%;right:12%;bottom:10%;aspect-ratio:3.95"><canvas aria-hidden="true"></canvas></div>
+      <div class="ink pw" data-art="w_swash_s" data-kind="wash" data-mode="manual" data-alpha=".28" data-paper="#e9eddf" id="pw2" style="left:12%;right:12%;bottom:1%;aspect-ratio:3.95"><canvas aria-hidden="true"></canvas></div>
       <span class="kick">Wystarczy dodać</span>
       <div class="price__stage" aria-hidden="true"><span class="on">75<small>zł</small></span><span>7 + 5</span><span>12</span><span>1 + 2</span><span class="ink3"><span class="ink" data-art="three" data-mode="manual"><canvas aria-hidden="true"></canvas></span></span></div>
       <p class="price__cap" id="priceCap">Talizman Ochronny kosztuje 75 zł.</p>
@@ -2108,7 +2121,7 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
       this.focus = (d.focus || '0.5,0.5').split(',').map(Number); this.flip = +d.flip || 0;
       this.from = d.from ? +d.from : 0.95; this.to = d.to ? +d.to : 0.45;
       this.at = d.at ? +d.at : 0.86; this.dur = d.dur ? +d.dur : 1600; this.delay = d.delay ? +d.delay : 0;
-      this.lead = d.lead ? +d.lead : 1; this.intro = d.intro ? +d.intro : 0.16;
+      this.lead = d.lead ? +d.lead : 1; this.intro = d.intro ? +d.intro : 0.32;
       this.left = d.left ? +d.left : 0; this.seed = d.seed ? +d.seed : 1; this.reach = d.reach ? +d.reach : 0.6;
       this.ink = d.ink ? hex(d.ink) : [0.12, 0.18, 0.32]; this.pre = d.pre ? +d.pre : 0;
       this.canvas = el.querySelector('canvas'); this.ctx = this.canvas.getContext('2d'); this.dirty = true; this.visible = false;
@@ -2182,7 +2195,7 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
       if(p.mode === 'scroll'){
         const r = p.el.getBoundingClientRect();
         const seen = Math.min(r.bottom, vh) - Math.max(r.top, 0);
-        if(!p.introState && !reduce && seen > Math.min(r.height, vh)*0.4){ p.introState = 'run'; p.animate(p.intro, 1500); setTimeout(() => p.introState = 'done', 1500); }
+        if(!p.introState && !reduce && seen > Math.min(r.height, vh)*0.15){ p.introState = 'run'; p.animate(p.intro, 1500); setTimeout(() => p.introState = 'done', 1500); }
         if(p.introState !== 'run'){
           const s = reduce ? 1 : clamp((vh*0.95 - r.top)/(vh*0.8)*p.lead);
           const tg = p.introState === 'done' ? Math.max(p.intro, s) : 0; p.setT(SNAP ? tg : p.t + (tg - p.t)*0.07);
