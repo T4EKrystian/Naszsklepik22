@@ -289,3 +289,18 @@ Zmiany redaktora po krytyce:
 - PRZYJĘTE: pisanie i wsiąkanie ograniczone. Na oczach pisze się tylko tytuł rozdziału, rok epoki, liczby epilogu i znak stopki. Soak działa w 3 zdaniach-kluczach: prolog, intencja, pęknięcie.
 - PRZYJĘTE: budżet trybu bez ruchu. Ilustracje z maską --wet-edge, odbitki tylko dla szwów (WebP do 30 KB), kurtyny jako karty CSS.
 - LICZBA: 44 wybrane pomysły. Dla zmieszczenia się w limicie scaliłem A-03 z A-02, B-06 z C-01, A-06 z A-01, D-08 z D-42, C-23 z C-22 i E-51 z E-41. Wypadły B-11, A-35, A-59, A-65, E-24 i D-24, a doszły A-37, A-60, A-58, D-30, D-42 i C-60.
+
+## Po przeglądzie kurtyn (27.09)
+
+Klient zapytał, czy pełnoekranowe zalanie nie jest kiczowate. Panel pięciu ocen (malarz, art director, sceptyk, UX telefonu, klientka) ocenił pierwszą wersję na 7/10 w skali kiczu. Powody: nasycony królewski granat, „chmury z Photoshopa”, tytuł jak z tarota z rozstrzelonym podtytułem i ten sam efekt trzy razy.
+
+Obowiązuje teraz:
+- **Pełne zalanie tylko jedno (II).** Stonowane indygo `#212B42`, płaskie, z ostrym mokrym brzegiem i cienką linią przypływu.
+  - Ekran najpierw się przypina, dopiero potem wchodzi tusz.
+  - Rozdział pod spodem jest przykryty papierem, dopóki ekran nie jest cały zalany.
+  - Tytuł to tylko cyfra i nazwa. Gaśnie, zanim tusz zacznie się cofać.
+- **IV i VI to szwy `horizon`.** Nowy papier podnosi się do połowy szwu, a na jego brzegu leży cienka linia pigmentu: rdza `#8e4a30` przed hematytem, blade indygo przed „Jak nosić”.
+- **Szwy `rise` zatrzymują się w połowie.** Granica między papierami jest zawsze mokrym brzegiem, nigdy krawędzią pudełka.
+- **Ograniczony ruch i brak WebGL:** spokojny tytuł na papierze, bez zalania.
+
+Druga ocena tego samego panelu: kicz 3,4/10, uroda 6,6/10. Uwagi z tej oceny są wdrożone.
