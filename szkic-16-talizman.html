@@ -210,6 +210,7 @@ body.sb-on{--sb:46px}
 .thread{position:absolute;left:0;right:0;bottom:-8px;height:16px;pointer-events:none}
 .thread__svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .thread__svg path{fill:none;vector-effect:non-scaling-stroke;stroke-linecap:round}
+.thread__svg .thread__ink{vector-effect:none}
 .thread__base{stroke:rgba(52,39,30,.13);stroke-width:1}
 .thread__ink{stroke:var(--accent);stroke-width:1.6;stroke-dasharray:1;stroke-dashoffset:1}
 .knot{position:absolute;top:50%;left:var(--kx,50%);width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;border:1px dashed rgba(52,39,30,.45);background:var(--cream);opacity:0;transform:scale(.4);transition:opacity .4s,transform .5s var(--ease)}
@@ -263,7 +264,7 @@ body.sb-on{--sb:46px}
 .scrolly__frame .ink{position:absolute;inset:0;mix-blend-mode:multiply;opacity:0;transition:opacity 1s ease}
 .scrolly__frame .gr{position:absolute;inset:6% -10% -2% -10%;opacity:0;transition:opacity 1.1s ease}
 .scrolly__frame .gr.on{opacity:1}
-.scrolly__year{position:absolute;left:6%;bottom:5%;text-align:left;font:italic 400 clamp(44px,4.6vw,72px)/1 var(--serif);letter-spacing:-.02em;color:#8a4a2e;opacity:.85;white-space:nowrap;pointer-events:none;z-index:2}
+.scrolly__year{position:absolute;left:6%;top:12%;text-align:left;font:italic 400 clamp(44px,4.6vw,72px)/1 var(--serif);letter-spacing:-.02em;color:#8a4a2e;opacity:.85;white-space:nowrap;pointer-events:none;z-index:2}
 .js .scrolly__year{-webkit-mask-image:var(--bm);mask-image:var(--bm);-webkit-mask-size:250% 100%;mask-size:250% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:calc(100% - var(--p,0)*100%) 0;mask-position:calc(100% - var(--p,0)*100%) 0}
 .scrolly__frame .ink.on{opacity:1}
 .scrolly__cap{display:none}
@@ -412,7 +413,7 @@ body.sb-on{--sb:46px}
 .handsw p{color:var(--text-2);font-size:16.5px}
 .ritual{margin-top:40px;display:grid;grid-template-columns:140px 1fr;gap:28px;align-items:center;padding:26px 0;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2)}
 .breath{width:140px;height:140px;position:relative;display:grid;place-items:center}
-.breath i{position:absolute;inset:0;border-radius:50%;border:1px solid var(--accent);transform:scale(.5);transition:transform 4s cubic-bezier(.45,0,.55,1)}
+.breath i{position:absolute;inset:0;border-radius:50%;border:1px solid var(--accent);transform:scale(.72);transition:transform 4s cubic-bezier(.45,0,.55,1)}
 .breath i+i{display:none}
 .breath.inhale i:first-child{transform:scale(1)}
 .breath span{position:relative;font:italic 400 17px/1.15 var(--serif);text-align:center}
@@ -433,7 +434,7 @@ body.sb-on{--sb:46px}
 .price__pin{height:280vh;position:relative}
 .price__sticky{position:sticky;top:0;height:100svh;background:var(--sage);display:grid;grid-template-rows:1fr auto 1fr;justify-items:center;text-align:center;padding:calc(var(--hdr) + 24px) var(--pad) 48px;overflow:hidden}
 .price__sticky .eyebrow{align-self:end;color:var(--sage-accent);margin-bottom:10px;position:relative;z-index:2}
-.price__stage{position:relative;width:100%;height:clamp(170px,26vw,420px)}
+.price__stage{position:relative;width:100%;height:clamp(170px,26vw,420px);font-variant-numeric:lining-nums}
 .price__stage>span.ink3{opacity:1;visibility:hidden;transition:none}
 .price__stage>span.ink3.on{visibility:visible}
 .price__sticky .pw{position:absolute;z-index:0;pointer-events:none}
@@ -475,6 +476,7 @@ body.sb-on{--sb:46px}
 .trip figure .ink{position:absolute;inset:0}
 .real{position:relative;padding:clamp(90px,9vw,140px) 0 clamp(70px,7vw,110px)}
 .rgrid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:10px}
+@media (min-width:901px){.rgrid{grid-auto-rows:clamp(300px,34vw,520px)}.rgrid .r1,.rgrid .r3{aspect-ratio:auto}.rgrid figure{height:100%}}
 .rgrid figure{overflow:hidden;position:relative;border-radius:6px;cursor:zoom-in}
 .rgrid img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
 .rgrid figure:hover img{transform:scale(1.03)}
@@ -511,8 +513,7 @@ body.sb-on{--sb:46px}
 .pcard em{display:block;font:italic 500 17px/1.35 var(--serif);color:var(--muted);margin-top:4px;flex:1}
 .pcard .row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line-2)}
 .pcard strong{font:500 24px/1 var(--serif)}
-.pcard--current h3{display:inline-block;padding-bottom:7px;background:linear-gradient(var(--accent),var(--accent)) left bottom/56px 2px no-repeat}
-html.hair .pcard--current h3{background:var(--hair1) left bottom/96px 7px no-repeat}
+.pcard--current h3{text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:7px;text-decoration-skip-ink:none}
 .cnote{font-size:12.5px;color:var(--muted);margin-top:28px;max-width:70ch}
 .foot{position:relative;background:var(--dark);color:rgba(243,234,220,.72);overflow:hidden}
 .foot__bg{position:absolute;inset:0;opacity:.34}
@@ -599,6 +600,7 @@ body.bar-on .toast{bottom:calc(96px + env(safe-area-inset-bottom))}
 .dr-item .dsz{display:flex;gap:4px;margin-top:7px}
 .dr-item .dsz button{min-width:34px;height:30px;padding:0 8px;border-radius:999px;border:1px solid var(--line-2);font:500 12.5px var(--sans);color:var(--muted)}
 .dr-item .dsz button[aria-pressed="true"]{background:var(--text);border-color:var(--text);color:#fff}
+@media (max-width:900px){.dr-item .dsz{gap:8px}.dr-item .dsz button{min-width:44px;height:40px;font-size:14px}}
 .dr-item .q{display:inline-flex;align-items:center;gap:4px;margin-top:8px;border:1px solid var(--line-2);border-radius:999px;height:30px;padding:0 4px}
 .dr-item .q button{width:24px;height:24px;font-size:15px}
 .dr-item .q output{min-width:18px;text-align:center;font-size:13px;font-weight:500}
@@ -657,7 +659,7 @@ body.bar-on .toast{bottom:calc(96px + env(safe-area-inset-bottom))}
   .beat p{font-size:17px}
   .chclose{display:block}.chclose__art{margin:0 -8px 26px}
   .sbar__n{display:none}.sbar__t{font-size:18px}.sbar__toc{padding:0 11px;font-size:12.5px}
-  .scrolly__year{font-size:40px}
+  .scrolly__year{display:none}
   .beat::before{display:none}
   .bridge ul{grid-template-columns:1fr;gap:4px}
   .chapter__art{position:relative;top:0;margin:0 0 40px;width:100%}
@@ -1235,7 +1237,7 @@ h3.sub{font:italic 500 23px/1.2 var(--serif);color:var(--text);margin:0 0 12px;l
 @media (min-width:901px){
   .bridge ul{position:relative;grid-template-columns:1fr 1fr;gap:64px 160px;max-width:860px}
   .bridge ul::before{content:"";position:absolute;left:22%;right:22%;top:28px;bottom:40px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M50 2 L3 97 L97 97 Z' fill='none' stroke='%237f5a36' stroke-width='1' stroke-dasharray='1 5' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center/100% 100% no-repeat;opacity:.55;z-index:-1;pointer-events:none}
-  .bridge li{border-top:0;padding-top:0;background:var(--cream)}
+  .bridge li{border-top:0;padding-top:0;background:none!important}
   .bridge li:first-child{grid-column:1/-1;justify-self:center;max-width:400px}
 }
 @media (min-width:901px){.bar{left:24px;right:auto;transform:translateY(160%)}.bar.on{transform:none}.chapter__art figcaption{text-align:right}}
@@ -1286,10 +1288,10 @@ h3.sub{font:italic 500 23px/1.2 var(--serif);color:var(--text);margin:0 0 12px;l
 .brush{display:block;pointer-events:none}
 .brush canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 /* a curtain lies over the first screen of the next chapter: the ink withdraws and the chapter is already there */
-.curtain{display:none;position:relative;z-index:5;height:150svh;margin-bottom:-100svh;pointer-events:none;background:linear-gradient(var(--a),var(--b) calc(100% - 100svh),transparent 0)}
-@media (min-width:901px){.curtain{height:165vh}}
+.curtain{display:none;position:relative;z-index:5;height:170svh;margin-bottom:-100svh;pointer-events:none;background:linear-gradient(var(--a),var(--b) calc(100% - 100svh),transparent 0)}
+@media (min-width:901px){.curtain{height:180vh}}
 .seam[data-seam="horizon"]{height:clamp(190px,32vh,360px)}
-@media (max-width:900px){.seam[data-seam="horizon"]{height:clamp(140px,20svh,200px)}}
+@media (max-width:900px){.seam[data-seam="horizon"]{height:clamp(140px,20svh,200px)}.seam[data-seam="rise"]{height:clamp(120px,17svh,170px)}.seam[data-seam="rise"][data-vol="L"]{height:clamp(170px,24svh,240px)}.chapter{padding-bottom:24px}}
 @media (min-width:901px){.seam[data-seam="rise"],.seam[data-seam="horizon"],.seam[data-seam="circle"]{height:clamp(170px,22vh,250px)}.seam[data-seam="rise"][data-vol="L"]{height:clamp(220px,30vh,330px)}}
 body.inked .threadM,body.axis-on .threadM{opacity:0!important}
 .js .curtain{display:block}
@@ -1326,6 +1328,7 @@ html.hair :is(.spec div,.toc a,.rnote dl div):nth-child(2n){background-image:var
 .threadM{display:none}
 .bar__beads{display:inline-flex;gap:3px;margin-left:8px;vertical-align:1px}
 .bar__beads i{width:9px;height:9px;border-radius:50%;border:1px dashed rgba(52,39,30,.45);background-size:cover;background-position:center}
+.bar__beads i:not(.on){display:none}
 .bar__beads i.on{border:0;box-shadow:0 1px 2px rgba(30,20,12,.4)}
 .bar.tied .bar__beads i{box-shadow:0 0 0 2px rgba(200,150,78,.4)}
 @media (max-width:900px){
@@ -1536,8 +1539,6 @@ html.hair .inkpad::before{content:"";position:absolute;inset:0;background-image:
 
 <section class="history" id="rozdzial-1" data-chapter data-n="Rozdział I z VI" data-roman="I" data-title="Skąd wzięły się talizmany" aria-labelledby="c1H">
   <header class="opener">
-    <div class="ink deco " data-art="w_bloom_r" data-kind="wash" data-mode="once" data-delay="900" data-alpha=".7" style="left:3%;top:36%;width:15%;aspect-ratio:1"><canvas aria-hidden="true"></canvas></div>
-    <div class="ink deco " data-art="w_dab_o" data-kind="wash" data-mode="once" data-delay="1300" data-alpha=".8" style="right:4%;top:58%;width:18%;aspect-ratio:1.556"><canvas aria-hidden="true"></canvas></div>
     <div class="numwrap"><div class="ink deco enso" data-art="w_enso_s" data-kind="wash" data-mode="once" data-dur="1900" data-alpha=".45" style=""><canvas aria-hidden="true"></canvas></div><div class="ink num" data-tint="#212b42" data-art="n1" data-kind="wash" data-mode="once" data-delay="120" data-dur="1200" data-at=".97" style="--asp:0.7627"><canvas aria-hidden="true"></canvas></div></div>
     <span class="eyebrow">Rozdział pierwszy</span>
     <div class="titlewrap"><div class="ink deco swash" data-art="w_swash_o" data-kind="wash" data-mode="once" data-delay="1000" data-dur="1700" data-alpha=".5" style=""><canvas aria-hidden="true"></canvas></div><h2 id="c1H" class="d2 bp"><span class="ln"><span>Skąd wzięły się</span></span><span class="ln"><span><em class="a" data-ul="u2">talizmany.</em></span></span></h2></div>
@@ -1654,8 +1655,6 @@ html.hair .inkpad::before{content:"";position:absolute;inset:0;background-image:
 
 <section class="trio" id="rozdzial-5" data-chapter data-n="Rozdział V z VI" data-roman="V" data-title="Trzy w jednym" aria-labelledby="c5H">
   <header class="opener">
-    <div class="ink deco " data-art="w_swash_s" data-kind="wash" data-mode="once" data-delay="800" data-dur="1700" data-alpha=".55" style="left:-2%;top:16%;width:30%;aspect-ratio:3.95"><canvas aria-hidden="true"></canvas></div>
-    <div class="ink deco " data-art="w_bloom_o" data-kind="wash" data-mode="once" data-delay="1200" data-alpha=".75" style="right:5%;top:48%;width:14%;aspect-ratio:1"><canvas aria-hidden="true"></canvas></div>
     <div class="numwrap"><div class="ink deco enso" data-art="w_enso_o" data-kind="wash" data-mode="once" data-dur="1900" data-alpha=".45" style=""><canvas aria-hidden="true"></canvas></div><div class="ink num" data-tint="#212b42" data-art="n5" data-kind="wash" data-mode="once" data-delay="120" data-dur="1200" data-at=".97" style="--asp:1.3388"><canvas aria-hidden="true"></canvas></div></div>
     <span class="eyebrow">Rozdział piąty</span>
     <div class="titlewrap"><div class="ink deco swash" data-art="w_swash_r" data-kind="wash" data-mode="once" data-delay="1000" data-dur="1700" data-alpha=".45" style=""><canvas aria-hidden="true"></canvas></div><h2 id="c5H" class="d2 bp"><span class="ln"><span>Trzy w jednym.</span></span><span class="ln"><span><em class="a" data-ul="u3">Razem mocniej.</em></span></span></h2></div>
@@ -1769,8 +1768,6 @@ html.hair .inkpad::before{content:"";position:absolute;inset:0;background-image:
 
 <section class="price" id="epilog" data-chapter data-n="Epilog" data-roman="Ep." data-title="Nawet cena" aria-labelledby="epH">
   <header class="opener" style="padding-bottom:0">
-    <div class="ink deco " data-art="w_bloom_o" data-kind="wash" data-mode="once" data-delay="400" data-alpha=".6" data-paper="#e9eddf" style="left:6%;top:30%;width:13%;aspect-ratio:1"><canvas aria-hidden="true"></canvas></div>
-    <div class="ink deco " data-art="w_dab_s" data-kind="wash" data-mode="once" data-delay="800" data-alpha=".6" data-paper="#e9eddf" style="right:3%;top:74%;width:13%;aspect-ratio:1.556"><canvas aria-hidden="true"></canvas></div>
     <span class="eyebrow">Epilog</span>
     <h2 id="epH" class="d2 bp"><span class="ln"><span>Nic tu nie jest</span></span><span class="ln"><span>przypadkiem, <em class="a" style="color:var(--sage-accent)">nawet cena.</em></span></span></h2>
     <p class="serif-lead fade">Trzy kamienie dobrane tak, by się uzupełniały, i cena, która kryje ich liczbę.</p>
@@ -1789,10 +1786,10 @@ html.hair .inkpad::before{content:"";position:absolute;inset:0;background-image:
     <h3 class="fade">Dlaczego akurat <em class="a" style="color:var(--sage-accent)">trójka chroni?</em></h3>
     <p class="fade">Trójka od wieków uchodzi za liczbę pełni i bezpieczeństwa.</p>
     <ul class="reasons m-snap">
-      <li class="fade"><div class="rmark"><div class="brush" data-shape="thread" data-preset="hair" data-vb="96 56" data-fit="h" data-w=".06" data-d="M 2 30 C 30 26 60 34 94 29" data-col="#3e4a2b" data-mode="once" data-dur="1200"><canvas aria-hidden="true"></canvas></div></div><span class="kick">Pełnia</span><b>Pierwsza liczba kompletna.</b><span>Starożytni matematycy nazywali ją pierwszą prawdziwą liczbą, bo ma początek, środek i koniec. Jeden to punkt, dwa to napięcie, dopiero trzy tworzy całość.</span></li>
-      <li class="fade"><div class="rmark"><div class="brush" data-preset="medium" data-vb="96 56" data-fit="h" data-w=".07" data-d="M 44 6 L 80 50 L 8 50 L 42 9" data-col="#3e4a2b" data-mode="once" data-dur="1400"><canvas aria-hidden="true"></canvas></div></div><span class="kick">Stabilność</span><b>Najstabilniejszy kształt.</b><span>Trójkąt to jedyna figura, której nie da się zniekształcić bez złamania boku. Trzy punkty oparcia zawsze trzymają, dwa nigdy.</span></li>
-      <li class="fade"><div class="rmark"><div class="brush" data-preset="medium" data-vb="96 56" data-fit="h" data-w=".08" data-d="M 16 8 C 15 24 17 38 16 50" data-col="#3e4a2b" data-mode="once" data-dur="700" data-delay="0"><canvas aria-hidden="true"></canvas></div><div class="brush" data-preset="medium" data-vb="96 56" data-fit="h" data-w=".08" data-d="M 40 8 C 39 24 41 38 40 50" data-col="#3e4a2b" data-mode="once" data-dur="700" data-delay="260"><canvas aria-hidden="true"></canvas></div><div class="brush" data-preset="medium" data-vb="96 56" data-fit="h" data-w=".08" data-d="M 64 8 C 63 24 65 38 64 50" data-col="#3e4a2b" data-mode="once" data-dur="700" data-delay="520"><canvas aria-hidden="true"></canvas></div></div><span class="kick">Powtarza się wszędzie</span><b>Omne trinum perfectum.</b><span>Wszystko, co potrójne, jest doskonałe: ciało, umysł i dusza, przeszłość, teraźniejszość i przyszłość. Do dziś mówimy: do trzech razy sztuka.</span></li>
-      <li class="fade"><div class="rmark"><div class="brush" data-preset="medium" data-vb="96 56" data-fit="h" data-w=".08" data-d="M 6 50 C 30 48 52 34 88 8" data-col="#3e4a2b" data-mode="once" data-dur="1200"><canvas aria-hidden="true"></canvas></div></div><span class="kick">Lekkość</span><b>W numerologii: radość.</b><span>Trójce przypisuje się twórczą energię i lekkość: to, co zostaje, gdy odchodzi lęk. Chronimy się nie po to, żeby się zamknąć, <mark class="hl">tylko żeby żyć pełniej.</mark></span></li>
+      <li class="fade"><div class="rmark"><div class="brush" data-shape="thread" data-preset="hair" data-vb="96 56" data-fit="h" data-w=".06" data-d="M 2 30 C 30 26 60 34 94 29" data-col="#1f2d52" data-mode="once" data-dur="1200"><canvas aria-hidden="true"></canvas></div></div><span class="kick">Pełnia</span><b>Pierwsza liczba kompletna.</b><span>Starożytni matematycy nazywali ją pierwszą prawdziwą liczbą, bo ma początek, środek i koniec. Jeden to punkt, dwa to napięcie, dopiero trzy tworzy całość.</span></li>
+      <li class="fade"><div class="rmark"><div class="brush" data-preset="medium" data-vb="96 56" data-fit="h" data-w=".07" data-d="M 44 6 L 80 50 L 8 50 L 42 9" data-col="#1f2d52" data-mode="once" data-dur="1400"><canvas aria-hidden="true"></canvas></div></div><span class="kick">Stabilność</span><b>Najstabilniejszy kształt.</b><span>Trójkąt to jedyna figura, której nie da się zniekształcić bez złamania boku. Trzy punkty oparcia zawsze trzymają, dwa nigdy.</span></li>
+      <li class="fade"><div class="rmark"><div class="brush" data-preset="medium" data-vb="96 56" data-fit="h" data-w=".08" data-d="M 16 8 C 15 24 17 38 16 50" data-col="#1f2d52" data-mode="once" data-dur="700" data-delay="0"><canvas aria-hidden="true"></canvas></div><div class="brush" data-preset="medium" data-vb="96 56" data-fit="h" data-w=".08" data-d="M 40 8 C 39 24 41 38 40 50" data-col="#1f2d52" data-mode="once" data-dur="700" data-delay="260"><canvas aria-hidden="true"></canvas></div><div class="brush" data-preset="medium" data-vb="96 56" data-fit="h" data-w=".08" data-d="M 64 8 C 63 24 65 38 64 50" data-col="#1f2d52" data-mode="once" data-dur="700" data-delay="520"><canvas aria-hidden="true"></canvas></div></div><span class="kick">Powtarza się wszędzie</span><b>Omne trinum perfectum.</b><span>Wszystko, co potrójne, jest doskonałe: ciało, umysł i dusza, przeszłość, teraźniejszość i przyszłość. Do dziś mówimy: do trzech razy sztuka.</span></li>
+      <li class="fade"><div class="rmark"><div class="brush" data-preset="medium" data-vb="96 56" data-fit="h" data-w=".08" data-d="M 6 50 C 30 48 52 34 88 8" data-col="#1f2d52" data-mode="once" data-dur="1200"><canvas aria-hidden="true"></canvas></div></div><span class="kick">Lekkość</span><b>W numerologii: radość.</b><span>Trójce przypisuje się twórczą energię i lekkość: to, co zostaje, gdy odchodzi lęk. Chronimy się nie po to, żeby się zamknąć, <mark class="hl">tylko żeby żyć pełniej.</mark></span></li>
     </ul>
     <div class="price__close fade"><p>75 zł. Trzy kamienie. <em class="a" style="color:var(--sage-accent)">Trzy warstwy ochrony.</em></p><button class="btn btn--olive" type="button" data-add><span>Dodaj do sakiewki</span><i><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 10h12M11 5l5 5-5 5"/></svg></i></button></div>
   </div>
@@ -1807,7 +1804,7 @@ html.hair .inkpad::before{content:"";position:absolute;inset:0;background-image:
     <div class="trip">
       <figure data-lb="p_crystal"><div class="ink paint" data-art="paint_b" data-photo="p_crystal" data-mode="paint" data-line="#c9b597" data-from="1.0" data-to="0.34"><canvas aria-hidden="true"></canvas><img data-img="p_crystal" alt="Kamienie na lnianej tkaninie"></div></figure>
       <figure data-lb="p_journal"><div class="ink paint" data-art="paint_a" data-flip="1" data-photo="p_journal" data-mode="paint" data-line="#c9b597" data-from="1.0" data-to="0.3"><canvas aria-hidden="true"></canvas><img data-img="p_journal" alt="Notatnik i trzy kamienie"></div></figure>
-      <figure data-lb="p_care"><div class="ink paint" data-art="paint_b" data-flip="1" data-photo="p_care" data-mode="paint" data-line="#c9b597" data-from="1.0" data-to="0.26"><canvas aria-hidden="true"></canvas><img data-img="p_care" alt="Czyszczenie bransoletki ściereczką"></div></figure>
+      <figure data-lb="p_man"><div class="ink paint" data-art="paint_b" data-flip="1" data-photo="p_man" data-mode="paint" data-line="#c9b597" data-from="1.0" data-to="0.26"><canvas aria-hidden="true"></canvas><img data-img="p_man" alt="Talizman obok zegarka na nadgarstku"></div></figure>
     </div>
   </div>
 </section>
@@ -2145,6 +2142,107 @@ void main(){
 }
 
 </script>
+<script id="fsStain" type="x-shader/x-fragment">
+#extension GL_OES_standard_derivatives : enable
+precision highp float;
+varying vec2 vUv;
+uniform vec2 uRes;
+uniform float uT;
+uniform float uL;
+uniform float uDrop;
+uniform float uSeed;
+uniform vec3 uPaper;
+uniform vec3 uPaperB;
+uniform vec3 uK;
+uniform vec3 uTK;
+uniform sampler2D uMask;
+uniform float uUseMask;
+uniform float uMaskAmt;
+uniform vec2 uSrc;
+uniform float uCover;
+uniform float uVar;
+uniform float uDry;
+uniform vec2 uWater;
+uniform vec3 uWK;
+vec3 permute(vec3 x){ return mod(((x*34.0)+1.0)*x, 289.0); }
+float snoise(vec2 v){
+  const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
+  vec2 i = floor(v + dot(v, C.yy)); vec2 x0 = v - i + dot(i, C.xx);
+  vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+  vec4 x12 = x0.xyxy + C.xxzz; x12.xy -= i1; i = mod(i, 289.0);
+  vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0)) + i.x + vec3(0.0, i1.x, 1.0));
+  vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0); m = m*m; m = m*m;
+  vec3 x = 2.0*fract(p*C.www) - 1.0; vec3 h = abs(x) - 0.5; vec3 ox = floor(x + 0.5); vec3 a0 = x - ox;
+  m *= 1.79284291400159 - 0.85373472095314*(a0*a0 + h*h);
+  vec3 g; g.x = a0.x*x0.x + h.x*x0.y; g.yz = a0.yz*x12.xz + h.yz*x12.yw;
+  return 130.0*dot(m, g);
+}
+float hash(float n){ return fract(sin(n)*43758.5453); }
+// an ink stain on paper: one heavy drop lands, spreads through damp paper, dries with a darker rim; then water returns
+// in blooms that lift the pigment and open the sheet onto the chapter underneath.
+// Space is measured in screen heights (p.y down from the top), so the stain has the same size in pixels on any width.
+void main(){
+  float H = uRes.y, asp = uRes.x/uRes.y;
+  vec2 p = vec2(vUv.x*asp, 1.0 - vUv.y);
+  vec2 S = vec2(uSrc.x*asp, uSrc.y);
+  float t = clamp(uT, 0.0, 1.0), L = clamp(uL, 0.0, 1.0);
+  // 1. a single heavy drop falls to the landing point (the page's drop motif), then bursts into the stain
+  float fall = uDrop > 0.5 ? 0.14 : 0.0;
+  float tf = clamp(t/max(fall, 1e-4), 0.0, 1.0), ts = clamp((t - fall)/(1.0 - fall), 0.0, 1.0);
+  vec2 w = p + 0.05*vec2(snoise(p*1.6 + uSeed), snoise(p*1.6 + uSeed + 7.3)) + 0.006*vec2(snoise(p*5.0 - uSeed), snoise(p*5.0 + uSeed*1.7));
+  vec2 dv = w - S; float r = length(dv); vec2 dir = dv/max(r, 1e-4);
+  // lobes come from the paper: how readily each place takes the water (a smooth field on the sheet, no angular noise)
+  float lobes = 0.2*snoise(p*1.15 + uSeed*2.1) + 0.07*snoise(p*2.9 - uSeed);
+  float fingers = (0.028*snoise(p*5.5 + uSeed*3.3) + 0.012*snoise(p*15.0 - uSeed*1.9))*smoothstep(0.3, 1.0, ts);
+  float grow = ts <= 0.0 ? 0.0 : 0.06 + 0.94*(1.0 - pow(1.0 - ts, 3.0)) + 0.035*sin(3.1416*ts)*(1.0 - ts);   // a small surge at the burst
+  float R = uCover*grow*(1.0 + lobes + fingers);
+  float edge = (R - r)*H;                                          // pixels inside the stain's edge
+  // the falling drop: a small, slightly elongated bead
+  if(tf < 1.0 && fall > 0.0){ vec2 c = vec2(S.x, mix(-0.06, S.y, tf*tf)); vec2 e = (p - c)*vec2(1.0, 0.7); edge = max(edge, (0.018 - length(e))*H); }
+  edge /= max(length(vec2(dFdx(edge), dFdy(edge))), 0.35);          // a true distance in pixels, so the rim keeps its width on every lobe
+  edge += 0.6*snoise(gl_FragCoord.xy*0.4 + uSeed*5.0);              // the paper's tooth: a fraction of a pixel of fray
+  float inside = smoothstep(-0.5, 1.0, edge);
+  // 2. pigment of a drying stain (a coffee ring): the darkest 2-3 px line where the water stopped, a paler band just behind
+  //    it (pigment pulled to the edge), a slow darkening towards the edge as it dries, one slow unevenness of the load
+  float e0 = max(edge, 0.0), dry = clamp(uDry, 0.0, 1.0);
+  float dense = step(1.5, uVar);                                     // variant: a dense, near-black stain (a black mirror)
+  float body = (mix(0.44, 0.8, dense) + 0.07*snoise(p*1.1 + uSeed*2.7) + 0.05*exp(-pow(r/max(uCover*grow*0.35, 1e-3), 2.0)))*(1.0 - 0.15*dry);
+  float rim = (0.62 + 0.3*dry)*exp(-e0/1.8);
+  float depl = -0.1*dry*exp(-pow((e0 - 9.0)/5.0, 2.0));
+  float band = (0.26 + 0.2*dry)*exp(-e0/24.0);
+  float gran = 0.5 + 0.5*snoise(gl_FragCoord.xy*vec2(0.23, 0.21) + uSeed*9.0);
+  float dens = inside*(body + rim + depl + band);
+  // outside the edge: the water went a little further than the pigment (a pale warm halo of binder, as with old sumi)
+  float halo = (1.0 - inside)*step(0.0, grow - 0.001)*0.06*exp(min(edge, 0.0)/4.5);
+  // 3. water returns: one drop of clean water lands on the stone; a cauliflower bloom opens there, holds as a small window
+  //    (the stone in a black mirror), then runs across the whole sheet. Behind its front the sheet opens onto the chapter,
+  //    with pale grainy fingers of lifted pigment for ~26 px; its front pushes pigment into a dark frilly ridge.
+  vec2 Wt = vec2(uWater.x*asp, uWater.y);
+  vec2 e = w - Wt; float le = length(e); vec2 ed = e/max(le, 1e-4);
+  float far = max(max(length(Wt), length(Wt - vec2(asp, 0.0))), max(length(Wt - vec2(0.0, 1.0)), length(Wt - vec2(asp, 1.0))));
+  float r1 = 0.075;
+  float Rw = L <= 0.0 ? -1.0 : L < 0.12 ? r1*(1.0 - pow(1.0 - L/0.12, 3.0)) : L < 0.25 ? r1*(1.0 + 0.08*(L - 0.12)/0.13) : mix(r1*1.08, far*1.18, pow(smoothstep(0.25, 0.9, L), 1.3));
+  float petals = 1.0 - 0.12*abs(snoise(ed*2.2 + uSeed*1.3)) - 0.05*abs(snoise(ed*5.0 - uSeed));   // round petals, sharp cusps
+  float bin = (Rw*petals*(1.0 + 0.2*ed.x) - le)*H;                      // pixels inside the bloom
+  float ridge = inside*exp(-abs(bin + 3.0)/2.6)*step(0.0, Rw)*(1.0 - smoothstep(0.85, 1.0, L));
+  dens += ridge*0.7;
+  float behind = smoothstep(0.0, 2.0, bin);                            // the sheet is open behind the front...
+  float resid = inside*behind*0.2*exp(-bin/16.0)*(0.6 + 0.8*gran);   // ...but for pale grainy fingers of lifted ink
+  // 4. the last pigment sinks into the paper grain by grain
+  float grainGone = smoothstep(0.82, 1.0, L + 0.12*(gran - 0.5));
+  if(uUseMask > 0.5){ float m = texture2D(uMask, vUv).r*uMaskAmt; dens *= 1.0 - 0.99*m; }
+  vec3 paper = mix(uPaper, uPaperB, smoothstep(0.1, 0.6, p.y));
+  vec3 Tsheet = exp(-uK*dens*1.3 - uWK*halo);
+  vec3 sheet = paper*Tsheet;                                           // the opaque sheet: paper, stain, halo, ridge
+  vec3 Tr = exp(-uK*resid*1.3);
+  float ar = clamp(1.0 - min(Tr.r, min(Tr.g, Tr.b)), 0.0, 1.0)*(1.0 - grainGone);
+  vec3 rc = ar > 0.001 ? clamp((uPaperB*Tr - uPaperB*(1.0 - ar))/ar, 0.0, 1.0) : vec3(0.0);
+  float aSheet = (1.0 - behind)*(1.0 - grainGone*inside);
+  vec4 o = vec4(sheet*aSheet, aSheet) + vec4(rc*ar, ar)*(1.0 - aSheet);
+  o.rgb += (fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233)))*43758.5453) - 0.5)*(1.5/255.0)*o.a;
+  gl_FragColor = o;
+}
+</script>
 <script id="fsSpill" type="x-shader/x-fragment">
 precision highp float;
 varying vec2 vUv;
@@ -2294,6 +2392,7 @@ const IMG = {"bead_obs": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wB
     let gl = null;
     try { gl = cv.getContext('webgl', {antialias:false, premultipliedAlpha:true, preserveDrawingBuffer:true}); } catch(e){}
     if(!gl) return null;
+    gl.getExtension('OES_standard_derivatives');   // the stain measures its rim in true pixels
     const vsrc = document.getElementById('vs').textContent;
     const mk = (id, names) => {
       const sh = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); if(!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s)); return s; };
@@ -2303,18 +2402,19 @@ const IMG = {"bead_obs": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wB
       if(!gl.getProgramParameter(pr, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(pr));
       const U = {}; names.forEach(n => U[n] = gl.getUniformLocation(pr, n)); return { pr, U };
     };
-    let INK, PNT, WSH, SPL;
+    let INK, PNT, WSH, SPL, STN;
     try {
       INK = mk('fs', ['uIllus','uArrive','uRes','uArtAsp','uFocus','uSrc','uT','uPoolR','uZoom','uBg','uFit','uLeft']);
       PNT = mk('fsPaint', ['uPhoto','uArrive','uRes','uAsp','uFocus','uT','uFlip','uBg','uLine','uInk','uPre']);
       WSH = mk('fsWash', ['uIllus','uArrive','uRes','uArtAsp','uT','uFit','uPaper','uAlpha','uTint','uUseTint','uFlip','uLeft']);
       SPL = mk('fsSpill', ['uRes','uT','uPaper','uAlpha','uSeed','uReach','uFull','uDir','uK','uTK','uMask','uUseMask','uFlat','uCalm','uBand','uMaskAmt','uFade']);
+      STN = mk('fsStain', ['uRes','uT','uL','uDrop','uSeed','uPaper','uPaperB','uK','uTK','uMask','uUseMask','uMaskAmt','uSrc','uCover','uVar','uDry','uWater','uWK']);
     } catch(e){ console.warn(e); return null; }
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
     gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
     [[INK, 'uIllus'], [PNT, 'uPhoto'], [WSH, 'uIllus']].forEach(([P, a]) => { gl.useProgram(P.pr); gl.uniform1i(P.U[a], 0); gl.uniform1i(P.U.uArrive, 1); });
-    gl.useProgram(SPL.pr); gl.uniform1i(SPL.U.uMask, 0);
+    gl.useProgram(SPL.pr); gl.uniform1i(SPL.U.uMask, 0); gl.useProgram(STN.pr); gl.uniform1i(STN.U.uMask, 0);
     const cache = new Map();
     const tex = img => { const t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t); gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, img);
@@ -2326,6 +2426,7 @@ const IMG = {"bead_obs": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wB
         if(cache.has(key)) return cache.get(key);
         let p;
         if(key === '__spill') p = Promise.resolve({ type:'spill' });
+        else if(key === '__stain') p = Promise.resolve({ type:'stain' });
         else if(key.includes('|')){ const [ph, map] = key.split('|'); p = Promise.all([load(IMG[ph]), load(PAINT[map])]).then(([i, r]) => ({ type:'paint', i: tex(i), r: tex(r), asp: i.width/i.height })); }
         else { const a = ART[key]; p = Promise.all([load(a.illus), load(a.arrive)]).then(([i, r]) => ({ type:'art', i: tex(i), r: tex(r), a })); }
         cache.set(key, p); return p;
@@ -2336,6 +2437,16 @@ const IMG = {"bead_obs": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wB
         const w = plate.cw, h = plate.ch; if(!w || !h) return;
         if(cv.width < w || cv.height < h){ cv.width = Math.max(cv.width, w); cv.height = Math.max(cv.height, h); }
         gl.viewport(0, 0, w, h);
+        if(e.type === 'stain'){   // the curtain: one stain of ink on its own sheet of paper
+          const U = STN.U; gl.useProgram(STN.pr);
+          gl.uniform2f(U.uRes, w, h); gl.uniform1f(U.uT, plate.t); gl.uniform1f(U.uL, plate.lift); gl.uniform1f(U.uDrop, plate.drop); gl.uniform1f(U.uSeed, plate.seed);
+          gl.uniform3fv(U.uPaper, plate.paper()); gl.uniform3fv(U.uPaperB, plate.paperB || plate.paper()); gl.uniform3fv(U.uK, plate.pigment()); gl.uniform3fv(U.uTK, plate.tidePigment());
+          gl.uniform2f(U.uSrc, plate.src[0], plate.src[1]); gl.uniform1f(U.uCover, plate.cover); gl.uniform1f(U.uVar, plate.variant); gl.uniform1f(U.uDry, plate.dryAmt); gl.uniform2f(U.uWater, plate.water[0], plate.water[1]); gl.uniform3fv(U.uWK, plate.absorb(WARM)); gl.uniform1f(U.uMaskAmt, plate.maskAmt);
+          gl.uniform1f(U.uUseMask, plate.maskTex ? 1 : 0); if(plate.maskTex){ gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, plate.maskTex); }
+          gl.drawArrays(gl.TRIANGLES, 0, 3);
+          plate.ctx.clearRect(0, 0, w, h); plate.ctx.drawImage(cv, 0, cv.height - h, w, h, 0, 0, w, h);
+          return;
+        }
         if(e.type === 'spill'){
           const U = SPL.U; gl.useProgram(SPL.pr);
           gl.uniform2f(U.uRes, w, h); gl.uniform1f(U.uT, plate.t); gl.uniform3fv(U.uPaper, plate.paper());
@@ -2374,6 +2485,7 @@ const IMG = {"bead_obs": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wB
 
   /* only plates within a screen of the viewport are checked every frame (cheaper scrolling on phones) */
   const nearIO = new IntersectionObserver(es => es.forEach(e => { if(e.target.__plate) e.target.__plate.near = e.isIntersecting; }), { rootMargin: '100% 0px' });
+  const WARM = hex('#3b2a20');
   class Plate {
     constructor(el){
       const d = el.dataset;
@@ -2391,11 +2503,12 @@ const IMG = {"bead_obs": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wB
       this.lead = d.lead ? +d.lead : 1; this.intro = d.intro ? +d.intro : 0.32;
       this.left = d.left ? +d.left : 0; this.seed = d.seed ? +d.seed : 1; this.reach = d.reach ? +d.reach : 0.6;
       this.full = d.full ? +d.full : 0; this.dir = { up: 1, down: 2 }[d.dir] || 0; this.col = d.col ? hex(d.col) : null; this.tcol = d.tide ? hex(d.tide) : null; this.flat = d.flat ? +d.flat : 0; this.calm = d.calm ? +d.calm : 0; this.band = d.band ? +d.band : this.full ? 1 : 0; this.maskAmt = 1; this.fade = d.fade ? +d.fade : 0; this.lag = d.lag ? +d.lag : 0;
+      this.lift = 0; this.drop = d.drop ? +d.drop : 1; this.src = [0.5, 0.47]; this.cover = 0.28; this.variant = d.var ? +d.var : /stain=b/.test(location.search) ? 2 : 1; this.dryAmt = 0; this.water = [0.55, 0.3]; this.paperB = d.paperb ? hex(d.paperb) : null;
       const tw = el.closest('[data-track]'); this.track = tw ? document.querySelector(tw.dataset.track) : null;   // pinned scenes paint as their chapter is read
       this.ink = d.ink ? hex(d.ink) : [0.12, 0.18, 0.32]; this.pre = d.pre ? +d.pre : 0;
       this.canvas = el.querySelector('canvas'); this.ctx = this.canvas.getContext('2d'); this.dirty = true; this.visible = false;
       this.hs = !!el.closest('.beats'); this.near = false; el.__plate = this; nearIO.observe(el);   // lives in a swipe deck on phones: paint only once the card is in front
-      this.dprMax = this.kind === 'spill' ? (el.closest('.curtain') ? 1.5 : 1) : this.photo ? 1.5 : (this.kind === 'wash' && !el.classList.contains('num') && !el.classList.contains('ul') ? 1.25 : 2);
+      this.dprMax = this.kind === 'stain' ? 1.25 : this.kind === 'spill' ? 1 : this.photo ? 1.5 : (this.kind === 'wash' && !el.classList.contains('num') && !el.classList.contains('ul') ? 1.25 : 2);
       new ResizeObserver(() => { this.resize(); this.dirty = true; }).observe(el);
       new IntersectionObserver(es => es.forEach(e => {
         this.visible = e.isIntersecting;
@@ -2456,7 +2569,7 @@ const IMG = {"bead_obs": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wB
   /* curtains: a sticky screen inside a tall section; the ink floods it, the title stays unpainted */
   document.querySelectorAll('.curtain').forEach((c, i) => {
     const d = c.dataset; c.style.setProperty('--a', d.a === '#fbf5eb' ? 'transparent' : d.a); c.style.setProperty('--b', d.b);
-    c.innerHTML = `<div class="curtain__stick"><div class="ink spillink" data-art="__spill" data-kind="spill" data-mode="curtain" data-full="1" data-reach="1.22" data-dir="${d.dir === 'left' ? '' : d.dir}" data-seed="${(3.1 + i*4.7).toFixed(2)}" data-paper="${d.a}" data-col="${d.col}" data-calm="2"${d.tide ? ` data-tide="${d.tide}"` : ''}><canvas></canvas></div><p class="curtain__t"><i>${d.roman}</i><span>${d.name}</span><small>${d.sub}</small></p></div>`;
+    c.innerHTML = `<div class="curtain__stick"><div class="ink spillink" data-art="__stain" data-kind="stain" data-mode="curtain" data-seed="${(3.1 + i*4.7).toFixed(2)}" data-paper="${d.a}" data-paperb="${d.b}" data-col="${d.col}" data-tide="#10162a"><canvas></canvas></div><p class="curtain__t"><i>${d.roman}</i><span>${d.name}</span><small>${d.sub}</small></p></div>`;
   });
   /* spill windows: a pour of navy ink comes in from the left edge of the page under every illustration */
   if(R) document.querySelectorAll('.spill').forEach((w, i) => {
@@ -2703,13 +2816,17 @@ const IMG = {"bead_obs": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wB
   })();
 
   /* ---------- curtains: ink floods the whole screen between chapters, the paper changes underneath, then the ink withdraws ---------- */
-  const curtains = [...document.querySelectorAll('.curtain')].map(c => ({ c, p: plateOf(c.querySelector('.spillink')), title: c.querySelector('.curtain__t'), b: false, full: false }));
+  const STAIN = (location.search.match(/stain=(\w)/) || [])[1] || 'a';   // TEMP: variants for the review panel
+  const stainAt = () => STAIN === 'c' ? (mobile() ? { src: [0.06, 0.45], cover: 0.36 } : { src: [0.04, 0.5], cover: 0.44 }) : mobile() ? { src: [0.5, 0.47], cover: 0.28 } : { src: [0.3, 0.5], cover: 0.36 };   // the landing point and reach, in screen heights
+  const curtains = [...document.querySelectorAll('.curtain')].map(c => ({ c, p: plateOf(c.querySelector('.spillink')), title: c.querySelector('.curtain__t'), b: false, full: false, stone: document.querySelector('#rozdzial-2 .arch') }));
   // the title is a resist: drawn white on black, the shader leaves those pixels unpainted
   const resist = C => {
     const p = C.p; if(!p || !p.cw || !R) return;
     const cv = C.mcv || (C.mcv = document.createElement('canvas')), w = p.cw, h = p.ch, x = cv.getContext('2d'), d = C.c.dataset, m = w < 700;
     cv.width = w; cv.height = h; x.fillStyle = '#000'; x.fillRect(0, 0, w, h); x.fillStyle = '#fff'; x.textBaseline = 'alphabetic';
-    const k = w/Math.max(1, C.p.el.clientWidth), hr = (m ? 60 : 92)*k, hn = (m ? 34 : 44)*k, x0 = w*(m ? 0.08 : 0.11), yb = h*(m ? 0.46 : 0.5);
+    const k = w/Math.max(1, C.p.el.clientWidth), hr = (m ? 60 : 92)*k, hn = (m ? 34 : 44)*k, at = stainAt().src;
+    x.font = `italic 500 ${hn}px "Cormorant Garamond", Georgia, serif`; const tw = x.measureText(d.name).width;
+    const x0 = Math.max(w*0.08, at[0]*w - tw*0.5), yb = at[1]*h - hn*0.2;   // the title sits in the middle of the stain
     x.font = `italic 500 ${hr}px "Cormorant Garamond", Georgia, serif`; x.fillText(d.roman, x0 - hr*0.04, yb);
     x.font = `italic 500 ${hn}px "Cormorant Garamond", Georgia, serif`; x.fillText(d.name, x0, yb + hn*1.2);
     p.maskTex = R.texFrom(cv, p.maskTex); p.dirty = true;
@@ -2717,25 +2834,38 @@ const IMG = {"bead_obs": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wB
   const layResist = () => curtains.forEach(C => { if(C.p){ C.p.resize(); resist(C); } });
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(layResist);
   curtains.forEach(C => C.p && new ResizeObserver(() => resist(C)).observe(C.p.el));
-  // the one full flood (II): once the screen is pinned the ink comes in from the left across the whole height, holds just
-  // long enough to read the title, lets the title go, then withdraws over the chapter. Until the screen is full the
-  // chapter below stays under plain paper ('dry'), so nothing of it slides or animates under the pour.
+  // the stain (II): once the screen is pinned a single drop falls and bursts into a stain on its own clock (about 1.6 s,
+  // whatever the scroll speed), the title waits in it unpainted; then the reader's scroll brings water back: blooms lift the
+  // ink and open the sheet onto chapter II underneath. Until the first bloom the chapter stays under plain paper ('dry').
   painters.push(vh => curtains.forEach(C => {
     const r = C.c.getBoundingClientRect(); if(r.bottom < -vh || r.top > vh*2) return;
-    const runLen = Math.max(1, r.height - vh), run = clamp(-r.top/runLen);
-    let goal, band = 1, mask = 1;
-    if(reduce){ goal = 0; band = 0; }
-    else { goal = r.top > 0 ? 0 : run < 0.55 ? 1 : 1 - clamp((run - 0.55)/0.43); const f = clamp((run - 0.46)/0.08); mask = 1 - f*f; }
-    if(C.p){
-      const p = C.p;
-      if(p.band !== band || p.maskAmt !== mask){ p.band = band; p.maskAmt = mask; p.dirty = true; }
-      p.setT(SNAP ? goal : p.t + clamp((goal - p.t)*0.2, -0.035, 0.035));   // eased, and never a strobe on a fast flick
+    const runLen = Math.max(1, r.height - vh), run = clamp(-r.top/runLen), p = C.p, now = performance.now();
+    const dt = Math.min(0.05, (now - (C.last || now))/1000); C.last = now;
+    // the drop falls once the sheet has risen past a third of the screen (no long stretch of bare paper); the wash comes once
+    // chapter II is nearly in place under the sheet and is over before the pin lets go, so no stain ever leaves on a moving sheet
+    const spreadGoal = reduce || r.top > vh*0.35 ? 0 : 1, liftGoal = reduce ? 0 : clamp((run - 0.6)/0.3);
+    const f = clamp((run - 0.5)/0.1), mask = 1 - f*f;
+    if(p){
+      const sp = SNAP ? spreadGoal : spreadGoal > p.t ? Math.min(spreadGoal, p.t + dt/1.6) : Math.max(spreadGoal, p.t - dt/0.5);
+      const lf = SNAP || run >= 0.93 ? liftGoal : p.lift + clamp((liftGoal - p.lift)*0.18, -0.04, 0.04);
+      // the drop of water lands where the stone will be when the window holds still (phone, run 0.66) or when the pin ends
+      // (wide screens, where the tall art reaches the middle last): chapter II keeps rising under the sheet until then,
+      // unless its sticky scene has already stopped
+      if(p.lift <= 0 && lf > 0 && C.stone){
+        const fig = C.stone.closest('.chapter__art') || C.stone, s = C.stone.getBoundingClientRect(), fr = fig.getBoundingClientRect(), f = (ART.obs && ART.obs.focus) || [0.5, 0.5];
+        const cs = getComputedStyle(fig), stick = cs.position === 'sticky' ? parseFloat(cs.top) || 0 : -1e9, dy = fr.top - Math.max(fr.top - Math.max(0, (mobile() ? 0.66 : 1) - run)*runLen, stick);
+        p.water = [(s.left + s.width*f[0])/innerWidth, (s.top - dy + s.height*f[1])/vh];
+      }
+      const { src, cover } = stainAt();
+      const dryAmt = clamp(run/0.55);   // while the reader holds, the stain dries towards its edge
+      if(p.lift !== lf || p.maskAmt !== mask || p.cover !== cover || p.src[0] !== src[0] || p.dryAmt !== dryAmt){ p.lift = lf; p.maskAmt = mask; p.cover = cover; p.src = src; p.dryAmt = dryAmt; p.dirty = true; }
+      p.setT(sp);
     }
-    const t = C.p ? C.p.t : goal, flooded = t > 0.96 && band > 0.95;
-    if(flooded && !C.full) document.dispatchEvent(new CustomEvent('inkfull'));
-    C.full = flooded;
-    C.c.classList.toggle('dry', !reduce && (r.top > 0 || (run < 0.55 && t < 0.96)));
-    document.body.classList.toggle('inked', flooded || (!reduce && run > 0 && run < 0.6 && t > 0.1));
+    const t = p ? p.t : 0, L = p ? p.lift : 0, hit = t > 0.15;
+    if(hit && !C.hit) document.dispatchEvent(new CustomEvent('inkfull'));   // the drop lands: one small tick of the phone
+    C.hit = hit; C.full = t > 0.98;
+    C.c.classList.toggle('dry', !reduce && L < 0.02);
+    document.body.classList.toggle('inked', !reduce && t > 0.05 && L < 0.5);
   }));
 
 

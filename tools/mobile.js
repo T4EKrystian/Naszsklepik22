@@ -85,8 +85,8 @@ const check = (name, ok, info = '') => { results.push({ name, ok }); console.log
     for (let k = 0; want && k < 30 && (await curT()) < want; k++) await page.waitForTimeout(200);
     return curT(); };
   const n = await page.evaluate(() => document.querySelectorAll('.curtain').length);
-  const dry = n ? await cur(-0.3) : -1, wet = n ? await cur(0.3, 0.9) : -1;
-  check('one curtain, dry until pinned, then it covers the screen', n === 1 && dry === 0 && wet >= 0.9, `n=${n} before=${dry} pinned=${wet}`);
+  const dry = n ? await cur(-0.6) : -1, wet = n ? await cur(0.3, 0.9) : -1;
+  check('one curtain: dry until its sheet rises, then the stain', n === 1 && dry === 0 && wet >= 0.9, `n=${n} before=${dry} pinned=${wet}`);
 
   check('no JS errors', errs.length === 0, errs.slice(0, 3).join(' | '));
   await browser.close();

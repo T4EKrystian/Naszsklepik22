@@ -175,19 +175,20 @@ const inPage = () => {
       await page.waitForTimeout(200);
       const th = await page.evaluate(() => { const el = document.getElementById('threadM'); if (!el) return 'missing'; const q = el.getBoundingClientRect(); const cs = getComputedStyle(el); return cs.display === 'none' || cs.visibility === 'hidden' || !q.height ? 'hidden' : q.left > 16 ? 'left=' + q.left : ''; });
       if (th) r.THREAD.push('#threadM ' + th);
-      // one ink curtain floods the screen (II): nothing is painted before its screen is pinned, then it covers the screen
+      // one ink curtain (II): a stain that stays off the sheet until it rises, covers its part while pinned, and is washed away before the pin lets go
       const curtains = await page.evaluate(() => document.querySelectorAll('.curtain').length);
-      if (curtains !== 1) r.CURTAIN.push(`${curtains} curtains (one full flood only)`);
+      if (curtains !== 1) r.CURTAIN.push(`${curtains} curtains (one only)`);
       for (let i = 0; i < curtains; i++) {
         const at = async f => {
           const y = await page.evaluate(([k, f]) => { const c = document.querySelectorAll('.curtain')[k]; return c.getBoundingClientRect().top + scrollY + (f < 0 ? f * innerHeight : (c.offsetHeight - innerHeight) * f); }, [i, f]);
           await page.evaluate(y => window.scrollTo(0, y), Math.round(y));
           await page.waitForTimeout(250);
-          return page.evaluate(k => { const el = document.querySelectorAll('.curtain .spillink')[k]; const p = el && window.__ink.plates.find(x => x.el === el); return p ? { t: p.t, band: p.band } : { t: -1, band: -1 }; }, i);
+          return page.evaluate(k => { const el = document.querySelectorAll('.curtain .spillink')[k]; const p = el && window.__ink.plates.find(x => x.el === el); return p ? { t: p.t, L: p.lift || 0 } : { t: -1, L: -1 }; }, i);
         };
-        const pre = await at(-0.3), hold = await at(0.3);
-        if (pre.t > 0.01) r.CURTAIN.push(`curtain ${i + 1}: ink before its screen is pinned (t=${pre.t.toFixed(2)})`);
-        if (hold.t < 0.9 || hold.band < 0.95) r.CURTAIN.push(`curtain ${i + 1}: t=${hold.t.toFixed(2)} band=${hold.band.toFixed(2)} while pinned`);
+        const pre = await at(-0.6), hold = await at(0.3), end = await at(0.96);
+        if (pre.t > 0.01) r.CURTAIN.push(`curtain ${i + 1}: ink before its sheet rises (t=${pre.t.toFixed(2)})`);
+        if (hold.t < 0.9 || hold.L > 0.05) r.CURTAIN.push(`curtain ${i + 1}: t=${hold.t.toFixed(2)} lift=${hold.L.toFixed(2)} while pinned`);
+        if (end.L < 0.95) r.CURTAIN.push(`curtain ${i + 1}: still ${Math.round((1 - end.L) * 100)} % of the stain when the pin lets go`);
       }
       // three stone gestures, each with a button alternative
       for (const g of ['tilt-obs', 'tilt-tig', 'hold-hem']) {
