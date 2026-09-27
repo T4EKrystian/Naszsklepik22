@@ -78,16 +78,12 @@ const check = (name, ok, info = '') => { results.push({ name, ok }); console.log
   const after = await page.evaluate(() => document.getElementById('breathTxt').textContent);
   check('holding the circle breathes, letting go pauses', /wdech/.test(during) && /przytrzymaj/.test(after), `${during} / ${after}`);
 
-  // curtains flood the screen at the start of their pinned run
+  // the one curtain waits for its screen to pin, then floods it
+  const cur = async f => { await page.evaluate(f => { const c = document.querySelector('.curtain'); scrollTo(0, c.getBoundingClientRect().top + scrollY + (f < 0 ? f*innerHeight : (c.offsetHeight - innerHeight)*f)); }, f); await page.waitForTimeout(2000);
+    return page.evaluate(() => { const el = document.querySelector('.curtain .spillink'); const p = window.__ink.plates.find(x => x.el === el); return p ? +p.t.toFixed(2) : -1; }); };
   const n = await page.evaluate(() => document.querySelectorAll('.curtain').length);
-  let full = 0;
-  for (let i = 0; i < n; i++) {
-    await page.evaluate(k => { const c = document.querySelectorAll('.curtain')[k]; scrollTo(0, c.getBoundingClientRect().top + scrollY + (c.offsetHeight - innerHeight)*0.2); }, i);
-    await page.waitForTimeout(2000);
-    const t = await page.evaluate(k => { const el = document.querySelectorAll('.curtain .spillink')[k]; const p = window.__ink.plates.find(x => x.el === el); return p ? p.t : -1; }, i);
-    if (t >= 0.9) full++;
-  }
-  check('curtains cover the screen', n >= 3 && full === n, `${full}/${n}`);
+  const dry = n ? await cur(-0.3) : -1, wet = n ? await cur(0.3) : -1;
+  check('one curtain, dry until pinned, then it covers the screen', n === 1 && dry === 0 && wet >= 0.9, `n=${n} before=${dry} pinned=${wet}`);
 
   check('no JS errors', errs.length === 0, errs.slice(0, 3).join(' | '));
   await browser.close();

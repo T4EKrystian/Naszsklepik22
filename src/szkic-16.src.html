@@ -1255,16 +1255,20 @@ h3.sub{font:italic 500 23px/1.2 var(--serif);color:var(--text);margin:0 0 12px;l
 .brush{display:block;pointer-events:none}
 .brush canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 /* a curtain lies over the first screen of the next chapter: the ink withdraws and the chapter is already there */
-.curtain{display:none;position:relative;z-index:5;height:170svh;margin-bottom:-100svh;pointer-events:none;background:linear-gradient(var(--a) calc(100% - 100svh),transparent 0)}
+.curtain{display:none;position:relative;z-index:5;height:150svh;margin-bottom:-100svh;pointer-events:none;background:linear-gradient(var(--a),var(--b) calc(100% - 100svh),transparent 0)}
+@media (min-width:901px){.curtain{height:165vh}}
+.seam[data-seam="horizon"]{height:clamp(190px,32vh,360px)}
+body.inked .threadM{opacity:0!important}
 .js .curtain{display:block}
 .curtain__stick{position:sticky;top:0;height:100svh;overflow:hidden}
 .curtain__stick>.ink{position:absolute;inset:0}
 .curtain__t{display:none;margin:0}
-.no-gl .curtain{height:auto;margin-bottom:0;background:#1f2d52}
-.no-gl .curtain__stick{position:relative;height:auto;padding:12vh 8vw}
-.no-gl .curtain__t{display:block;color:#fbf5eb;font:italic 500 clamp(40px,6vw,90px)/1.05 var(--serif)}
-.no-gl .curtain__t i{display:block;font-size:2.2em;line-height:1}
-.no-gl .curtain__t small{display:block;font:500 16px/1.4 var(--sans);letter-spacing:.16em;text-transform:uppercase;margin-top:16px}
+.no-gl .curtain{height:auto;margin-bottom:0;background:linear-gradient(var(--a),var(--b))}
+.no-gl .curtain__stick{position:relative;height:auto;padding:8vh var(--pad) 4vh}
+.no-gl .curtain__t{display:block;color:#212b42;font:italic 500 clamp(32px,3.4vw,44px)/1.1 var(--serif)}
+.no-gl .curtain__t i{display:block;font-size:1.6em;line-height:1}
+.no-gl .curtain__t small{display:none}
+.no-gl .seam[data-seam="horizon"]{background-color:transparent;background-image:linear-gradient(var(--a),var(--b))}
 .foot__bg{-webkit-mask-image:linear-gradient(transparent,#000 45%);mask-image:linear-gradient(transparent,#000 45%)}
 /* hairlines: the rules between rows are single hairs of the brush */
 html.hair :is(.pricerow,.desc,.stones button,.faqlist li,.steps li,.chapter__facts div,.forwho li,.howto>div,.who li,.intent,.reasons li,.pcard .row,.card-acc details,.hook,.bridge li,.mdet,.spec,.toc,.rnote dl,.ritual,.solo){border-top-color:transparent;background-image:var(--hair1);background-repeat:no-repeat;background-size:100% 10px;background-position:left 0 top -4px}
@@ -1367,8 +1371,12 @@ html.hair .inkpad::before{content:"";position:absolute;inset:0;background-image:
   .tempo__rows li.long .brush{width:calc(100% + var(--pad) + 10px)}
 }
 @media (prefers-reduced-motion:reduce){
-  .curtain{height:52svh;margin-bottom:0;background:var(--b)}
-  .curtain__stick{position:relative;height:52svh}
+  .curtain{height:auto;margin-bottom:0;background:linear-gradient(var(--a),var(--b))}
+  .curtain__stick{position:relative;height:auto;padding:8vh var(--pad) 4vh}
+  .curtain__stick>.ink{display:none}
+  .curtain__t{display:block;color:#212b42;font:italic 500 clamp(32px,3.4vw,44px)/1.1 var(--serif)}
+  .curtain__t i{display:block;font-size:1.6em;line-height:1}
+  .curtain__t small{display:none}
 }
 </style>
 </head>
@@ -1548,7 +1556,7 @@ html.hair .inkpad::before{content:"";position:absolute;inset:0;background-image:
     </div>
   </div>
 </section>
-<section class="curtain" data-seam="curtain" data-vol="L" data-a="#fbf5eb" data-b="#efe6d9" data-roman="II" data-name="Obsydian" data-sub="lustro i tarcza" data-dir="left" aria-hidden="true"></section>
+<section class="curtain" data-seam="curtain" data-vol="L" data-a="#fbf5eb" data-b="#efe6d9" data-col="#212b42" data-roman="II" data-name="Obsydian" data-sub="lustro i tarcza" data-dir="left" aria-hidden="true"></section>
 
 <div class="stones-body" id="chBody">
 <article class="chapter" id="rozdzial-2" data-stone="obs" data-chapter data-n="Rozdział II z VI" data-roman="II" data-title="Obsydian" aria-labelledby="name-obs">
@@ -1590,7 +1598,7 @@ html.hair .inkpad::before{content:"";position:absolute;inset:0;background-image:
     </div>
   </div>
 </article>
-<section class="curtain" data-seam="curtain" data-vol="L" data-a="#f5e6cf" data-b="#f3e1d5" data-roman="IV" data-name="Hematyt" data-sub="żelazo i krew" data-dir="down" data-tide="#8a4a2e" aria-hidden="true"></section>
+<div class="seam" data-seam="horizon" data-vol="M" data-a="#f5e6cf" data-b="#f3e1d5" data-col="#7a4a35" data-line=".45"></div>
 <article class="chapter" id="rozdzial-4" data-stone="hem" data-chapter data-n="Rozdział IV z VI" data-roman="IV" data-title="Hematyt" aria-labelledby="name-hem">
   <div class="wrap">
     <figure class="chapter__art stage-m tint" style="--stage-bg:#f3e1d5"><div class="arch spill" data-paper="#f3e1d5" data-track="#rozdzial-4" style="--arch:#f3e1d5"><div class="ink gr" data-art="g_hem" data-kind="wash" data-mode="scroll" data-lead="1.4" data-intro="0.3" data-alpha=".95" data-paper="#f3e1d5"><canvas aria-hidden="true"></canvas></div><div class="ink" data-art="hem" data-mode="scroll" data-intro="0.3"><canvas aria-hidden="true"></canvas></div><button class="redraw" type="button" data-redraw aria-label="Namaluj ponownie: Hematyt"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M16 10a6 6 0 1 1-2-4.5"/><path d="M14.5 2.5v3.4h-3.4"/></svg></button></div><figcaption>Hematyt · kamień z żelaza</figcaption></figure>
@@ -1668,7 +1676,7 @@ html.hair .inkpad::before{content:"";position:absolute;inset:0;background-image:
     <div class="nextwrap"><a class="next" href="#rozdzial-6"><span><small>Dalej · rozdział VI</small><b>Jak nosić Talizman</b></span><i><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 10h12M11 5l5 5-5 5"/></svg></i></a></div>
   </div>
 </section>
-<section class="curtain" data-seam="curtain" data-vol="L" data-a="#f2e6d5" data-b="#fbf5eb" data-roman="VI" data-name="Jak nosić" data-sub="Twój rytuał" data-dir="up" aria-hidden="true"></section>
+<div class="seam" data-seam="horizon" data-vol="M" data-a="#f2e6d5" data-b="#fbf5eb"></div>
 
 <section class="wear" id="rozdzial-6" data-chapter data-n="Rozdział VI z VI" data-roman="VI" data-title="Jak nosić Talizman" aria-labelledby="c6H">
   <div class="wrap grid" style="padding-top:clamp(56px,6vw,96px)">
@@ -2123,7 +2131,9 @@ uniform sampler2D uMask;
 uniform float uUseMask;
 uniform float uFlat;
 uniform float uCalm;
-uniform float uMargin;
+uniform float uBand;
+uniform float uMaskAmt;
+uniform float uFade;
 vec3 permute(vec3 x){ return mod(((x*34.0)+1.0)*x, 289.0); }
 float snoise(vec2 v){
   const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
@@ -2137,46 +2147,55 @@ float snoise(vec2 v){
   vec3 g; g.x = a0.x*x0.x + h.x*x0.y; g.yz = a0.yz*x12.xz + h.yz*x12.yw;
   return 130.0*dot(m, g);
 }
-// ink poured in from beyond the left edge of the page: a tongue of navy wash with a darker tide line at its front.
-// uFull floods the whole plate (curtains), uDir 1 pours upward from the bottom edge (a seam), uK is the pigment
+// ink poured in from beyond one edge of the plate: from the left, or upward (uDir 1), or downward (uDir 2).
+// uFull floods the plate (curtains and seams) and uBand widens a tongue until it covers the plate; uK is the pigment, uTK the tide line's.
+// uCalm 2 is the quiet ink of the page: one faint variation stretched along the flow, a pixel-sharp edge with a thin
+// darker tide line, granulation only where the ink is thin. uFade keeps only a line of pigment uFade*64 px wide behind the edge.
 void main(){
   vec2 uv = uDir > 1.5 ? vec2(1.0 - vUv.y, vUv.x) : uDir > 0.5 ? vec2(vUv.y, vUv.x) : vUv;
   vec2 res = uDir > 0.5 ? uRes.yx : uRes;
   float casp = res.x/res.y;
   vec2 q = vec2(uv.x*casp, uv.y);
   float n1 = snoise(q*vec2(1.1, 1.6) + uSeed), n2 = snoise(q*4.5 + uSeed*2.3), n3 = snoise(q*13.0 - uSeed);
+  float c2 = step(1.5, uCalm), cm = min(uCalm, 1.0);
   float t = clamp(uT, 0.0, 1.0);
-  float front = t*uReach*1.08 + 0.07*n1 + 0.025*n2 + 0.008*n3 - 0.06*uFull*(1.0 - t);
-  front = mix(front, min(front, 0.8 + 0.05*n1 + 0.02*n2), uMargin);   // the flood stops short of the far edge: ink on a sheet of paper
+  // the front: a large irregular wave, some mid-scale unevenness and, in the quiet ink, a fray of a pixel or two
+  float fray = snoise(gl_FragCoord.xy*0.11 - uSeed)*1.2/res.x + snoise(gl_FragCoord.xy*0.5 + uSeed*7.0)*0.35/res.x;
+  float wave = mix(0.07*n1 + 0.025*n2 + 0.008*n3, (0.032*n1 + 0.014*n2 + 0.002*n3)*max(1.0, res.y/res.x)*mix(1.0, 0.45, step(2.5, uCalm)) + fray, c2);
+  float front = t*uReach*1.08 + wave - mix(0.06*uFull, 0.1, c2)*(1.0 - t);
   float d = front - uv.x;
-  float inside = smoothstep(-0.004, 0.012, d);
-  // the tongue narrows as it travels right; at the page edge it fills the whole height
-  float span = mix(0.43, 0.2, smoothstep(0.0, uReach, uv.x)) + 0.045*n1 + 0.02*n2;
-  float band = mix(smoothstep(0.0, 0.07, span - abs(uv.y - 0.5 - 0.04*n1)), 1.0, uFull);
+  float aa = mix(0.012, 1.1/res.x, c2);
+  float inside = smoothstep(-aa*0.35, aa, d);
+  // the tongue narrows as it travels; a full band covers the whole plate
+  float span = mix(0.43, 0.2, smoothstep(0.0, uReach, uv.x)) + 0.045*n1 + 0.02*n2 + 0.7*uBand;
+  float band = smoothstep(0.0, mix(0.07, 1.1/res.y, c2), span - abs(uv.y - 0.5 - 0.04*n1) + c2*fray*res.x/res.y);
   float body = pow(1.0 - smoothstep(0.0, max(front, 0.05), uv.x), 1.25);
   body = mix(body, 0.62 + 0.38*body, uFull*smoothstep(0.35, 0.9, t));
-  float tide = exp(-max(d, 0.0)*36.0)*inside*(1.0 - 0.55*smoothstep(0.75, 1.0, t));
+  body = mix(body, 1.0, c2);                                                         // quiet: the pour is loaded evenly up to its edge
+  float dpx = max(d, 0.0)*res.x;                                                     // distance from the front in pixels
+  float tide = mix(exp(-max(d, 0.0)*36.0)*(1.0 - 0.55*smoothstep(0.75, 1.0, t)), exp(-dpx/4.5), c2)*inside;
   float gran = 0.5 + 0.5*snoise(gl_FragCoord.xy*vec2(0.21, 0.19) + uSeed*9.0);
-  float cloud = 0.55 + 0.45*smoothstep(-0.6, 0.8, snoise(q*2.2 + uSeed*3.1));
-  cloud = mix(cloud, 0.8 + 0.2*smoothstep(-0.8, 0.9, snoise(q*0.8 + uSeed*1.7)), min(uCalm, 1.0));          // calm: one large, soft variation instead of clouds
   float fibre = snoise(gl_FragCoord.xy*vec2(0.95, 0.32) + uSeed*4.0);
-  float c2 = step(1.5, uCalm), cm = min(uCalm, 1.0);
-  float g = mix(0.74 + 0.42*gran, 0.88 + 0.12*gran + mix(0.07, 0.035, c2)*fibre, cm);             // calm: paper tooth instead of blotches
-  cloud *= mix(1.0, mix(1.1 - 0.28*smoothstep(0.0, 1.0, uv.x), 1.05 - 0.12*smoothstep(0.0, 1.0, uv.x), c2), cm*uFull);   // the ink pools near its source and thins as it travels
-  float c2b = step(1.5, uCalm);
-  body = mix(body, 0.72 + 0.28*body, c2b*uFull);                                    // calm: the body stays loaded right up to the front
-  float dens = inside*band*(0.56*body*cloud*g + 0.07*(1.0 - 0.85*c2b)*smoothstep(0.2, 0.9, n2));   // body with back-runs inside the pour
-  float dt = inside*band*0.4*tide*g*(1.0 + 0.7*c2b);                               // the darker tide line at the front
+  float cloud = 0.55 + 0.45*smoothstep(-0.6, 0.8, snoise(q*2.2 + uSeed*3.1));
+  cloud = mix(cloud, 0.8 + 0.2*smoothstep(-0.8, 0.9, snoise(q*0.8 + uSeed*1.7)), cm);
+  cloud = mix(cloud, 0.96 + 0.04*snoise(vec2(uv.x*casp*0.35, uv.y*1.1) + uSeed*1.9), c2);   // quiet: one faint variation along the flow
+  cloud *= mix(1.0, mix(1.1 - 0.28*smoothstep(0.0, 1.0, uv.x), 1.04 - 0.08*smoothstep(0.0, 1.0, uv.x), c2), cm*uFull);   // pooling toward the source
+  float g = mix(0.74 + 0.42*gran, 0.88 + 0.12*gran + 0.07*fibre, cm);
+  float thin = 1.0 - smoothstep(0.0, 60.0, dpx);
+  g = mix(g, 1.0 + (gran - 0.5)*0.07*thin + 0.02*fibre*thin, c2);                    // quiet: granulation only near the edge
+  float dens = inside*band*(0.56*body*cloud*g + 0.07*(1.0 - 0.9*c2)*smoothstep(0.2, 0.9, n2));
+  float dt = inside*band*mix(0.4, 0.2*(0.7 + 0.3*snoise(q*9.0 + uSeed)), c2)*tide*mix(g, 1.0, c2);
+  dens *= mix(1.0, 1.0 - smoothstep(0.0, 64.0*max(uFade, 0.1), dpx), step(0.01, uFade));   // a horizon: the pigment has run to its edge
   dens *= 1.0 + 0.75*uFull; dt *= 1.0 + 0.75*uFull;
   float settle = uFlat*max(smoothstep(0.8, 1.0, t), 1.0 - smoothstep(0.0, 0.35, uv.x));
-  dens = mix(dens, 0.85, settle); dt *= 1.0 - settle;                                   // a seam settles into the flat paper of the next section
-  if(uUseMask > 0.5){ float m = texture2D(uMask, vUv).r; dens *= 1.0 - m*(0.9 + 0.08*gran); dt *= 1.0 - m; }   // the title is left unpainted, like a resist
+  dens = mix(dens, 0.85*inside*band, settle); dt *= 1.0 - settle;                             // a seam settles into the flat paper of the next section
+  if(uUseMask > 0.5){ float m = texture2D(uMask, vUv).r*uMaskAmt; dens *= 1.0 - m*mix(0.9 + 0.08*gran, 0.99, c2); dt *= 1.0 - m; }   // the title is left unpainted, like a resist
   vec3 T = exp(-(uK*dens + uTK*dt)*1.2);
   float a = clamp(1.0 - min(T.r, min(T.g, T.b)), 0.0, 1.0);
   vec3 target = uPaper*T;
   vec3 col = a > 0.0005 ? clamp((target - uPaper*(1.0 - a))/a, 0.0, 1.0) : vec3(0.0);
   vec4 o = vec4(col*a, a);
-  if(uFull > 0.5) o = mix(o, vec4(target, 1.0), inside*band);   // a flood is opaque: ink on its own sheet, whatever lies under it
+  if(uFull > 0.5 && uFade < 0.5) o = mix(o, vec4(target, 1.0), inside*band);   // a flood is opaque: ink on its own sheet, whatever lies under it
   gl_FragColor = o*uAlpha;
 }
 </script>
@@ -2253,7 +2272,7 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
       INK = mk('fs', ['uIllus','uArrive','uRes','uArtAsp','uFocus','uSrc','uT','uPoolR','uZoom','uBg','uFit','uLeft']);
       PNT = mk('fsPaint', ['uPhoto','uArrive','uRes','uAsp','uFocus','uT','uFlip','uBg','uLine','uInk','uPre']);
       WSH = mk('fsWash', ['uIllus','uArrive','uRes','uArtAsp','uT','uFit','uPaper','uAlpha','uTint','uUseTint','uFlip','uLeft']);
-      SPL = mk('fsSpill', ['uRes','uT','uPaper','uAlpha','uSeed','uReach','uFull','uDir','uK','uTK','uMask','uUseMask','uFlat','uCalm','uMargin']);
+      SPL = mk('fsSpill', ['uRes','uT','uPaper','uAlpha','uSeed','uReach','uFull','uDir','uK','uTK','uMask','uUseMask','uFlat','uCalm','uBand','uMaskAmt','uFade']);
     } catch(e){ console.warn(e); return null; }
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
@@ -2285,7 +2304,7 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
           const U = SPL.U; gl.useProgram(SPL.pr);
           gl.uniform2f(U.uRes, w, h); gl.uniform1f(U.uT, plate.t); gl.uniform3fv(U.uPaper, plate.paper());
           gl.uniform1f(U.uAlpha, plate.alpha); gl.uniform1f(U.uSeed, plate.seed); gl.uniform1f(U.uReach, plate.reach);
-          gl.uniform1f(U.uFull, plate.full); gl.uniform1f(U.uDir, plate.dir); gl.uniform3fv(U.uK, plate.pigment()); gl.uniform3fv(U.uTK, plate.tidePigment()); gl.uniform1f(U.uFlat, plate.flat); gl.uniform1f(U.uCalm, plate.calm); gl.uniform1f(U.uMargin, plate.margin);
+          gl.uniform1f(U.uFull, plate.full); gl.uniform1f(U.uDir, plate.dir); gl.uniform3fv(U.uK, plate.pigment()); gl.uniform3fv(U.uTK, plate.tidePigment()); gl.uniform1f(U.uFlat, plate.flat); gl.uniform1f(U.uCalm, plate.calm); gl.uniform1f(U.uBand, plate.band); gl.uniform1f(U.uMaskAmt, plate.maskAmt); gl.uniform1f(U.uFade, plate.fade);
           gl.uniform1f(U.uUseMask, plate.maskTex ? 1 : 0); if(plate.maskTex){ gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, plate.maskTex); }
           gl.drawArrays(gl.TRIANGLES, 0, 3);
           plate.ctx.clearRect(0, 0, w, h); plate.ctx.drawImage(cv, 0, cv.height - h, w, h, 0, 0, w, h);
@@ -2335,12 +2354,12 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
       this.at = d.at ? +d.at : 0.86; this.dur = d.dur ? +d.dur : 1600; this.delay = d.delay ? +d.delay : 0;
       this.lead = d.lead ? +d.lead : 1; this.intro = d.intro ? +d.intro : 0.32;
       this.left = d.left ? +d.left : 0; this.seed = d.seed ? +d.seed : 1; this.reach = d.reach ? +d.reach : 0.6;
-      this.full = d.full ? +d.full : 0; this.dir = { up: 1, down: 2 }[d.dir] || 0; this.col = d.col ? hex(d.col) : null; this.tcol = d.tide ? hex(d.tide) : null; this.flat = d.flat ? +d.flat : 0; this.calm = d.calm ? +d.calm : 0; this.margin = d.margin ? +d.margin : 0;
+      this.full = d.full ? +d.full : 0; this.dir = { up: 1, down: 2 }[d.dir] || 0; this.col = d.col ? hex(d.col) : null; this.tcol = d.tide ? hex(d.tide) : null; this.flat = d.flat ? +d.flat : 0; this.calm = d.calm ? +d.calm : 0; this.band = d.band ? +d.band : this.full ? 1 : 0; this.maskAmt = 1; this.fade = d.fade ? +d.fade : 0; this.lag = d.lag ? +d.lag : 0;
       const tw = el.closest('[data-track]'); this.track = tw ? document.querySelector(tw.dataset.track) : null;   // pinned scenes paint as their chapter is read
       this.ink = d.ink ? hex(d.ink) : [0.12, 0.18, 0.32]; this.pre = d.pre ? +d.pre : 0;
       this.canvas = el.querySelector('canvas'); this.ctx = this.canvas.getContext('2d'); this.dirty = true; this.visible = false;
       this.hs = !!el.closest('.beats'); this.near = false; el.__plate = this; nearIO.observe(el);   // lives in a swipe deck on phones: paint only once the card is in front
-      this.dprMax = this.kind === 'spill' ? 1 : this.photo ? 1.5 : (this.kind === 'wash' && !el.classList.contains('num') && !el.classList.contains('ul') ? 1.25 : 2);
+      this.dprMax = this.kind === 'spill' ? (el.closest('.curtain') ? 1.5 : 1) : this.photo ? 1.5 : (this.kind === 'wash' && !el.classList.contains('num') && !el.classList.contains('ul') ? 1.25 : 2);
       new ResizeObserver(() => { this.resize(); this.dirty = true; }).observe(el);
       new IntersectionObserver(es => es.forEach(e => {
         this.visible = e.isIntersecting;
@@ -2353,7 +2372,7 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
     // absorption per channel: navy by default, or whatever pigment lands exactly on data-col at full strength
     pigment(){ return this.absorb(this.col); }
     tidePigment(){ return this.tcol ? this.absorb(this.tcol) : this.pigment(); }
-    absorb(c){ if(!c) return [2.3, 1.7, 0.78]; const p = this.paper(); return c.map((v, i) => -Math.log(clamp(v/Math.max(p[i], 0.02), 0.02, 1))/1.02); }
+    absorb(c){ if(!c) return [2.3, 1.7, 0.78]; const p = this.paper(); return c.map((v, i) => -Math.log(clamp(v/Math.max(p[i], 0.02), 0.02, this.full ? 1.6 : 1))/1.02); }
     setKey(k){ if(k !== this.key){ this.key = k; this.dirty = true; R.prepare(this.texKey).then(() => this.dirty = true).catch(() => {}); } }
     resize(){ const d = Math.min(devicePixelRatio || 1, this.dprMax); const w = Math.round(this.el.clientWidth*d), h = Math.round(this.el.clientHeight*d); if(w && h && (this.canvas.width !== w || this.canvas.height !== h)){ this.canvas.width = w; this.canvas.height = h; } this.cw = this.canvas.width; this.ch = this.canvas.height; }
     setT(v){ v = clamp(v); if(Math.abs(v - this.t) > 1e-4){ this.t = v; this.dirty = true; } }
@@ -2384,21 +2403,24 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
     const d = s.dataset, a = d.a, b = d.b || d.a, seed = (1.7 + i*2.3).toFixed(2);
     s.setAttribute('aria-hidden', 'true'); s.style.setProperty('--a', a); s.style.setProperty('--b', b); if(a === '#fbf5eb') s.classList.add('on-body');
     const add = (cls, ds) => { const el = document.createElement('div'); el.className = cls; Object.assign(el.dataset, ds); el.innerHTML = '<canvas></canvas>'; s.appendChild(el); return el; };
-    if(d.seam === 'rise' && R) add('ink spillink', { art: '__spill', kind: 'spill', mode: 'seam', full: '1', dir: 'up', flat: '1', col: b, paper: a, reach: '1.2', seed, alpha: '1' });
+    // the next paper rises and stops part way: the border between the two papers is always a wet edge, never the box
+    if(d.seam === 'rise' && R) add('ink spillink', { art: '__spill', kind: 'spill', mode: 'seam', full: '1', dir: 'up', flat: '1', col: b, paper: a, reach: '.62', seed, alpha: '1' });
     if(d.seam === 'stroke'){
       add('brush', { preset: 'wide', d: 'M -30 128 C 160 96 330 150 520 112 S 850 88 1030 120', col: d.deep ? deep(b, +d.deep) : b, fill: b, mode: 'scroll', from: '1', to: '.5', seed });
       add('brush', { preset: 'medium', w: '.12', d: 'M 20 72 C 260 52 520 84 760 60 S 930 62 990 70', col: d.deep ? deep(b, +d.deep) : b, mode: 'scroll', from: '.98', to: '.46', seed: seed + 7 });
     }
     if(d.seam === 'line') add('brush', { preset: 'medium', d: 'M -30 108 C 120 88 260 118 420 100 S 640 90 760 104', col: '#223158', mode: 'scroll', from: '.96', to: '.5', seed, w: '.3' });
     if(d.seam === 'thread') add('brush', { shape: 'thread', preset: 'hair', d: 'M -20 112 C 180 92 300 126 420 106 S 620 96 760 110 S 940 122 1030 102', col: '#27365e', mode: 'scroll', from: '.98', to: '.5', seed });
+    if(d.seam === 'horizon' && R){   // the next paper rises and stops half way; a pale line of pigment runs along its edge
+      add('ink spillink', { art: '__spill', kind: 'spill', mode: 'seam', full: '1', dir: 'up', flat: '1', calm: '3', col: b, paper: a, reach: '.52', seed, alpha: '1' });
+      add('ink spillink', { art: '__spill', kind: 'spill', mode: 'seam', full: '1', dir: 'up', calm: '3', fade: d.line || '1', col: d.col || '#8d96b0', paper: b, reach: '.52', seed, alpha: d.col ? '.6' : '.7' });
+    }
     if(d.seam === 'circle') add('brush', { shape: 'bloom', col: b, rim: deep(b, 0.88), mode: 'scroll', from: '.96', to: '.28', seed, cx: '.1', cy: '.98' });
   });
   /* curtains: a sticky screen inside a tall section; the ink floods it, the title stays unpainted */
-  const CUR = (location.search.match(/curtain=(\w)/) || [])[1] || 'a';
   document.querySelectorAll('.curtain').forEach((c, i) => {
-    const d = c.dataset; c.style.setProperty('--a', d.a); c.style.setProperty('--b', d.b);
-    if(CUR !== 'a'){ d.style = CUR; }
-    c.innerHTML = `<div class="curtain__stick"><div class="ink spillink" data-art="__spill" data-kind="spill" data-mode="curtain" data-full="1" data-reach="1.22" data-dir="${d.dir === 'left' ? '' : d.dir}" data-seed="${(3.1 + i*4.7).toFixed(2)}" data-paper="${d.a}"${d.tide ? ` data-tide="${d.tide}"` : ''}${CUR !== 'a' ? ` data-col="#1d2842" data-calm="${'de'.includes(CUR) ? 2 : 1}"${'ce'.includes(CUR) ? ' data-margin="1"' : ''}` : ''}><canvas></canvas></div><p class="curtain__t"><i>${d.roman}</i><span>${d.name}</span><small>${d.sub}</small></p></div>`;
+    const d = c.dataset; c.style.setProperty('--a', d.a === '#fbf5eb' ? 'transparent' : d.a); c.style.setProperty('--b', d.b);
+    c.innerHTML = `<div class="curtain__stick"><div class="ink spillink" data-art="__spill" data-kind="spill" data-mode="curtain" data-full="1" data-reach="1.22" data-dir="${d.dir === 'left' ? '' : d.dir}" data-seed="${(3.1 + i*4.7).toFixed(2)}" data-paper="${d.a}" data-col="${d.col}" data-calm="2"${d.tide ? ` data-tide="${d.tide}"` : ''}><canvas></canvas></div><p class="curtain__t"><i>${d.roman}</i><span>${d.name}</span><small>${d.sub}</small></p></div>`;
   });
   /* spill windows: a pour of navy ink comes in from the left edge of the page under every illustration */
   if(R) document.querySelectorAll('.spill').forEach((w, i) => {
@@ -2447,7 +2469,7 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
         if(r.bottom > -60 && r.top < vh + 60) p.ease(reduce ? 1 : clamp((vh*p.from - r.top)/(vh*(p.from - p.to))));
       } else if(p.mode === 'seam'){
         const r = p.el.getBoundingClientRect();
-        if(r.bottom > -60 && r.top < vh + 60) p.ease(reduce ? 0.62 : clamp((vh*0.96 - r.top)/(vh*0.42 + r.height*0.8)), 0.12);
+        if(r.bottom > -60 && r.top < vh + 60) p.ease(reduce ? 0.62 : clamp((vh*0.96 - r.top)/(vh*0.42 + r.height*0.8)*(1 + p.lag) - p.lag), 0.12);
       } else if(p.mode === 'once' && !p.fired){
         const r = p.el.getBoundingClientRect();
         if(p.hs && r.width && mobile()){ const cx = (r.left + r.right)/2; if(cx < 0 || cx > innerWidth) continue; }
@@ -2642,24 +2664,34 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
     const p = C.p; if(!p || !p.cw || !R) return;
     const cv = C.mcv || (C.mcv = document.createElement('canvas')), w = p.cw, h = p.ch, x = cv.getContext('2d'), d = C.c.dataset, m = w < 700;
     cv.width = w; cv.height = h; x.fillStyle = '#000'; x.fillRect(0, 0, w, h); x.fillStyle = '#fff'; x.textBaseline = 'alphabetic';
-    const quiet = !!d.style, hr = Math.min(h*(quiet ? 0.2 : 0.3), w*(m ? (quiet ? 0.34 : 0.46) : (quiet ? 0.2 : 0.3))), hn = hr*(quiet ? 0.5 : 0.42), hs = Math.max(15, hn*0.3), x0 = w*(m ? 0.08 : 0.11), yb = h*0.52;
-    if(quiet) x.filter = 'blur(0.7px)';   // a wet resist: the edge of the letters bleeds a little
+    const k = w/Math.max(1, C.p.el.clientWidth), hr = (m ? 60 : 92)*k, hn = (m ? 34 : 44)*k, x0 = w*(m ? 0.08 : 0.11), yb = h*(m ? 0.46 : 0.5);
     x.font = `italic 500 ${hr}px "Cormorant Garamond", Georgia, serif`; x.fillText(d.roman, x0 - hr*0.04, yb);
-    x.font = `italic 500 ${hn}px "Cormorant Garamond", Georgia, serif`; x.fillText(d.name, x0, yb + hn*1.12);
-    if(!quiet){ x.font = `500 ${hs}px "DM Sans", sans-serif`; if('letterSpacing' in x) x.letterSpacing = (hs*0.16) + 'px'; x.fillText(d.sub.toUpperCase(), x0 + 2, yb + hn*1.12 + hs*2.3); }
+    x.font = `italic 500 ${hn}px "Cormorant Garamond", Georgia, serif`; x.fillText(d.name, x0, yb + hn*1.2);
     p.maskTex = R.texFrom(cv, p.maskTex); p.dirty = true;
   };
   const layResist = () => curtains.forEach(C => { if(C.p){ C.p.resize(); resist(C); } });
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(layResist);
   curtains.forEach(C => C.p && new ResizeObserver(() => resist(C)).observe(C.p.el));
+  // the one full flood (II): once the screen is pinned a tongue comes in from the left and grows until it fills it,
+  // holds just long enough to read the title, lets the title go, then withdraws over the chapter.
   painters.push(vh => curtains.forEach(C => {
     const r = C.c.getBoundingClientRect(); if(r.bottom < -vh || r.top > vh*2) return;
-    const enter = clamp((vh - r.top)/vh), run = clamp(-r.top/Math.max(1, r.height - vh));
-    const goal = reduce ? 1 : run < 0.4 ? enter : 1 - clamp((run - 0.4)/0.56);
-    if(C.p) C.p.ease(goal, SNAP ? 1 : 0.2);
-    const t = C.p ? C.p.t : goal, flooded = t > 0.96;
+    const runLen = Math.max(1, r.height - vh), run = clamp(-r.top/runLen);
+    let goal, band = 1, mask = 1;
+    if(reduce){ goal = 0; band = 0; }
+    else {
+      goal = r.top > 0 ? 0 : run < 0.55 ? 1 : 1 - clamp((run - 0.55)/0.43);
+      band = clamp(((C.p ? C.p.t : goal) - 0.3)/0.6); mask = 1 - clamp((run - 0.55)/0.08);
+    }
+    if(C.p){
+      const p = C.p;
+      if(p.band !== band || p.maskAmt !== mask){ p.band = band; p.maskAmt = mask; p.dirty = true; }
+      p.setT(SNAP ? goal : p.t + clamp((goal - p.t)*0.2, -0.035, 0.035));   // eased, and never a strobe on a fast flick
+    }
+    const t = C.p ? C.p.t : goal, flooded = t > 0.96 && band > 0.95;
     if(flooded && !C.full) document.dispatchEvent(new CustomEvent('inkfull'));
     C.full = flooded;
+    document.body.classList.toggle('inked', flooded || (!reduce && run > 0 && run < 0.6 && t > 0.9));
   }));
 
 

@@ -175,15 +175,19 @@ const inPage = () => {
       await page.waitForTimeout(200);
       const th = await page.evaluate(() => { const el = document.getElementById('threadM'); if (!el) return 'missing'; const q = el.getBoundingClientRect(); const cs = getComputedStyle(el); return cs.display === 'none' || cs.visibility === 'hidden' || !q.height ? 'hidden' : q.left > 16 ? 'left=' + q.left : ''; });
       if (th) r.THREAD.push('#threadM ' + th);
-      // ink curtains flood the whole screen between chapters
+      // one ink curtain floods the screen (II): nothing is painted before its screen is pinned, then it covers the screen
       const curtains = await page.evaluate(() => document.querySelectorAll('.curtain').length);
-      if (curtains < 3) r.CURTAIN.push(`${curtains} curtains (need 3)`);
+      if (curtains !== 1) r.CURTAIN.push(`${curtains} curtains (one full flood only)`);
       for (let i = 0; i < curtains; i++) {
-        const y = await page.evaluate(k => { const c = document.querySelectorAll('.curtain')[k]; return c.getBoundingClientRect().top + scrollY + (c.offsetHeight - innerHeight) * 0.25; }, i);
-        await page.evaluate(y => window.scrollTo(0, y), Math.round(y));
-        await page.waitForTimeout(250);
-        const t = await page.evaluate(k => { const el = document.querySelectorAll('.curtain .spillink')[k]; const p = el && window.__ink.plates.find(x => x.el === el); return p ? p.t : -1; }, i);
-        if (t < 0.9) r.CURTAIN.push(`curtain ${i + 1}: t=${t.toFixed(2)} at its middle`);
+        const at = async f => {
+          const y = await page.evaluate(([k, f]) => { const c = document.querySelectorAll('.curtain')[k]; return c.getBoundingClientRect().top + scrollY + (f < 0 ? f * innerHeight : (c.offsetHeight - innerHeight) * f); }, [i, f]);
+          await page.evaluate(y => window.scrollTo(0, y), Math.round(y));
+          await page.waitForTimeout(250);
+          return page.evaluate(k => { const el = document.querySelectorAll('.curtain .spillink')[k]; const p = el && window.__ink.plates.find(x => x.el === el); return p ? { t: p.t, band: p.band } : { t: -1, band: -1 }; }, i);
+        };
+        const pre = await at(-0.3), hold = await at(0.3);
+        if (pre.t > 0.01) r.CURTAIN.push(`curtain ${i + 1}: ink before its screen is pinned (t=${pre.t.toFixed(2)})`);
+        if (hold.t < 0.9 || hold.band < 0.95) r.CURTAIN.push(`curtain ${i + 1}: t=${hold.t.toFixed(2)} band=${hold.band.toFixed(2)} while pinned`);
       }
       // three stone gestures, each with a button alternative
       for (const g of ['tilt-obs', 'tilt-tig', 'hold-hem']) {
