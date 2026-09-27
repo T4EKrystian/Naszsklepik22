@@ -304,3 +304,31 @@ Obowiązuje teraz:
 - **Ograniczony ruch i brak WebGL:** spokojny tytuł na papierze, bez zalania.
 
 Druga ocena tego samego panelu: kicz 3,4/10, uroda 6,6/10. Uwagi z tej oceny są wdrożone.
+
+## Plama zamiast zalania (27.09)
+
+Klient: „lepsze już chyba było, że jest poplamione i plama znika i jest sekcja, niż całe pełne, i żeby robiło większe wrażenie”. Pełne zalanie II zastąpiła plama tuszu (`fsStain`, płyta `stain`).
+
+Panel pięciu ocen porównał trzy warianty plamy (a: średni walor, b: gęsta, prawie czarna, c: od lewej krawędzi). Wygrał **b** (wrażenie 7,2/10, kicz 4,4/10). Z a przeszczepiono jaśniejsze płaty, a z c zasadę „tusz z lewej”.
+
+Choreografia:
+1. **Kropla.** Ekran się przypina, na pusty papier spada jedna kropla, okrągła, bez konturu.
+2. **Rozbicie.** Plama osiąga połowę rozmiaru w pierwszej chwili. Ma krótką koronę palców i rozprysk kropel, z których kilka jest wydłużonych. Potem powoli pełznie przez wilgotny papier.
+3. **Plama z tytułem.** Tytuł „II Obsydian” zostaje niepomalowany (rezerwa) i pojawia się dopiero, gdy plama obejmie go z zapasem.
+   - Plama wychodzi za lewą krawędź i zostawia papier po prawej. Na telefonie jest wyższa niż szersza.
+   - Rdzeń jest prawie czarny, a płaty, które najdalej wypłynęły, są jaśniejsze.
+   - Ziarno papieru widać tam, gdzie pigment jest cienki.
+   - Czytelnik trzyma ekran, a plama schnie: jaśnieje i dostaje nierówną linię przypływu z wąskim pasem wyczerpanego pigmentu.
+   - Tytuł leży z dala od kamienia: na telefonie nad nim, na komputerze po prawej.
+4. **Czarne lustro.** Kropla czystej wody spada na kamień rozdziału II. Pozycję kamienia liczy się z jego ramki w ilustracji, przez to samo kadrowanie, które robi shader. Okno obejmuje cały kamień z marginesem i ma ciemny, ziarnisty welon. Obsydian wyłania się z ciemności.
+5. **Zmywanie.** Przez mniej więcej ćwierć przypięcia front biegnie przez całą plamę w kilku językach, najszybciej w prawo, przez kolumnę tekstu. Resztki cofają się w lewo, skąd tusz przyszedł.
+   - Front ma zaokrąglone płatki i ostre wcięcia. Pcha przed sobą pigment w asymetryczny grzbiet.
+   - Za frontem uniesiony tusz rzednie na szerokość dłoni. To zmywanie, a nie wycinana dziura.
+   - Papier wokół plamy schodzi równo dopiero wtedy, gdy woda zmyła tytuł. Nie ma dwóch tytułów naraz.
+6. **Na koniec** ostatni pigment wsiąka w papier ziarnko po ziarnku i zostaje sam rozdział.
+
+Zasady:
+- Plama nigdy nie wyjeżdża z ekranem, bo zmywanie kończy się przed końcem przypięcia.
+- Tempo zmywania nie zależy od liczby klatek.
+- Wibracja pojawia się raz, przy upadku kropli.
+- Ograniczony ruch i brak WebGL dają spokojny tytuł na papierze.
