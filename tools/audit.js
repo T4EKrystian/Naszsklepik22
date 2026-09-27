@@ -5,9 +5,9 @@ const { chromium } = require(process.env.PW || '/opt/node22/lib/node_modules/pla
 
 const web = /^https?:\/\//.test(process.argv[2]), file = web ? null : path.resolve(process.argv[2]), url = web ? process.argv[2] : 'file://' + file;
 const fs = require('fs');
-const LIMITS = { SMALL: 0, BODY: 0, CONTRAST: 0, DASH: 0, EYEBROWS: 12, GAPS: 0, HOVERBAR: 0, JSERR: 0, SEAM: 0, PAINT: 0, WALL: 0, PERF: 0, SIZE: 0, STAGE: 0, THREAD: 0, CURTAIN: 0, GESTURE: 0 };
-// STAGE, THREAD, CURTAIN and GESTURE describe the mobile story (szkic 16) and are checked on the phone viewport only
-const WALL_MAX = { desktop: 0.9, mobile: 0.5 };   // longest run of bare text, in screens
+const LIMITS = { SMALL: 0, BODY: 0, CONTRAST: 0, DASH: 0, EYEBROWS: 12, GAPS: 0, HOVERBAR: 0, JSERR: 0, SEAM: 0, PAINT: 0, WALL: 0, PERF: 0, SIZE: 0, PICTURE: 0, CALM: 0, LENGTH: 0, CURTAIN: 0 };
+// PICTURE, CALM, LENGTH and CURTAIN describe the phone story (szkic 16, after the clean-up) and are checked on the phone viewport only
+const WALL_MAX = { desktop: 0.9, mobile: 0.75 };   // longest run of bare text, in screens (phone: the owner's full text, longer points folded)
 const PERF_MAX = 6;                                // plates rendered in one frame while scrolling
 const VIEWS = [{ name: 'desktop', width: 1440, height: 900, mobile: false }, { name: 'mobile', width: 390, height: 844, mobile: true }];
 
@@ -20,7 +20,7 @@ const wallPage = max => {
   document.querySelectorAll('main img, main .ink:not(.hlp):not(.ul), main .brush, main svg, main button, main input, main label, main summary, main .btn, main canvas').forEach(el => { if (shown(el) && el.getBoundingClientRect().height > 30) cover.push(Y(el)); });
   document.querySelectorAll('main .seam, main .curtain').forEach(el => { if (getComputedStyle(el).display !== 'none') cover.push(Y(el)); });
   document.querySelectorAll('main *').forEach(el => { if (getComputedStyle(el).position === 'sticky' && shown(el)) cover.push(Y(el.parentElement)); });
-  document.querySelectorAll('main p, main li, main dd, main blockquote, main q').forEach(el => { if (shown(el) && !el.closest('button, summary, label, .btn') && el.innerText.trim().length > 20) txt.push(Y(el)); });
+  document.querySelectorAll('main p, main li, main dd, main blockquote, main q').forEach(el => { if (shown(el) && !el.closest('button, summary, label, .btn, .toc') && el.innerText.trim().length > 20) txt.push(Y(el)); });
   const main = document.querySelector('main'), [m0, m1] = Y(main);
   const covered = y => cover.some(([a, b]) => y >= a && y <= b), hasText = y => txt.some(([a, b]) => y >= a && y <= b);
   let run = 0, start = 0;
@@ -103,18 +103,16 @@ const inPage = () => {
     reach = Math.max(reach, b);
   });
 
-  // seams: every boundary between two blocks of the story is painted, and neighbours differ
+  // seams: wherever the paper changes colour the change is painted (one calm seam, or the one curtain); no seam on the same paper
   const all = [...document.querySelectorAll('main section:not(.sheet), main article.chapter, main .seam, main .curtain')].filter(el => getComputedStyle(el).display !== 'none');
   const seq = all.filter(b => !all.some(o => o !== b && b.contains(o)));
   const isSeam = el => el.matches('.seam, .curtain');
-  const kinds = [];
+  const paper = el => { for (let e = el; e && e.nodeType === 1; e = e.parentElement) { const c = getComputedStyle(e).backgroundColor; if (c && !/rgba\(0, 0, 0, 0\)|transparent/.test(c)) return c; } return 'body'; };
   seq.forEach((el, i) => {
-    if (isSeam(el)) { kinds.push({ k: el.dataset.seam, v: el.dataset.vol || 'Q', at: seq[i - 1] ? (seq[i - 1].id || seq[i - 1].className) : '?' }); return; }
-    const nx = seq[i + 1];
-    if (!nx) { out.SEAM.push(`${el.id || el.className} > footer: no seam`); return; }
-    if (!isSeam(nx)) out.SEAM.push(`${el.id || el.className} > ${nx.id || nx.className}: no seam`);
+    if (isSeam(el)) { if (el.matches('.seam') && el.dataset.seam !== 'horizon') out.SEAM.push(`${el.dataset.seam} seam after ${seq[i - 1] ? (seq[i - 1].id || seq[i - 1].className) : '?'} (one calm seam only)`); return; }
+    const nx = seq[i + 1]; if (!nx || isSeam(nx)) return;
+    if (paper(el) !== paper(nx)) out.SEAM.push(`${el.id || el.className} > ${nx.id || nx.className}: the paper changes without a seam`);
   });
-  kinds.forEach((s, i) => { const p = kinds[i - 1]; if (!p) return; if (p.k === s.k) out.SEAM.push(`same seam twice (${s.k}) after ${p.at} and ${s.at}`); if (p.v === 'L' && s.v === 'L') out.SEAM.push(`two loud seams in a row after ${p.at}`); });
   // painting: every block of the page carries at least one plate or brush
   seq.filter(el => !isSeam(el)).forEach(el => { if (!el.querySelector('.ink, .brush')) out.PAINT.push(`${el.id || el.className}: nothing painted`); });
   return out;
@@ -156,25 +154,20 @@ const inPage = () => {
       }
     }
     if (v.mobile) {
-      Object.assign(r, { STAGE: [], THREAD: [], CURTAIN: [], GESTURE: [] });
+      Object.assign(r, { PICTURE: [], CALM: [], LENGTH: [], CURTAIN: [] });
       const top = sel => page.evaluate(q => { const el = document.querySelector(q); return el ? el.getBoundingClientRect().top + scrollY : null; }, sel);
-      // the illustration stays on screen, full width, while its chapter is read
-      for (const [ch, art] of [['#scrolly', '#scrolly .scrolly__frame'], ['#rozdzial-2', '#rozdzial-2 .arch'], ['#rozdzial-3', '#rozdzial-3 .arch'], ['#rozdzial-4', '#rozdzial-4 .arch'], ['#rozdzial-6', '#rozdzial-6 .wear__art']]) {
-        const t0 = await top(ch), h = await page.evaluate(q => document.querySelector(q).offsetHeight, ch);
-        let seen = 0, n = 0;
-        for (let k = 1; k < 10; k++) {
-          await page.evaluate(y => window.scrollTo(0, y), Math.round(t0 + h * k / 10 - v.height / 2));
-          await page.waitForTimeout(60);
-          const vis = await page.evaluate(q => { const r = document.querySelector(q).getBoundingClientRect(); return r.width < innerWidth * 0.6 ? 0 : (Math.min(r.bottom, innerHeight) - Math.max(r.top, 0)) / innerHeight; }, art);
-          n++; if (vis >= 0.35) seen++;
-        }
-        if (seen / n < 0.7) r.STAGE.push(`${ch}: illustration on screen in ${seen}/${n} samples`);
+      // the pictures scroll with the text: each one is painted by the time it is on screen
+      for (const [art, key] of [['#rozdzial-3 .arch', 'tig'], ['#rozdzial-4 .arch', 'hem'], ['#rozdzial-6 .wear__art', 'hands']]) {
+        await page.evaluate(q => { const e = document.querySelector(q); scrollTo(0, e.getBoundingClientRect().top + scrollY - 80); }, art);
+        let t = 0;
+        for (let k = 0; k < 40 && t < 0.95; k++) { await page.waitForTimeout(200); t = await page.evaluate(([q, key]) => { const el = [...document.querySelectorAll(q + ' .ink')].find(e => e.dataset.art === key); const p = el && window.__ink.plates.find(x => x.el === el); return p ? p.t : 0; }, [art, key]); }
+        if (t < 0.95) r.PICTURE.push(`${art}: painted to ${t.toFixed(2)} after 8 s on screen`);
       }
-      // the ink thread down the left edge of the phone
-      await page.evaluate(y => window.scrollTo(0, y), (await top('#rozdzial-3')) + 200);
-      await page.waitForTimeout(200);
-      const th = await page.evaluate(() => { const el = document.getElementById('threadM'); if (!el) return 'missing'; const q = el.getBoundingClientRect(); const cs = getComputedStyle(el); return cs.display === 'none' || cs.visibility === 'hidden' || !q.height ? 'hidden' : q.left > 16 ? 'left=' + q.left : ''; });
-      if (th) r.THREAD.push('#threadM ' + th);
+      // a calm page: no games, no thread, no extra layers
+      const noisy = await page.evaluate(() => ['[data-gesture]', '.inkpad', '#breath', '.knot', '#threadM', '#finaleSheet', '#signSheet', '.sign', '#barBeads', '#album'].filter(q => document.querySelector(q)));
+      noisy.forEach(q => r.CALM.push(`${q} is still on the page`));
+      const screens = await page.evaluate(() => { document.querySelectorAll('details[data-fold]').forEach(d => { d.open = false; }); return document.documentElement.scrollHeight / innerHeight; });
+      if (screens > 36) r.LENGTH.push(`${screens.toFixed(1)} phone screens (max 36)`);
       // one ink curtain (II): a stain that stays off the sheet until it rises, covers its part while pinned, and is washed away before the pin lets go
       const curtains = await page.evaluate(() => document.querySelectorAll('.curtain').length);
       if (curtains !== 1) r.CURTAIN.push(`${curtains} curtains (one only)`);
@@ -189,11 +182,6 @@ const inPage = () => {
         if (pre.t > 0.01) r.CURTAIN.push(`curtain ${i + 1}: ink before its sheet rises (t=${pre.t.toFixed(2)})`);
         if (hold.t < 0.9 || hold.L > 0.05) r.CURTAIN.push(`curtain ${i + 1}: t=${hold.t.toFixed(2)} lift=${hold.L.toFixed(2)} while pinned`);
         if (end.L < 0.95) r.CURTAIN.push(`curtain ${i + 1}: still ${Math.round((1 - end.L) * 100)} % of the stain when the pin lets go`);
-      }
-      // three stone gestures, each with a button alternative
-      for (const g of ['tilt-obs', 'tilt-tig', 'hold-hem']) {
-        const ok = await page.evaluate(q => { const el = document.querySelector(`[data-gesture="${q}"]`); return !!el && !!el.querySelector('[data-gesture-alt]'); }, g);
-        if (!ok) r.GESTURE.push(`${g} missing or without a button alternative`);
       }
     }
     r.JSERR = errs;
