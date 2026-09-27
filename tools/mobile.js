@@ -1,4 +1,5 @@
-// Phone interactions of the story: tilt, hold, finger painting, breath, the three signs and the finale.
+// Phone behaviour of the page after the clean-up: sizes and the buy bar, the stone rows, folded points, pictures painted
+// as they arrive, the one ink curtain and the bag.
 // Usage: node tools/mobile.js <file.html | http(s)://url>   (exit code = number of failed checks)
 const path = require('path');
 const { chromium } = require(process.env.PW || '/opt/node22/lib/node_modules/playwright');
@@ -17,76 +18,61 @@ const check = (name, ok, info = '') => { results.push({ name, ok }); console.log
   await page.evaluate(() => { try { localStorage.clear(); } catch (e) {} });
   await page.reload({ waitUntil: 'load' });
   await page.waitForTimeout(1500);
-  const signs = () => page.evaluate(() => JSON.parse(localStorage.getItem('intencja-znaki') || '[]'));
-  const scrollToEl = async (sel, frac = 0.5) => { await page.evaluate(([s, f]) => { const e = document.querySelector(s); scrollTo(0, e.getBoundingClientRect().top + scrollY - innerHeight*f); }, [sel, frac]); await page.waitForTimeout(900); };
-  const tilt = g => page.evaluate(g => window.dispatchEvent(new DeviceOrientationEvent('deviceorientation', { alpha: 0, beta: 40, gamma: g })), g);
-  const closeSheets = () => page.evaluate(() => window.__ui && window.__ui.Layers.any() && window.__ui.Layers.close());
+  const scrollToEl = async (sel, frac = 0.5) => { await page.evaluate(([s, f]) => { const e = document.querySelector(s); scrollTo(0, e.getBoundingClientRect().top + scrollY - innerHeight*f); }, [sel, frac]); await page.waitForTimeout(700); };
 
-  // the phone thread runs down the left edge inside the story
-  await scrollToEl('#rozdzial-3', 0.2);
-  const th = await page.evaluate(() => { const t = document.getElementById('threadM'); const q = t.getBoundingClientRect(); return { left: q.left, h: q.height, op: getComputedStyle(t).opacity }; });
-  check('thread on the left edge', th.left <= 16 && th.h > 200 && +th.op > 0.5, JSON.stringify(th));
+  // a calm page: none of the games, the thread or the extra sheets
+  const noisy = await page.evaluate(() => ['[data-gesture]', '.inkpad', '#breath', '.knot', '#threadM', '#finaleSheet', '#signSheet', '#barBeads', '#album'].filter(q => document.querySelector(q)));
+  check('no games, thread or extra sheets', noisy.length === 0, noisy.join(', '));
 
-  // obsidian: tilt from one side to the other
-  await scrollToEl('#rozdzial-2 .gesture', 0.7);
-  for (const g of [-5, -18, -24, 0, 18, 26]) { await tilt(g); await page.waitForTimeout(80); }
-  await page.waitForTimeout(2500);
-  check('tilt finds the mirror (obsidian)', (await signs()).includes('lustro'));
-  await closeSheets(); await page.waitForTimeout(500);
+  // a size chip changes the fit line and the size in the buy bar
+  await page.click('.sizes label:nth-child(3)');
+  const sz = await page.evaluate(() => ({ bar: document.getElementById('barSize').textContent, fit: document.getElementById('fit').textContent }));
+  check('size L shows in the fit line and the buy bar', sz.bar === 'L' && /19/.test(sz.fit), JSON.stringify(sz));
+  await page.click('.sizes label:nth-child(2)');
 
-  // tiger's eye: the same sweep
-  await scrollToEl('#rozdzial-3 .gesture', 0.7);
-  for (const g of [20, 26, 0, -20, -26]) { await tilt(g); await page.waitForTimeout(80); }
-  await page.waitForTimeout(2500);
-  check('tilt finds the eye (tiger\'s eye)', (await signs()).includes('oko'));
-  await closeSheets(); await page.waitForTimeout(500);
+  // the stone rows under the description lead to their chapters
+  await scrollToEl('.about .stones', 0.4);
+  await page.click('.about .stones [data-go="rozdzial-3"]');
+  await page.waitForTimeout(1600);
+  const ch3 = await page.evaluate(() => Math.round(document.getElementById('rozdzial-3').getBoundingClientRect().top));
+  check('tiger\'s eye row jumps to chapter III', Math.abs(ch3) < 140, `top=${ch3}`);
 
-  // hematite: a held thumb; a short tap does nothing
-  await scrollToEl('#rozdzial-4 .gesture', 0.7);
-  const box = await page.evaluate(() => { const r = document.querySelector('#rozdzial-4 .arch').getBoundingClientRect(); return { x: r.left + r.width*0.45, y: r.top + r.height*0.45 }; });
-  await page.mouse.move(box.x, box.y); await page.mouse.down(); await page.waitForTimeout(150); await page.mouse.up();
-  await page.waitForTimeout(600);
-  check('a short tap on hematite does not give the seal', !(await signs()).includes('pieczec'));
-  await page.mouse.down(); await page.waitForTimeout(1500); await page.mouse.up();
-  await page.waitForTimeout(3000);
-  check('holding hematite gives the seal', (await signs()).includes('pieczec'));
-  const fin = await page.evaluate(() => document.getElementById('finaleSheet').classList.contains('on'));
-  check('three signs open the finale', fin);
-  const beads = await page.evaluate(() => document.querySelectorAll('#barBeads i.on').length);
-  check('bead slots in the buy bar are full', beads === 3, `${beads}/3`);
-  await closeSheets(); await page.waitForTimeout(600);
+  // the longer points are folded on a phone and open with a tap
+  const folds = await page.evaluate(() => { const d = [...document.querySelectorAll('details[data-fold]')]; return { n: d.length, open: d.filter(x => x.open).length }; });
+  check('longer points are folded on a phone', folds.n >= 12 && folds.open === 0, JSON.stringify(folds));
+  await scrollToEl('#rozdzial-3 details[data-fold]', 0.5);
+  await page.click('#rozdzial-3 details[data-fold] summary');
+  await page.waitForTimeout(300);
+  check('a tap opens a folded point', await page.evaluate(() => document.querySelector('#rozdzial-3 details[data-fold]').open));
 
-  // gesture buttons exist for every gesture
-  const alts = await page.evaluate(() => ['tilt-obs', 'tilt-tig', 'hold-hem'].every(g => !!document.querySelector(`[data-gesture="${g}"] [data-gesture-alt]`)));
-  check('every gesture has a button alternative', alts);
+  // pictures scroll with the text and are painted by the time they are on screen
+  const painted = async (sel, key) => {
+    await scrollToEl(sel, 0.1);
+    let t = 0; for (let k = 0; k < 40 && t < 0.95; k++) { await page.waitForTimeout(200); t = await page.evaluate(([q, key]) => { const el = [...document.querySelectorAll(q + ' .ink')].find(e => e.dataset.art === key); const p = el && window.__ink.plates.find(x => x.el === el); return p ? p.t : 0; }, [sel, key]); }
+    return t;
+  };
+  const tHem = await painted('#rozdzial-4 .arch', 'hem'), tHands = await painted('#rozdzial-6 .wear__art', 'hands');
+  check('hematite and the hands are painted on screen', tHem >= 0.95 && tHands >= 0.95, `hem=${tHem.toFixed(2)} hands=${tHands.toFixed(2)}`);
 
-  // the intention is painted with a finger: paint the right third
-  await scrollToEl('.inkpad', 0.5);
-  const pad = await page.evaluate(() => { const r = document.querySelector('.inkpad').getBoundingClientRect(); return { x: r.left, y: r.top, w: r.width, h: r.height }; });
-  await page.mouse.move(pad.x + pad.w*0.72, pad.y + pad.h*0.3); await page.mouse.down();
-  for (let i = 0; i < 30; i++) { await page.mouse.move(pad.x + pad.w*(0.7 + 0.25*Math.sin(i/3)), pad.y + pad.h*(0.25 + i/60)); await page.waitForTimeout(12); }
-  await page.mouse.up(); await page.waitForTimeout(900);
-  const intent = await page.evaluate(() => ({ sel: (document.querySelector('.pills [aria-selected="true"]') || {}).dataset?.int, stored: localStorage.getItem('intencja-int') }));
-  check('painting over "powrót do siebie" picks hematite', intent.sel === 'hem' && intent.stored === 'hem', JSON.stringify(intent));
-
-  // breath: holding starts it, letting go pauses it
-  await scrollToEl('#breath', 0.5);
-  const br = await page.evaluate(() => { const r = document.getElementById('breath').getBoundingClientRect(); return { x: r.left + r.width/2, y: r.top + r.height/2 }; });
-  await page.mouse.move(br.x, br.y); await page.mouse.down(); await page.waitForTimeout(700);
-  const during = await page.evaluate(() => document.getElementById('breathTxt').textContent);
-  await page.mouse.up(); await page.waitForTimeout(200);
-  const after = await page.evaluate(() => document.getElementById('breathTxt').textContent);
-  check('holding the circle breathes, letting go pauses', /wdech/.test(during) && /przytrzymaj/.test(after), `${during} / ${after}`);
-
-  // the one curtain waits for its screen to pin, then floods it
+  // the one curtain waits for its screen to pin, then the stain spreads
   // the software renderer is slow, so the pinned check waits for the ink (up to 8 s) instead of a fixed time
   const curT = () => page.evaluate(() => { const el = document.querySelector('.curtain .spillink'); const p = window.__ink.plates.find(x => x.el === el); return p ? +p.t.toFixed(2) : -1; });
-  const cur = async (f, want) => { await page.evaluate(f => { const c = document.querySelector('.curtain'); scrollTo(0, c.getBoundingClientRect().top + scrollY + (f < 0 ? f*innerHeight : (c.offsetHeight - innerHeight)*f)); }, f); await page.waitForTimeout(2000);
-    for (let k = 0; want && k < 30 && (await curT()) < want; k++) await page.waitForTimeout(200);
+  const cur = async (f, want) => { await page.evaluate(f => { const c = document.querySelector('.curtain'); scrollTo(0, c.getBoundingClientRect().top + scrollY + (f < 0 ? f*innerHeight : (c.offsetHeight - innerHeight)*f)); }, f); await page.waitForTimeout(400);
+    for (let k = 0; want && k < 40 && (await curT()) < want; k++) await page.waitForTimeout(200);
     return curT(); };
   const n = await page.evaluate(() => document.querySelectorAll('.curtain').length);
   const dry = n ? await cur(-0.6) : -1, wet = n ? await cur(0.3, 0.9) : -1;
   check('one curtain: dry until its sheet rises, then the stain', n === 1 && dry === 0 && wet >= 0.9, `n=${n} before=${dry} pinned=${wet}`);
+
+  // the bag: a size was chosen above, so the add from the story goes straight to the bag (otherwise the size sheet asks first)
+  await scrollToEl('#rozdzial-5 .scta', 0.5);
+  await page.click('#rozdzial-5 .scta [data-add]');
+  await page.waitForTimeout(700);
+  const sheet = await page.evaluate(() => document.getElementById('sizeSheet').classList.contains('on'));
+  if (sheet) await page.click('#ssAdd');
+  await page.waitForTimeout(2200);
+  const bag = await page.evaluate(() => ({ open: document.getElementById('drawer').classList.contains('on'), items: document.querySelectorAll('#drItems .dr-item').length, size: (document.querySelector('#drItems .dsz [aria-pressed="true"]') || {}).textContent }));
+  check('add from the story puts the bracelet in the bag, in the chosen size', !sheet && bag.open && bag.items === 1 && bag.size === 'M', JSON.stringify({ sheet, ...bag }));
 
   check('no JS errors', errs.length === 0, errs.slice(0, 3).join(' | '));
   await browser.close();

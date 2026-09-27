@@ -30,10 +30,10 @@ Obrazek podglądu linku (`og:image`, 1200×630) powstaje z `tools/og.html`. Po z
 ## Testy
 
 ```sh
-node tools/audit.js szkic-16-talizman.html        # układ, kontrast, szwy, kurtyna, rozmiar
+node tools/audit.js szkic-16-talizman.html        # układ, kontrast, szwy, kurtyna, spokój, długość, rozmiar
 python3 -m http.server 8123 -d public &           # lokalny serwer z wersją web
 node tools/webcheck.js http://localhost:8123/     # wszystkie pliki dochodzą, WebGL, kurtyna
-node tools/mobile.js http://localhost:8123/       # gesty i interakcje na telefonie
+node tools/mobile.js http://localhost:8123/       # telefon: rozmiary, zwinięte punkty, obrazy, kurtyna, sakiewka
 ```
 
 ## Vercel
