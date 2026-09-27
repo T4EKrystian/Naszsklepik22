@@ -1278,7 +1278,62 @@ html.hair :is(.spec div,.toc a,.rnote dl div):nth-child(2n){background-image:var
 .pricerow strong{position:relative;isolation:isolate;padding:0 8px}
 .pricerow .enso-o{position:absolute;left:-16px;top:-24px;width:118px;height:92px;z-index:-1;mix-blend-mode:multiply}
 .pdp .beadline{position:relative;height:44px;margin:6px 0 -4px}
+.fmark{display:block;position:relative;width:96px;height:40px;margin:0 0 6px}
+.fmark>.brush{position:absolute;inset:0;mix-blend-mode:multiply}
+@media (max-width:900px){.chapter__facts div .fmark{grid-column:1/-1;margin:2px 0 0;width:84px;height:34px}}
+/* the enso that stood open around the price closes around the 3 */
+.price__stage .ink3 .enso-c{position:absolute;left:50%;top:48%;height:118%;aspect-ratio:120/110;transform:translate(-50%,-50%);mix-blend-mode:multiply;pointer-events:none}
 .pdp .beadline>.brush{position:absolute;inset:0}
+/* phone: one thread down the left edge of the story; the three signs become beads on it and in the buy bar */
+.threadM{display:none}
+.bar__beads{display:inline-flex;gap:3px;margin-left:8px;vertical-align:1px}
+.bar__beads i{width:9px;height:9px;border-radius:50%;border:1px dashed rgba(52,39,30,.45);background-size:cover;background-position:center}
+.bar__beads i.on{border:0;box-shadow:0 1px 2px rgba(30,20,12,.4)}
+.bar.tied .bar__beads i{box-shadow:0 0 0 2px rgba(200,150,78,.4)}
+@media (max-width:900px){
+  .threadM{display:block;position:fixed;left:3px;top:calc(var(--hdr-now) + var(--sb,0px) + 10px);bottom:calc(86px + env(safe-area-inset-bottom));width:12px;z-index:44;pointer-events:none;opacity:0;transition:opacity .45s,top .55s var(--ease)}
+  body.sb-on .threadM{opacity:1}
+  .threadM svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  .threadM path{fill:none;vector-effect:non-scaling-stroke;stroke-linecap:round}
+  .tm__base{stroke:rgba(52,39,30,.14);stroke-width:1}
+  .tm__ink{stroke:#27365e;stroke-width:1.6;stroke-dasharray:1;stroke-dashoffset:1}
+  .tm__knot{position:absolute;left:0;top:var(--ky,50%);width:12px;height:12px;margin-top:-6px;border-radius:50%;border:1px dashed rgba(52,39,30,.4);background:var(--cream);opacity:0;transition:opacity .4s}
+  .threadM.hunt .tm__knot{opacity:1}
+  .tm__knot img{width:100%;height:100%;border-radius:50%;object-fit:cover;opacity:0;transform:scale(.5);transition:opacity .3s,transform .5s cubic-bezier(.3,1.5,.5,1)}
+  .tm__knot.on{border-color:transparent;box-shadow:0 1px 3px rgba(30,20,12,.4)}
+  .tm__knot.on img{opacity:1;transform:none}
+}
+@media (prefers-reduced-motion:reduce){.tm__knot img{transition:none}}
+/* gestures: the stone answers the hand; every gesture has a button that does the same */
+.gesture{display:grid;grid-template-columns:52px minmax(0,1fr);gap:4px 16px;align-items:start;margin-top:36px;padding-top:22px}
+.gesture__mark{position:relative;width:52px;height:52px}
+.gesture__mark>.brush{position:absolute;inset:0;mix-blend-mode:multiply}
+.gesture__t b{display:block;font:italic 500 23px/1.2 var(--serif);color:var(--text);margin-bottom:4px}
+.gesture__t span{display:block;font-size:17px;line-height:1.6;color:var(--text-2)}
+.gesture__acts{grid-column:2;display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.gesture__acts button{min-height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--line-2);font-size:14.5px;font-weight:500;color:var(--text)}
+.gesture__acts .gesture__perm{background:var(--text);color:#fff;border-color:var(--text)}
+.gesture.done .gesture__acts{display:none}
+.gesture.done .gesture__t::after{content:"Znak jest na nici.";display:block;margin-top:8px;font:italic 500 18px var(--serif);color:var(--accent)}
+.g-mouse{display:none!important}
+@media (hover:hover) and (pointer:fine){.g-touch{display:none!important}.g-mouse{display:block!important}.inkpad__h .g-mouse{display:inline!important}}
+.inkpad__h .g-touch{display:inline}
+.mglint{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.78) 50%,transparent 58%);background-size:280% 100%;background-position:calc(110% - (var(--tx,0) + 1)*60%) 0;mix-blend-mode:screen;opacity:var(--to,0);transition:opacity .4s;-webkit-mask:radial-gradient(ellipse var(--gw) var(--gh) at var(--gx) var(--gy),#000 62%,transparent 100%);mask:radial-gradient(ellipse var(--gw) var(--gh) at var(--gx) var(--gy),#000 62%,transparent 100%)}
+.arch.press>.ink:not(.gr):not(.spillink){transform:scale(.975) translateY(4px);transition:transform 1.2s cubic-bezier(.3,.1,.3,1)}
+.arch>.ink:not(.gr):not(.spillink){transition:transform .35s var(--ease)}
+@media (max-width:900px){.chapter__art .arch{touch-action:pan-y}}
+/* intention painted with a finger */
+.inkpad{position:relative;height:180px;margin:18px 0 10px;touch-action:none;cursor:crosshair}
+.inkpad canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.inkpad__z{position:absolute;left:0;right:0;bottom:12px;display:grid;grid-template-columns:repeat(3,1fr);pointer-events:none}
+.inkpad__z span{text-align:center;font:italic 500 18px/1.2 var(--serif);color:var(--muted);transition:color .4s}
+.inkpad__z span.on{color:var(--text)}
+.inkpad__h{font-size:16px;color:var(--muted);margin:0 0 6px}
+html.hair .inkpad::before{content:"";position:absolute;inset:0;background-image:var(--hair1),var(--hair3);background-repeat:no-repeat;background-size:100% 10px;background-position:left 0 top -4px,left 0 bottom -4px;pointer-events:none}
+/* breath: hold the circle; each breath leaves one tide line */
+.breath{cursor:pointer;touch-action:none;user-select:none;-webkit-user-select:none}
+.breath .ring{position:absolute;left:-20%;top:-20%;width:140%;height:140%;pointer-events:none;mix-blend-mode:multiply}
+.breath.hold i:first-child{border-color:var(--text)}
 /* ---------- szkic 16: figures painted with the brush instead of lists ---------- */
 .layers{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center;max-width:1160px;text-align:left}
 .shield{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:center;width:100%;margin:0}
@@ -1501,8 +1556,9 @@ html.hair :is(.spec div,.toc a,.rnote dl div):nth-child(2n){background-image:var
       <h2 class="chapter__name bp" id="name-obs"><span class="ln"><span>Obsydian.</span></span></h2>
       <blockquote class="chapter__quote fade">Obsydian jest tarczą, która bierze na siebie to, co ciężkie, i lustrem, które pokazuje, co naprawdę ważne.</blockquote>
       <div class="sblock origin fade"><h3 class="sub">Pochodzenie</h3><p class="pull"><mark class="hl">Powstaje w kilka sekund.</mark></p><p>Lawa bogata w krzemionkę stygnie tak gwałtownie, że jej cząsteczki nie zdążą ułożyć się w kryształ: zastygają w bezruchu i tworzą naturalne, czarne szkło. Dlatego obsydian jest tak gładki i lśniący, i dlatego pęka na krawędź cieńszą niż chirurgiczny skalpel. To najszybciej rodzący się kamień, jaki nosisz.</p></div>
-      <div class="chapter__facts fade"><div><b>kilka sekund</b><span>tyle trwają jego narodziny w stygnącej lawie</span></div><div><b>8 000 lat</b><span>temu szlifowano z niego pierwsze lustra świata</span></div><div><b>cieńszy niż skalpel</b><span>bywa brzeg, na który pęka</span></div></div>
-      <div class="sblock beliefs fade"><h3 class="sub">Początek wierzeń</h3><p>Ludzie sięgnęli po niego wcześniej niż po jakikolwiek inny kamień ozdobny.</p><ol class="moments"><li><b>8 000 lat temu</b><span>Szlifowano z niego pierwsze lustra świata i wkładano je zmarłym do grobów, na dalszą drogę.</span></li><li><b>Egipt</b><span>Złota maska najsłynniejszego z faraonów patrzy na świat źrenicami właśnie z obsydianu.</span></li><li><b>Meksyk</b><span>Dawni mieszkańcy wierzyli, że w jego czarnej tafli można zobaczyć prawdę o sobie i o tym, co ma nadejść.</span></li></ol><p class="serif-lead">Trzy różne epoki, trzy części świata, jedno znaczenie: ochrona i jasne widzenie.</p></div>
+      <div class="chapter__facts fade"><div><span class="fmark" aria-hidden="true"><span class="brush" data-preset="medium" data-vb="96 40" data-fit="h" data-w=".16" data-d="M 6 30 C 22 26 36 18 56 8" data-col="#1f2d52" data-even="1" data-mode="once" data-dur="1100" data-delay="150"><canvas></canvas></span></span><b>kilka sekund</b><span>tyle trwają jego narodziny w stygnącej lawie</span></div><div><span class="fmark" aria-hidden="true"><span class="brush" data-preset="medium" data-vb="96 40" data-fit="h" data-w=".08" data-d="M 48 5 C 72 5 88 13 88 21 C 88 31 68 36 46 36 C 22 36 8 29 10 19 C 12 11 28 6 44 6" data-col="#1f2d52" data-even="1" data-mode="once" data-dur="1100" data-delay="410"><canvas></canvas></span></span><b>8 000 lat</b><span>temu szlifowano z niego pierwsze lustra świata</span></div><div><span class="fmark" aria-hidden="true"><span class="brush" data-preset="hair" data-vb="96 40" data-fit="h" data-w=".05" data-d="M 4 24 C 36 22 64 20 92 16" data-col="#1f2d52" data-even="1" data-mode="once" data-dur="1100" data-delay="670"><canvas></canvas></span></span><b>cieńszy niż skalpel</b><span>bywa brzeg, na który pęka</span></div></div>
+            <div class="gesture fade" data-gesture="tilt-obs" data-sign="lustro"><span class="gesture__mark" aria-hidden="true"><span class="brush" data-preset="medium" data-vb="64 64" data-fit="h" data-w=".09" data-d="M 10 50 C 22 30 38 18 56 10" data-col="#1f2d52" data-even="1" data-mode="once" data-dur="1000"><canvas></canvas></span></span><div class="gesture__t"><b>Lustro obsydianu</b><span class="g-touch">Przechyl telefon w bok: po czarnej tafli przesunie się błysk, jak w pierwszych lustrach świata.</span><span class="g-mouse">Przesuń kursor nad kamieniem: po czarnej tafli przesunie się błysk, jak w pierwszych lustrach świata.</span></div><div class="gesture__acts"><button type="button" class="gesture__perm" hidden>Włącz ruch</button><button type="button" class="gesture__alt" data-gesture-alt>Pokaż błysk</button></div></div>
+<div class="sblock beliefs fade"><h3 class="sub">Początek wierzeń</h3><p>Ludzie sięgnęli po niego wcześniej niż po jakikolwiek inny kamień ozdobny.</p><ol class="moments"><li><b>8 000 lat temu</b><span>Szlifowano z niego pierwsze lustra świata i wkładano je zmarłym do grobów, na dalszą drogę.</span></li><li><b>Egipt</b><span>Złota maska najsłynniejszego z faraonów patrzy na świat źrenicami właśnie z obsydianu.</span></li><li><b>Meksyk</b><span>Dawni mieszkańcy wierzyli, że w jego czarnej tafli można zobaczyć prawdę o sobie i o tym, co ma nadejść.</span></li></ol><p class="serif-lead">Trzy różne epoki, trzy części świata, jedno znaczenie: ochrona i jasne widzenie.</p></div>
       <details class="mdet" open><summary><span><b>Karta kamienia</b><em>Symbol, właściwości, dla kogo</em></span><i></i></summary><div class="scard fade"><h3 class="sub">Karta kamienia</h3><p class="symbol">Lustro i tarcza. To, co odbija i to, co pokazuje prawdę.</p><h4 class="k4">Właściwości</h4><p>Uchodzi za najsilniejszy kamień ochronny i oczyszczający. Mówi się, że pochłania napięcie i emocjonalny ciężar z otoczenia: to, co miało trafić w Ciebie, zatrzymuje się na nim.</p><p>Jednocześnie uważany jest za lustro: pomaga zobaczyć sprawy takimi, jakie są, nazwać to, co się skończyło, i postawić granicę bez poczucia winy. Kamień domykania i nowych początków.</p><h4 class="k4">Dla kogo</h4><ul class="forwho"><li>Dla osób, które pracują z ludźmi i wracają do domu wyczerpane cudzymi emocjami.</li><li>Dla tych, którzy właśnie kończą jakiś etap (związek, pracę, rozdział w życiu) i chcą wejść w nowy bez starego bagażu.</li><li>Dla każdego, komu trudno powiedzieć „nie”.</li></ul></div></details>
       <details class="mdet" open><summary><span><b>Na co dzień</b><em>Jak z nim pracować i jak o niego dbać</em></span><i></i></summary><div class="howto fade"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M7 11V5.5a1.5 1.5 0 0 1 3 0V11"/><path d="M10 10V4.5a1.5 1.5 0 0 1 3 0V10"/><path d="M13 10V5.5a1.5 1.5 0 0 1 3 0V12"/><path d="M16 9.5a1.5 1.5 0 0 1 3 0V14a7 7 0 0 1-7 7h-1a6 6 0 0 1-5-2.7L3.5 14a1.5 1.5 0 0 1 2.4-1.8L7 13.5"/></svg><h4 class="k4">Jak pracować</h4><p>Obsydian dobrze sprawdza się jako kamień „wyjściowy”: załóż go, gdy idziesz w miejsce, które Cię męczy, i zdejmij po powrocie, świadomym gestem odkładając razem z nim to, co wraca z Tobą do domu. Gdy poczujesz napięcie, dotknij czarnych koralików i weź jeden powolny oddech.</p></div><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/><path d="M9.5 14.5a2.5 2.5 0 0 0 2.5 2.5"/></svg><h4 class="k4">Jak dbać</h4><p>Obsydian to naturalne szkło: zniesie codzienność, ale nie uderzenie o twardą powierzchnię. Zdejmuj go do prac fizycznych i na siłownię. Czyść suchą, miękką ściereczką.</p></div></div></details>
       <aside class="solo fade" aria-label="Ten kamień solo"><img data-img="c_obs" alt=""><div><small class="solo__k">Ten kamień solo</small><b>Cień</b><span>bransoletka z samego obsydianu · 6 mm</span><em>Moja przestrzeń. Moje granice.</em></div><div class="buy"><strong>59 zł</strong><button class="btn btn--sm" type="button" data-add-id="cien"><span>Do sakiewki</span><i><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 10h12M11 5l5 5-5 5"/></svg></i></button></div></aside>
@@ -1520,8 +1576,9 @@ html.hair :is(.spec div,.toc a,.rnote dl div):nth-child(2n){background-image:var
       <h2 class="chapter__name bp" id="name-tig"><span class="ln"><span>Tygrysie oko.</span></span></h2>
       <blockquote class="chapter__quote fade">Tygrysie oko patrzy za Ciebie, gdy Ty patrzysz w swoją stronę, i dodaje odwagi, żeby tam pójść.</blockquote>
       <div class="sblock origin fade"><h3 class="sub">Pochodzenie</h3><p class="pull"><mark class="hl">Rósł dwa i pół miliarda lat w głębi afrykańskiej ziemi, w czasach, gdy nasza planeta dopiero uczyła się oddychać.</mark></p><p>Złote smugi w jego wnętrzu to pradawne żelazo zamknięte w krysztale. Gdy poruszysz ręką, po kamieniu przesuwa się jedwabista smuga światła, zupełnie jak źrenica, która patrzy w Twoją stronę. Stąd wzięła się jego nazwa.</p></div>
-      <div class="chapter__facts fade"><div><b>2,5 mld lat</b><span>w głębi afrykańskiej ziemi</span></div><div><b>XIX wiek</b><span>gdy trafił do Europy, kosztował tyle, co klejnot</span></div><div><b>najtwardszy</b><span>z całej trójki, bardzo wdzięczny w noszeniu</span></div></div>
-      <div class="sblock beliefs fade"><h3 class="sub">Początek wierzeń</h3><p>Sam kamień trafił w ludzkie ręce stosunkowo późno. Ale znak, który niesie, jest jednym z najstarszych na świecie.</p><ol class="moments"><li><b>Starożytny Egipt</b><span>Oko chroniło ludzi już wtedy: malowano je na amuletach.</span></li><li><b>XIX wiek</b><span>Tygrysie oko dotarło do Europy i początkowo kosztowało tyle, co klejnot.</span></li><li><b>Do dziś</b><span>W domach nad Morzem Śródziemnym wiesza się „oko”, które odwraca zawistne spojrzenia.</span></li></ol><p class="serif-lead">Tygrysie oko przejęło tę rolę w najpiękniejszy możliwy sposób: to jedyny kamień, który naprawdę wygląda, jakby patrzył.</p></div>
+      <div class="chapter__facts fade"><div><span class="fmark" aria-hidden="true"><span class="brush" data-preset="medium" data-vb="96 40" data-fit="h" data-w=".08" data-d="M 4 11 C 30 7 60 15 90 10 C 70 18 36 16 8 21 C 34 25 62 31 90 28" data-col="#1f2d52" data-even="1" data-mode="once" data-dur="1100" data-delay="150"><canvas></canvas></span></span><b>2,5 mld lat</b><span>w głębi afrykańskiej ziemi</span></div><div><span class="fmark" aria-hidden="true"><span class="brush" data-preset="medium" data-vb="96 40" data-fit="h" data-w=".07" data-d="M 18 20 L 38 6 L 74 6 L 90 20 L 54 36 L 18 20" data-col="#1f2d52" data-even="1" data-mode="once" data-dur="1100" data-delay="410"><canvas></canvas></span></span><b>XIX wiek</b><span>gdy trafił do Europy, kosztował tyle, co klejnot</span></div><div><span class="fmark" aria-hidden="true"><span class="brush" data-preset="medium" data-vb="96 40" data-fit="h" data-w=".5" data-d="M 8 22 C 28 19 52 25 74 21" data-col="#1f2d52" data-even="1" data-mode="once" data-dur="1100" data-delay="670"><canvas></canvas></span></span><b>najtwardszy</b><span>z całej trójki, bardzo wdzięczny w noszeniu</span></div></div>
+            <div class="gesture fade" data-gesture="tilt-tig" data-sign="oko"><span class="gesture__mark" aria-hidden="true"><span class="brush" data-preset="medium" data-vb="64 64" data-fit="h" data-w=".09" data-d="M 6 34 C 20 20 44 20 58 34 C 44 48 20 48 6 34" data-col="#1f2d52" data-even="1" data-mode="once" data-dur="1000"><canvas></canvas></span></span><div class="gesture__t"><b>Jedwabny pas światła</b><span class="g-touch">Przechyl telefon: po kamieniu przejdzie pas światła, jak źrenica, która patrzy za Ciebie.</span><span class="g-mouse">Przesuń kursor nad kamieniem: przejdzie po nim pas światła, jak źrenica, która patrzy za Ciebie.</span></div><div class="gesture__acts"><button type="button" class="gesture__perm" hidden>Włącz ruch</button><button type="button" class="gesture__alt" data-gesture-alt>Pokaż pas światła</button></div></div>
+<div class="sblock beliefs fade"><h3 class="sub">Początek wierzeń</h3><p>Sam kamień trafił w ludzkie ręce stosunkowo późno. Ale znak, który niesie, jest jednym z najstarszych na świecie.</p><ol class="moments"><li><b>Starożytny Egipt</b><span>Oko chroniło ludzi już wtedy: malowano je na amuletach.</span></li><li><b>XIX wiek</b><span>Tygrysie oko dotarło do Europy i początkowo kosztowało tyle, co klejnot.</span></li><li><b>Do dziś</b><span>W domach nad Morzem Śródziemnym wiesza się „oko”, które odwraca zawistne spojrzenia.</span></li></ol><p class="serif-lead">Tygrysie oko przejęło tę rolę w najpiękniejszy możliwy sposób: to jedyny kamień, który naprawdę wygląda, jakby patrzył.</p></div>
       <details class="mdet" open><summary><span><b>Karta kamienia</b><em>Symbol, właściwości, dla kogo</em></span><i></i></summary><div class="scard fade"><h3 class="sub">Karta kamienia</h3><p class="symbol">Oko i słońce. Czujność, która nie boi się patrzeć.</p><h4 class="k4">Właściwości</h4><p>Kamień odwagi, jasnego osądu i wytrwałości. Tradycja mówi, że dodaje pewności w chwilach, gdy trzeba zabrać głos, upomnieć się o swoje albo podjąć decyzję odkładaną od dawna.</p><p>Uważany jest też za ochronę przed zawiścią i cudzą złą wolą: stąd jego nazwa i stąd jego rola. Jego barwy łączą ziemię i słońce, stabilność i działanie: „wiem, gdzie stoję” i „wiem, dokąd idę”.</p><h4 class="k4">Dla kogo</h4><ul class="forwho"><li>Dla wszystkich, którzy stoją przed czymś ważnym: nowym etapem, zmianą, decyzją, na którą długo się zbierali.</li><li>Dla osób, które dużo rozważają i trudno im postawić kropkę.</li><li>Dla tych, którzy działają w otoczeniu rywalizacji albo czują, że nie wszyscy wokół im sprzyjają.</li><li>I dla każdego, kto chciałby na co dzień czuć się pewniej w tym, co robi.</li></ul></div></details>
       <details class="mdet" open><summary><span><b>Na co dzień</b><em>Jak z nim pracować i jak o niego dbać</em></span><i></i></summary><div class="howto fade"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M7 11V5.5a1.5 1.5 0 0 1 3 0V11"/><path d="M10 10V4.5a1.5 1.5 0 0 1 3 0V10"/><path d="M13 10V5.5a1.5 1.5 0 0 1 3 0V12"/><path d="M16 9.5a1.5 1.5 0 0 1 3 0V14a7 7 0 0 1-7 7h-1a6 6 0 0 1-5-2.7L3.5 14a1.5 1.5 0 0 1 2.4-1.8L7 13.5"/></svg><h4 class="k4">Jak pracować</h4><p>To kamień „na konkret”. Zanim wejdziesz na trudne spotkanie, obróć bransoletkę tak, by złote koraliki znalazły się po wierzchu dłoni, i powiedz sobie w myślach jedno zdanie, które chcesz obronić. Wielu osobom pomaga też noszenie go w dni, w których planują coś, czego się boją.</p></div><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/><path d="M9.5 14.5a2.5 2.5 0 0 0 2.5 2.5"/></svg><h4 class="k4">Jak dbać</h4><p>Najtwardszy z trójki, bardzo wdzięczny w noszeniu. Nie przepada tylko za długim leżeniem w pełnym słońcu i za chemią, więc zakładaj bransoletkę na końcu, po perfumach i kremie.</p></div></div></details>
       <aside class="solo fade" aria-label="Ten kamień solo"><img data-img="c_tig" alt=""><div><small class="solo__k">Ten kamień solo</small><b>Splot światła</b><span>bransoletka z samego tygrysiego oka · 6 mm</span><em>Mam odwagę zrobić pierwszy krok.</em></div><div class="buy"><strong>69 zł</strong><button class="btn btn--sm" type="button" data-add-id="splot"><span>Do sakiewki</span><i><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 10h12M11 5l5 5-5 5"/></svg></i></button></div></aside>
@@ -1539,8 +1596,9 @@ html.hair :is(.spec div,.toc a,.rnote dl div):nth-child(2n){background-image:var
       <h2 class="chapter__name bp" id="name-hem"><span class="ln"><span>Hematyt.</span></span></h2>
       <blockquote class="chapter__quote fade">Hematyt jest kotwicą: najstarszy kamień człowieka, który przez cały ten czas mówił jedno: stój pewnie.</blockquote>
       <div class="sblock origin fade"><h3 class="sub">Pochodzenie</h3><p>To kamień z żelaza: chłodny, wyraźnie cięższy, niż się spodziewasz, o srebrzystym połysku. Grecy nazwali go „kamieniem krwi”, bo potarty zostawia czerwony ślad. Ta sama czerwień pokrywa całą powierzchnię Marsa: planeta jest czerwona właśnie dlatego, że pokrywa ją pył hematytu.</p><p class="pull"><mark class="hl">Nosisz na ręce kamień, którego kolor widać z kosmosu.</mark></p></div>
-      <div class="chapter__facts fade"><div><b>164 000 lat</b><span>temu ucierano go na pierwszy pigment</span></div><div><b>kamień krwi</b><span>potarty zostawia czerwony ślad</span></div><div><b>wyraźnie cięższy</b><span>niż się spodziewasz, i chłodny w dotyku</span></div></div>
-      <div class="sblock beliefs fade"><h3 class="sub">Początek wierzeń</h3><p>Najstarszy kamień w historii człowieka.</p><ol class="moments"><li><b>164 000 lat temu</b><span>Ucierano go na czerwony pigment do malowania ciała, na długo przed pierwszą biżuterią i pierwszym słowem.</span></li><li><b>Babilon</b><span>Nazywano go kamieniem prawdy i noszono przy sobie całe życie.</span></li><li><b>Rzym</b><span>Rzymianie nazwali go kamieniem Marsa, boga odwagi, i zabierali ze sobą, gdy jej potrzebowali.</span></li></ol><p class="serif-lead">Wszędzie, gdzie się pojawiał, znaczył to samo: siłę spokojną i pewną.</p></div>
+      <div class="chapter__facts fade"><div><span class="fmark" aria-hidden="true"><span class="brush" data-preset="medium" data-vb="96 40" data-fit="h" data-w=".2" data-d="M 6 30 C 26 12 44 32 62 14 C 70 8 80 12 90 8" data-col="#8a4a2e" data-even="1" data-mode="once" data-dur="1100" data-delay="150"><canvas></canvas></span></span><b>164 000 lat</b><span>temu ucierano go na pierwszy pigment</span></div><div><span class="fmark" aria-hidden="true"><span class="brush" data-preset="medium" data-vb="96 40" data-fit="h" data-w=".14" data-d="M 8 28 C 34 24 60 18 90 12" data-col="#9d3a28" data-even="1" data-mode="once" data-dur="1100" data-delay="410"><canvas></canvas></span></span><b>kamień krwi</b><span>potarty zostawia czerwony ślad</span></div><div><span class="fmark" aria-hidden="true"><span class="brush" data-preset="medium" data-vb="96 40" data-fit="h" data-w=".12" data-d="M 6 8 C 30 40 66 40 90 8" data-col="#1f2d52" data-even="1" data-mode="once" data-dur="1100" data-delay="670"><canvas></canvas></span></span><b>wyraźnie cięższy</b><span>niż się spodziewasz, i chłodny w dotyku</span></div></div>
+            <div class="gesture fade" data-gesture="hold-hem" data-sign="pieczec"><span class="gesture__mark" aria-hidden="true"><span class="brush" data-preset="medium" data-vb="64 64" data-fit="h" data-w=".09" data-d="M 32 8 C 50 8 58 22 56 36 C 54 52 40 58 28 56 C 14 54 6 42 8 30 C 10 18 20 10 32 8" data-col="#1f2d52" data-even="1" data-mode="once" data-dur="1000"><canvas></canvas></span></span><div class="gesture__t"><b>Ciężar hematytu</b><span class="g-touch">Przytrzymaj kamień kciukiem przez chwilę: poczujesz, że waży więcej, niż się wydaje, i zostawi swój ślad.</span><span class="g-mouse">Przytrzymaj przycisk myszy na kamieniu przez chwilę: poczujesz, że waży więcej, niż się wydaje, i zostawi swój ślad.</span></div><div class="gesture__acts"><button type="button" class="gesture__perm" hidden>Włącz ruch</button><button type="button" class="gesture__alt" data-gesture-alt>Odciśnij pieczęć</button></div></div>
+<div class="sblock beliefs fade"><h3 class="sub">Początek wierzeń</h3><p>Najstarszy kamień w historii człowieka.</p><ol class="moments"><li><b>164 000 lat temu</b><span>Ucierano go na czerwony pigment do malowania ciała, na długo przed pierwszą biżuterią i pierwszym słowem.</span></li><li><b>Babilon</b><span>Nazywano go kamieniem prawdy i noszono przy sobie całe życie.</span></li><li><b>Rzym</b><span>Rzymianie nazwali go kamieniem Marsa, boga odwagi, i zabierali ze sobą, gdy jej potrzebowali.</span></li></ol><p class="serif-lead">Wszędzie, gdzie się pojawiał, znaczył to samo: siłę spokojną i pewną.</p></div>
       <details class="mdet" open><summary><span><b>Karta kamienia</b><em>Symbol, właściwości, dla kogo</em></span><i></i></summary><div class="scard fade"><h3 class="sub">Karta kamienia</h3><p class="symbol">Żelazo i krew. Siła, która nie musi krzyczeć.</p><h4 class="k4">Właściwości</h4><p>Kamień uziemienia i wewnętrznej stabilności. Mówi się, że pomaga zebrać myśli, gdy uciekają w sto kierunków, wzmacnia siłę woli i wytrwałość, i pozwala stać pewnie na własnych nogach.</p><p>Uważany za tarczę odbijającą napięcie. Jego ciężar na ręce jest wyraźny i konkretny, a właśnie konkret pomaga wrócić do siebie.</p><h4 class="k4">Dla kogo</h4><ul class="forwho"><li>Dla osób, które robią dziesięć rzeczy naraz i wieczorem nie potrafią się wyłączyć.</li><li>Dla tych, którzy dużo dźwigają za innych.</li><li>Dla każdego, kto potrzebuje poczuć grunt pod nogami: w czasie zmian, w intensywnym okresie albo po trudnym doświadczeniu.</li></ul></div></details>
       <details class="mdet" open><summary><span><b>Na co dzień</b><em>Jak z nim pracować i jak o niego dbać</em></span><i></i></summary><div class="howto fade"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M7 11V5.5a1.5 1.5 0 0 1 3 0V11"/><path d="M10 10V4.5a1.5 1.5 0 0 1 3 0V10"/><path d="M13 10V5.5a1.5 1.5 0 0 1 3 0V12"/><path d="M16 9.5a1.5 1.5 0 0 1 3 0V14a7 7 0 0 1-7 7h-1a6 6 0 0 1-5-2.7L3.5 14a1.5 1.5 0 0 1 2.4-1.8L7 13.5"/></svg><h4 class="k4">Jak pracować</h4><p>Hematyt najlepiej działa przez dotyk. Gdy poczujesz, że myśli przyspieszają, obejmij bransoletkę drugą dłonią i policz trzy spokojne oddechy. Jego chłód i ciężar są konkretne, a konkret sprowadza na ziemię. Wiele osób nosi go stale, właśnie dla tego poczucia obecności.</p></div><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/><path d="M9.5 14.5a2.5 2.5 0 0 0 2.5 2.5"/></svg><h4 class="k4">Jak dbać</h4><p>Ma jednego wroga: wodę. Zdejmuj go przed prysznicem, basenem, sauną i treningiem, bo pot i chlor mogą z czasem przygasić jego lustrzany połysk. Czyść wyłącznie suchą ściereczką.</p></div></div></details>
       <aside class="solo fade" aria-label="Ten kamień solo"><img data-img="c_hem" alt=""><div><small class="solo__k">Ten kamień solo</small><b>Punkt oparcia</b><span>bransoletka z samego hematytu · 6 mm</span><em>Wracam do tego, co ważne.</em></div><div class="buy"><strong>59 zł</strong><button class="btn btn--sm" type="button" data-add-id="punkt"><span>Do sakiewki</span><i><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 10h12M11 5l5 5-5 5"/></svg></i></button></div></aside>
@@ -1628,6 +1686,8 @@ html.hair :is(.spec div,.toc a,.rnote dl div):nth-child(2n){background-image:var
       <div class="intent fade">
         
         <h3>Z jaką intencją <em class="a">zaczniesz dzień?</em></h3>
+        <div class="inkpad" data-gesture="paint"><canvas></canvas><div class="inkpad__z" aria-hidden="true"><span data-zone="obs">granice</span><span data-zone="tig">odwaga</span><span data-zone="hem">powrót do siebie</span></div></div>
+        <p class="inkpad__h"><span class="g-touch">Pomaluj palcem pole nad intencją, która jest Ci dziś najbliższa.</span><span class="g-mouse">Pomaluj myszą pole nad intencją, która jest Ci dziś najbliższa.</span> Albo wybierz ją niżej.</p>
         <div class="pills" role="tablist" aria-label="Wybierz intencję">
           <button type="button" role="tab" aria-selected="true" data-int="obs">Dbam o granice</button>
           <button type="button" role="tab" aria-selected="false" data-int="tig">Wybieram odwagę</button>
@@ -1641,7 +1701,7 @@ html.hair :is(.spec div,.toc a,.rnote dl div):nth-child(2n){background-image:var
         <div id="handBody" aria-live="polite"></div>
       </div>
       <div class="ritual fade">
-        <div class="breath" id="breath"><i></i><i></i><span id="breathTxt">trzy<br>oddechy</span></div>
+        <div class="breath" id="breath" role="button" tabindex="0" aria-label="Przytrzymaj, żeby oddychać razem z kołem"><i></i><i></i><span class="brush ring" data-preset="hair" data-vb="140 140" data-fit="h" data-w=".018" data-d="M 20 70 C 20 42.5 42.5 20 70 20 C 97.5 20 120 42.5 120 70 C 120 97.5 97.5 120 70 120 C 42.5 120 22 95.0 21 72" data-col="#7f5a36" data-even="1" data-mode="manual"><canvas></canvas></span><span class="brush ring" data-preset="hair" data-vb="140 140" data-fit="h" data-w=".018" data-d="M 12 70 C 12 38.1 38.1 12 70 12 C 101.9 12 128 38.1 128 70 C 128 101.9 101.9 128 70 128 C 38.1 128 14 99.0 13 72" data-col="#7f5a36" data-even="1" data-mode="manual"><canvas></canvas></span><span class="brush ring" data-preset="hair" data-vb="140 140" data-fit="h" data-w=".018" data-d="M 4 70 C 4 33.7 33.7 4 70 4 C 106.3 4 136 33.7 136 70 C 136 106.3 106.3 136 70 136 C 33.7 136 6 103.0 5 72" data-col="#7f5a36" data-even="1" data-mode="manual"><canvas></canvas></span><span id="breathTxt">przytrzymaj<br>i oddychaj</span></div>
         <div><h3>Pierwsze założenie</h3><p>Weź trzy spokojne oddechy, potrzymaj bransoletkę w dłoniach i nazwij w myślach jedną rzecz, przed którą ma Cię chronić, albo jedną, o której ma Ci przypominać. Taki prosty gest naprawdę obniża napięcie przed trudnymi chwilami. Niezależnie od tego, w co wierzysz, jedno jest pewne: <mark class="hl">to Twoja intencja, której nadajesz kształt.</mark></p><button type="button" id="breathBtn">Spróbuj teraz: 24 sekundy</button></div>
       </div>
       <div class="card-acc fade">
@@ -1677,7 +1737,7 @@ html.hair :is(.spec div,.toc a,.rnote dl div):nth-child(2n){background-image:var
       <div class="ink pw" data-art="w_bloom_o" data-kind="wash" data-mode="manual" data-alpha=".7" data-paper="#e9eddf" id="pw1" style="left:50%;top:50%;width:min(62vw,640px);aspect-ratio:1;transform:translate(-50%,-50%)"><canvas aria-hidden="true"></canvas></div>
       <div class="ink pw" data-art="w_swash_s" data-kind="wash" data-mode="manual" data-alpha=".28" data-paper="#e9eddf" id="pw2" style="left:12%;right:12%;bottom:1%;aspect-ratio:3.95"><canvas aria-hidden="true"></canvas></div>
       <span class="kick">Wystarczy dodać</span>
-      <div class="price__stage" aria-hidden="true"><span class="on">75<small>zł</small></span><span>7 + 5</span><span>12</span><span>1 + 2</span><span class="ink3"><span class="ink" data-art="three" data-mode="manual"><canvas aria-hidden="true"></canvas></span></span></div>
+      <div class="price__stage" aria-hidden="true"><span class="on">75<small>zł</small></span><span>7 + 5</span><span>12</span><span>1 + 2</span><span class="ink3"><span class="ink" data-art="three" data-mode="manual"><canvas aria-hidden="true"></canvas></span><span class="brush enso-c" data-preset="medium" data-vb="120 110" data-fit="h" data-w=".05" data-d="M 30 72 C 12 46 26 12 60 10 C 94 8 114 34 108 62 C 102 90 72 102 48 96 C 36 92 30 82 31 70" data-col="#7f5a36" data-even="1" data-mode="manual"><canvas></canvas></span></span></div>
       <p class="price__cap" id="priceCap">Talizman Ochronny kosztuje 75 zł.</p>
       <div class="price__dots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></div>
     </div>
@@ -1758,17 +1818,18 @@ html.hair :is(.spec div,.toc a,.rnote dl div):nth-child(2n){background-image:var
 <footer class="foot">
   <div class="foot__bg"><img data-img="p_detail" alt=""></div>
   <div class="wrap">
-    <p class="foot__mark">intencja</p>
+    <p class="foot__mark bp"><span class="ln"><span>intencja</span></span></p>
     <div class="foot__row">
       <p>Przedmioty, którym nadajesz znaczenie. Biżuteria z kamieni naturalnych.</p>
       <ul><li><a href="#kolekcja">Kolekcja</a></li><li><a href="#rozdzial-2">Kamienie</a></li><li><a href="#rozdzial-1">Historia talizmanów</a></li><li><a href="#rozdzial-6">Jak nosić</a></li></ul>
       <ul><li><a href="#">Dostawa i zwroty</a></li><li><a href="#">Prywatność</a></li><li><a href="#">Regulamin</a></li><li><a href="#">Kontakt</a></li></ul>
     </div>
-    <small>© 2026 intencja · Szkic 15 do akceptacji. Zdjęcia w szkicu są robocze; w sekcji „Tak wygląda Twój talizman” finalnie trafią wyłącznie prawdziwe zdjęcia produktu.</small>
+    <small>© 2026 intencja · Biżuteria z kamieni naturalnych, wykonywana ręcznie w Polsce.</small>
   </div>
 </footer>
 
-<div class="bar" id="bar" aria-hidden="true"><img data-img="p_hero" alt=""><button type="button" class="bar__info" id="barInfo" aria-label="Zmień rozmiar"><span>Talizman Ochronny<i class="bar__card" id="barCard" hidden title="z kartą intencji"><svg viewBox="0 0 16 12" aria-hidden="true"><rect x="1" y="1" width="14" height="10" rx="1.5"/><path d="M4 5h8M4 8h5"/></svg></i></span><em>rozmiar <b id="barSize">M</b> · 75 zł · <u>zmień</u></em></button><button class="btn" type="button" data-add><span>Do sakiewki</span><i><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 10h12M11 5l5 5-5 5"/></svg></i></button></div>
+<div class="threadM" id="threadM" aria-hidden="true"><svg viewBox="0 0 12 1000" preserveAspectRatio="none"><path class="tm__base" d="M6 0C4 120 8 240 6 360S4 600 6 720 8 880 6 1000"/><path class="tm__ink" id="tmInk" pathLength="1" d="M6 0C4 120 8 240 6 360S4 600 6 720 8 880 6 1000"/></svg><i class="tm__knot" data-sign="lustro"><img alt=""></i><i class="tm__knot" data-sign="oko"><img alt=""></i><i class="tm__knot" data-sign="pieczec"><img alt=""></i></div>
+<div class="bar" id="bar" aria-hidden="true"><img data-img="p_hero" alt=""><button type="button" class="bar__info" id="barInfo" aria-label="Zmień rozmiar"><span>Talizman Ochronny<span class="bar__beads" id="barBeads" role="img" aria-label="Znaki na nici: 0 z 3"><i data-sign="lustro"></i><i data-sign="oko"></i><i data-sign="pieczec"></i></span><i class="bar__card" id="barCard" hidden title="z kartą intencji"><svg viewBox="0 0 16 12" aria-hidden="true"><rect x="1" y="1" width="14" height="10" rx="1.5"/><path d="M4 5h8M4 8h5"/></svg></i></span><em>rozmiar <b id="barSize">M</b> · 75 zł · <u>zmień</u></em></button><button class="btn" type="button" data-add><span>Do sakiewki</span><i><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 10h12M11 5l5 5-5 5"/></svg></i></button></div>
 <div class="scrim" id="scrim"></div>
 <aside class="drawer" id="drawer" aria-label="Sakiewka" aria-hidden="true" role="dialog" aria-modal="true">
   <div class="sheet__grab" aria-hidden="true"></div>
@@ -1824,7 +1885,7 @@ html.hair :is(.spec div,.toc a,.rnote dl div):nth-child(2n){background-image:var
   <div class="sheet__body">
     <div class="sg__art" id="sgArt" aria-hidden="true"></div>
     <p class="sg__lead" id="sgLead"></p>
-    <p class="sg__how">Na nici w pasku czytania pojawiły się trzy oczka: tam, gdzie kryją się znaki. Wciąż czekają: <b id="sgLeft">lustro i pieczęć</b>.</p>
+    <p class="sg__how">Na nici pojawiły się trzy oczka: przy obsydianie, tygrysim oku i hematycie. Wciąż czekają: <b id="sgLeft">lustro i pieczęć</b>.</p>
     <p class="sg__prize"><svg viewBox="0 0 22 18" aria-hidden="true"><rect x="1" y="1" width="20" height="16" rx="2"/><path d="M5 7h12M5 11h8"/></svg><span>Kto odnajdzie wszystkie trzy, dostanie do zamówienia kartę z własną intencją.</span></p>
   </div>
   <footer><button class="btn" type="button" data-close><span>Szukaj dalej</span><i><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 10h12M11 5l5 5-5 5"/></svg></i></button></footer>
@@ -2686,7 +2747,17 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
   }
 
   /* ---------- small mobile helpers: haptic tick, toast ---------- */
-  const buzz = p => { try { navigator.vibrate && navigator.vibrate(p); } catch(e){} };
+  const buzz = (() => {
+    let lab = null;
+    const ios = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    return p => {
+      try { if(navigator.vibrate){ navigator.vibrate(p); return; } } catch(e){}
+      if(!ios || reduce) return;
+      if(!lab){ lab = document.createElement('label'); lab.setAttribute('aria-hidden', 'true'); lab.style.cssText = 'position:fixed;left:-99px;top:0;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none'; const i = document.createElement('input'); i.type = 'checkbox'; i.setAttribute('switch', ''); i.tabIndex = -1; lab.appendChild(i); document.body.appendChild(lab); }
+      try { lab.click(); } catch(e){}
+    };
+  })();
+  document.addEventListener('inkfull', () => buzz(14));
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const toastEl = document.getElementById('toast'), toastT = document.getElementById('toastT'), toastA = document.getElementById('toastA');
   let toastTimer = 0, toastFn = null;
@@ -2759,7 +2830,7 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
   })();
 
   /* ---------- three signs: state shared by the thread, the bag and the finale ---------- */
-  const SIGN_AT = { oko: '#scrolly', lustro: '#rozdzial-2 .arch', pieczec: '#rozdzial-4 .arch' };
+  const SIGN_AT = { oko: '#rozdzial-3 .arch', lustro: '#rozdzial-2 .arch', pieczec: '#rozdzial-4 .arch' };
   const BEAD_OF = { oko: 'bead_tig', lustro: 'bead_obs', pieczec: 'bead_hem' };
   let signs = []; try { signs = JSON.parse(localStorage.getItem('intencja-znaki') || '[]').filter(k => SIGN_AT[k]); } catch(e){ signs = []; }
   const signsDone = () => signs.length >= 3;
@@ -2792,13 +2863,24 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
   thread.querySelectorAll('.knot').forEach(k => { knots[k.dataset.sign] = k; k.querySelector('img').src = IMG[BEAD_OF[k.dataset.sign]]; });
   const layKnots = () => { const r = story.getBoundingClientRect(), span = Math.max(1, r.height - innerHeight); Object.keys(knots).forEach(k => { const el = document.querySelector(SIGN_AT[k]); if(!el) return; const f = clamp((el.getBoundingClientRect().top - r.top - innerHeight*0.4)/span); knots[k].style.setProperty('--kx', (f*100).toFixed(2) + '%'); }); };
   new ResizeObserver(layKnots).observe(story); layKnots();
-  const paintThread = () => { thread.classList.toggle('hunt', signs.length > 0); thread.classList.toggle('tied', signs.length >= 3); Object.keys(knots).forEach(k => knots[k].classList.toggle('on', signs.includes(k))); };
+  const threadM = document.getElementById('threadM'), tmInk = document.getElementById('tmInk'), tmKnots = {}, barBeads = document.getElementById('barBeads');
+  threadM.querySelectorAll('.tm__knot').forEach(k => { tmKnots[k.dataset.sign] = k; k.querySelector('img').src = IMG[BEAD_OF[k.dataset.sign]]; });
+  barBeads.querySelectorAll('i').forEach(i => { i.dataset.bg = `url("${IMG[BEAD_OF[i.dataset.sign]]}")`; });
+  const layTm = () => { const r = story.getBoundingClientRect(), span = Math.max(1, r.height - innerHeight); Object.keys(tmKnots).forEach(k => { const el = document.querySelector(SIGN_AT[k]); if(!el) return; const f = clamp((el.getBoundingClientRect().top - r.top)/span); tmKnots[k].style.setProperty('--ky', (f*100).toFixed(2) + '%'); }); };
+  new ResizeObserver(layTm).observe(story); layTm();
+  const paintThread = () => {
+    thread.classList.toggle('hunt', signs.length > 0); thread.classList.toggle('tied', signs.length >= 3); Object.keys(knots).forEach(k => knots[k].classList.toggle('on', signs.includes(k)));
+    threadM.classList.toggle('hunt', signs.length > 0); Object.keys(tmKnots).forEach(k => tmKnots[k].classList.toggle('on', signs.includes(k)));
+    barBeads.querySelectorAll('i').forEach(i => { const on = signs.includes(i.dataset.sign); i.classList.toggle('on', on); i.style.backgroundImage = on ? i.dataset.bg : ''; });
+    barBeads.setAttribute('aria-label', `Znaki na nici: ${signs.length} z 3`); document.getElementById('bar').classList.toggle('tied', signs.length >= 3);
+  };
   paintThread();
   let chOn = -1;
   painters.push(vh => {
     const r = story.getBoundingClientRect(), inside = r.top < -40 && r.bottom > vh*0.45;
     if(inside !== sbar.classList.contains('on')){ sbar.classList.toggle('on', inside); document.body.classList.toggle('sb-on', inside); if(!inside && !Layers.is(tocp)) setToc(false); }
     threadInk.style.strokeDashoffset = (1 - clamp(-r.top/(r.height - vh))).toFixed(4);
+    tmInk.style.strokeDashoffset = (1 - clamp(-r.top/(r.height - vh))).toFixed(4);
     let k = 0; CH.forEach((c, i) => { if(c.el.getBoundingClientRect().top < vh*0.4) k = i; });
     if(k !== chOn){
       chOn = k; const c = CH[k]; sbN.textContent = c.n; sbT.textContent = mobile() && c.r !== '·' ? `${c.r} · ${c.t}` : c.t; tocLinks.forEach((a, i) => a.classList.toggle('on', i === k));
@@ -2968,17 +3050,43 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
   const handBody = document.getElementById('handBody');
   const setHand = h => { handBody.innerHTML = `<b>${HAND[h][0]}</b><p>${HAND[h][1]}</p>`; document.querySelectorAll('[data-hand]').forEach(b => b.setAttribute('aria-selected', b.dataset.hand === h)); };
   setHand('l'); document.querySelectorAll('[data-hand]').forEach(b => b.addEventListener('click', () => { setHand(b.dataset.hand); buzz(6); }));
-  const breath = document.getElementById('breath'), bt = document.getElementById('breathTxt'); let breathing = false;
-  document.getElementById('breathBtn').addEventListener('click', async () => {
-    if(breathing) return; breathing = true; const wait = ms => new Promise(r => setTimeout(r, ms));
-    for(let i = 1; i <= 3; i++){ breath.classList.add('inhale'); bt.innerHTML = `wdech<br>${i} / 3`; buzz(12); await wait(4000); breath.classList.remove('inhale'); bt.innerHTML = `wydech<br>${i} / 3`; await wait(4000); }
-    bt.innerHTML = 'nazwij<br>intencję'; buzz([10, 60, 10]); breathing = false;
-  });
+  /* breath: hold the circle (or press the button) and breathe with it: in for 4 s, out for 4 s, three times.
+     Letting go pauses it; every finished breath leaves one tide line around the circle */
+  const breath = document.getElementById('breath'), bt = document.getElementById('breathTxt'), bIn = breath.querySelector('i');
+  const bRings = [...breath.querySelectorAll('.ring')];
+  const B = { n: 0, phase: 'in', t: 0, on: false, auto: false, last: 0 };
+  const bSay = html => { bt.innerHTML = html; };
+  const bRing = i => { const s = brushes.find(b => b.el === bRings[i]); if(!s) return; if(reduce){ s.t = 1; return; } const t0 = performance.now(); const step = now => { const x = clamp((now - t0)/1100); s.t = easeOut(x); if(x < 1) requestAnimationFrame(step); }; requestAnimationFrame(step); };
+  const bFrame = now => {
+    if(!B.on) return;
+    const dt = Math.min(64, now - B.last); B.last = now; B.t += dt;
+    const p = clamp(B.t/4000), e = sineInOut(p);
+    bIn.style.transition = 'none'; bIn.style.transform = `scale(${B.phase === 'in' ? 0.5 + 0.5*e : 1 - 0.5*e})`;
+    if(p >= 1){
+      B.t = 0;
+      if(B.phase === 'in'){ B.phase = 'out'; bSay(`wydech<br>${B.n + 1} / 3`); buzz(8); }
+      else { bRing(B.n); B.n++; B.phase = 'in'; buzz(12);
+        if(B.n >= 3){ B.on = false; breath.classList.remove('hold'); bSay('nazwij<br>intencję'); buzz([10, 60, 10]); return; }
+        bSay(`wdech<br>${B.n + 1} / 3`); }
+    }
+    requestAnimationFrame(bFrame);
+  };
+  const bStart = auto => {
+    if(B.n >= 3){ B.n = 0; bRings.forEach(el => { const s = brushes.find(b => b.el === el); if(s) s.t = 0; }); }
+    if(B.on) return; B.on = true; B.auto = auto; B.last = performance.now(); breath.classList.add('hold');
+    bSay(`${B.phase === 'in' ? 'wdech' : 'wydech'}<br>${B.n + 1} / 3`); requestAnimationFrame(bFrame);
+  };
+  const bStop = () => { if(!B.on || B.auto) return; B.on = false; breath.classList.remove('hold'); bSay('przytrzymaj,<br>by dalej'); };
+  breath.addEventListener('pointerdown', e => { e.preventDefault(); try { breath.setPointerCapture(e.pointerId); } catch(_){} bStart(false); });
+  ['pointerup', 'pointercancel'].forEach(t => breath.addEventListener(t, bStop));
+  breath.addEventListener('keydown', e => { if((e.key === ' ' || e.key === 'Enter') && !e.repeat){ e.preventDefault(); bStart(false); } });
+  breath.addEventListener('keyup', e => { if(e.key === ' ' || e.key === 'Enter') bStop(); });
+  document.getElementById('breathBtn').addEventListener('click', () => bStart(true));
 
   /* ---------- epilogue: the numbers are painted with a brush over warm washes, the 3 is written in ink ---------- */
   const pin = document.getElementById('pricePin'), spans = [...pin.querySelectorAll('.price__stage > span')], dots = [...pin.querySelectorAll('.price__dots i')], pcap = document.getElementById('priceCap');
   const pw1 = plates.find(p => p.el.id === 'pw1'), pw2 = plates.find(p => p.el.id === 'pw2');
-  let stageI = 0, three = null;
+  let stageI = 0, three = null, ensoC = null;
   const paintSpan = s => { if(reduce || SNAP){ s.style.setProperty('--p', 1); return; } const t0 = performance.now(); s.style.setProperty('--p', 0); const step = now => { const x = Math.min(1, (now - t0)/700); s.style.setProperty('--p', easeOut(x)); if(x < 1) requestAnimationFrame(step); }; requestAnimationFrame(step); };
   const setStage = i => { if(i === stageI) return; stageI = i; spans.forEach((s, j) => { const on = j === i; if(on && !s.classList.contains('on') && !s.classList.contains('ink3')) paintSpan(s); s.classList.toggle('on', on); }); dots.forEach((d, j) => d.classList.toggle('on', j === i)); pcap.style.opacity = 0; setTimeout(() => { pcap.textContent = CAPS[i]; pcap.style.opacity = 1; }, 220); };
   const onPrice = () => {
@@ -2988,6 +3096,8 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
     if(three) three.setT(reduce ? 1 : clamp((f - 0.8)/0.17));
     if(pw1) pw1.setT(reduce ? 1 : clamp(0.15 + f*1.1));
     if(pw2) pw2.setT(reduce ? 1 : clamp((f - 0.3)/0.5));
+    ensoC = ensoC || brushes.find(b => b.el.classList.contains('enso-c'));
+    if(ensoC) ensoC.t = reduce ? 1 : clamp((f - 0.84)/0.13);
   };
 
   /* ---------- album parallax ---------- */
@@ -3144,8 +3254,8 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
   };
   const boxOf = el => ({ w: el.clientWidth, h: el.clientHeight });
   const SIGNS = {
-    oko: { name: 'Oko', art: 'wedjat', at: [0.586, 0.477], label: 'Przyjrzyj się oku',
-      lead: 'Oko, które odwraca zawistne spojrzenia. Najstarszy znak ochrony, jaki zna ludzkość. Odziedziczyło go tygrysie oko.' },
+    oko: { name: 'Oko', art: 'tig', at: [0.498, 0.469], box: [0.36, 0.26], label: 'Przyjrzyj się tygrysiemu oku',
+      lead: 'Oko, które odwraca zawistne spojrzenia, to najstarszy znak ochrony, jaki zna ludzkość. Odziedziczyło go tygrysie oko: gdy poruszasz ręką, po kamieniu przesuwa się jedwabisty pas światła.' },
     lustro: { name: 'Lustro', art: 'obs', at: [0.457, 0.461], box: [0.45, 0.39], label: 'Przyjrzyj się tafli obsydianu',
       lead: 'Z obsydianu robiono pierwsze lustra świata. Dawni mieszkańcy Meksyku wierzyli, że w jego czarnej tafli widać prawdę o sobie.' },
     pieczec: { name: 'Pieczęć', art: 'hem', at: [0.44, 0.414], box: [0.4, 0.34], label: 'Dotknij hematytu',
@@ -3196,7 +3306,8 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
     }
   };
   const beadFly = (k, from) => new Promise(res => {
-    const kn = knots[k]; if(reduce || SNAP || !kn){ res(); return; }
+    const kn = mobile() ? tmKnots[k] : knots[k]; if(reduce || SNAP || !kn){ res(); return; }
+    if(mobile()) threadM.classList.add('hunt');
     const a = from.getBoundingClientRect(), z = kn.getBoundingClientRect();
     const x0 = a.left + a.width/2, y0 = a.top + a.height/2, x1 = z.left + z.width/2, y1 = z.top + z.height/2;
     const img = document.createElement('img'); img.className = 'fly'; img.src = IMG[BEAD_OF[k]]; img.alt = ''; document.body.appendChild(img);
@@ -3230,18 +3341,18 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
     else if(signs.length === 2) toast(`Znak ${ORD[1]}: ${SIGNS[k].name.toLowerCase()} · 2 z 3`);
     else { buzz([20, 60, 20, 60, 30]); setTimeout(openFinale, reduce || SNAP ? 0 : 450); }
   };
-  [['oko', '.beat[data-art="wedjat"] .beat__art'], ['oko', '.scrolly__frame'], ['lustro', '#rozdzial-2 .arch'], ['pieczec', '#rozdzial-4 .arch']].forEach(([k, sel]) => {
+  [['oko', '#rozdzial-3 .arch'], ['lustro', '#rozdzial-2 .arch'], ['pieczec', '#rozdzial-4 .arch']].forEach(([k, sel]) => {
     const host = document.querySelector(sel); if(!host) return;
     const b = document.createElement('button'); b.type = 'button'; b.className = 'sign sign--' + k; b.setAttribute('aria-label', SIGNS[k].label);
     host.appendChild(b); signEls[k].push(b);
-    b.addEventListener('click', e => { e.stopPropagation(); found(k, b, host); });
+    b.addEventListener('click', e => { e.stopPropagation(); if(k !== 'pieczec') found(k, b, host).then(() => markDone && markDone()); });   // hematite answers a held thumb, not a tap
     new ResizeObserver(() => placeSign(b, k, host)).observe(host); placeSign(b, k, host);
   });
   const hint = k => signEls[k].forEach(b => { b.classList.remove('hint'); void b.offsetWidth; b.classList.add('hint'); setTimeout(() => b.classList.remove('hint'), 1600); });
   let eyeLooked = false;
   document.addEventListener('era', e => {
     document.body.classList.toggle('era-wedjat', e.detail === 'wedjat');
-    if(e.detail === 'wedjat' && !signs.length && !eyeLooked){ eyeLooked = true; setTimeout(() => hint('oko'), reduce ? 0 : 2400); }
+
   });
   setInterval(() => {
     if(!signs.length || signsDone() || Layers.any()) return;
@@ -3250,6 +3361,7 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
   if(signs.includes('pieczec')){ const h = document.querySelector('#rozdzial-4 .arch'); if(h) putSeal(h, false); }
 
   /* ---------- small delights: tiger's-eye light, the logo dot, the next full moon ---------- */
+  let tigTilt = 0, tigSheen = null, markDone = null;
   const tigArch = document.querySelector('#rozdzial-3 .arch');
   if(tigArch){
     const sh = document.createElement('i'); sh.className = 'sheen'; sh.setAttribute('aria-hidden', 'true'); tigArch.appendChild(sh);
@@ -3257,7 +3369,98 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
       sh.style.setProperty('--mx', (c.x/box.w*100).toFixed(1) + '%'); sh.style.setProperty('--my', (c.y/box.h*100).toFixed(1) + '%');
       sh.style.setProperty('--mw', ((c.x - a.x)/box.w*100).toFixed(1) + '%'); sh.style.setProperty('--mh', ((c.y - a.y)/box.h*100).toFixed(1) + '%'); };
     new ResizeObserver(laySheen).observe(tigArch); laySheen();
-    painters.push(vh => { const r = tigArch.getBoundingClientRect(); if(r.bottom < 0 || r.top > vh) return; sh.style.setProperty('--sx', (reduce ? 0 : -70 + 140*clamp((vh - r.top)/(vh + r.height))).toFixed(1) + '%'); });
+    painters.push(vh => { const r = tigArch.getBoundingClientRect(); if(r.bottom < 0 || r.top > vh || performance.now() - tigTilt < 1600) return; sh.style.setProperty('--sx', (reduce ? 0 : -70 + 140*clamp((vh - r.top)/(vh + r.height))).toFixed(1) + '%'); });
+    tigSheen = sh;
+  }
+  /* ---------- gestures: tilt the phone (or move the mouse) over obsidian and tiger's eye, hold hematite with a thumb ---------- */
+  const Tilt = (() => {
+    let x = 0, src = 'none', live = false; const subs = [];
+    const set = (v, s) => { x = clamp(v, -1, 1); src = s; subs.forEach(f => f(x)); };
+    const onOri = e => { if(e.gamma == null) return; live = true; set(e.gamma/26, 'gyro'); };
+    const start = () => addEventListener('deviceorientation', onOri);
+    const needPerm = typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function';
+    if(!needPerm && typeof DeviceOrientationEvent !== 'undefined') start();
+    const ask = async () => { try { if(await DeviceOrientationEvent.requestPermission() === 'granted'){ start(); return true; } } catch(e){} return false; };
+    // without a gyroscope: a finger dragged across the stone, or the mouse over it, is the tilt
+    const bind = el => {
+      const mv = e => { if(live && e.pointerType !== 'mouse') return; if(e.pointerType !== 'mouse' && !e.buttons) return; const r = el.getBoundingClientRect(); set(((e.clientX - r.left)/Math.max(1, r.width))*2 - 1, e.pointerType === 'mouse' ? 'mouse' : 'drag'); };
+      el.addEventListener('pointermove', mv, { passive: true }); el.addEventListener('pointerdown', mv, { passive: true });
+    };
+    return { on: f => subs.push(f), get x(){ return x; }, get src(){ return src; }, get live(){ return live; }, needPerm, ask, bind, set };
+  })();
+  const inView = el => { const r = el.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
+  // a sign is found when the light has crossed the whole stone, one way or the other
+  const sweep = (k, done) => { let lo = 0, hi = 0; return x => { if(signs.includes(k)) return; lo = Math.min(lo, x); hi = Math.max(hi, x); if(lo < -0.45 && hi > 0.45){ lo = hi = 0; done(); } }; };
+  const gestures = {};
+  document.querySelectorAll('.gesture[data-gesture]').forEach(g => { gestures[g.dataset.sign] = g; });
+  markDone = () => Object.keys(gestures).forEach(k => gestures[k].classList.toggle('done', signs.includes(k)));
+  markDone();
+  const hostOf = k => document.querySelector(SIGN_AT[k]), btnOf = k => signEls[k][0];
+  const trigger = k => { const b = btnOf(k), h = hostOf(k); if(b && h && !signs.includes(k)) found(k, b, h).then(markDone); };
+  const tween = (ms, f) => new Promise(res => { if(reduce){ f(1); res(); return; } const t0 = performance.now(); const step = now => { const x = clamp((now - t0)/ms); f(sineInOut(x)); if(x < 1) requestAnimationFrame(step); else res(); }; requestAnimationFrame(step); });
+  // obsidian: a mirror glint slides across the black glass
+  const obsArch = hostOf('lustro');
+  let mg = null;
+  if(obsArch){
+    mg = document.createElement('i'); mg.className = 'mglint'; mg.setAttribute('aria-hidden', 'true'); obsArch.appendChild(mg);
+    const layMg = () => { const b = btnOf('lustro'); if(!b || !b._c) return; mg.style.setProperty('--gx', b._c.x + 'px'); mg.style.setProperty('--gy', b._c.y + 'px'); mg.style.setProperty('--gw', b._w*0.62 + 'px'); mg.style.setProperty('--gh', b._h*0.62 + 'px'); };
+    new ResizeObserver(layMg).observe(obsArch); layMg();
+    Tilt.bind(obsArch);
+    const sw = sweep('lustro', () => trigger('lustro'));
+    let fade = 0;
+    Tilt.on(x => { if(!inView(obsArch)) return; mg.style.setProperty('--tx', x.toFixed(3)); mg.style.setProperty('--to', '.9'); clearTimeout(fade); fade = setTimeout(() => mg.style.setProperty('--to', '0'), 1400); sw(x); });
+  }
+  // tiger's eye: the silk band of light follows the hand
+  if(tigArch){
+    Tilt.bind(tigArch);
+    const sw = sweep('oko', () => trigger('oko'));
+    Tilt.on(x => { if(!inView(tigArch) || !tigSheen) return; tigTilt = performance.now(); tigSheen.style.setProperty('--sx', (x*70).toFixed(1) + '%'); sw(x); });
+  }
+  // hematite: held under the thumb it grows heavy, then leaves its seal
+  const hemArch = hostOf('pieczec');
+  if(hemArch){
+    let tm = 0;
+    const up = () => { clearTimeout(tm); hemArch.classList.remove('press'); };
+    hemArch.addEventListener('pointerdown', e => { if(signs.includes('pieczec') || e.button > 0) return; hemArch.classList.add('press'); buzz(6); clearTimeout(tm); tm = setTimeout(() => { hemArch.classList.remove('press'); trigger('pieczec'); }, reduce ? 300 : 1200); });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(t => hemArch.addEventListener(t, up));
+    hemArch.addEventListener('contextmenu', e => { if(hemArch.classList.contains('press')) e.preventDefault(); });
+  }
+  // every gesture also has a button that plays it and gives the sign
+  Object.keys(gestures).forEach(k => {
+    const g = gestures[k], perm = g.querySelector('.gesture__perm'), alt = g.querySelector('[data-gesture-alt]');
+    if(perm && Tilt.needPerm && k !== 'pieczec'){ perm.hidden = false; perm.addEventListener('click', async () => { const ok = await Tilt.ask(); document.querySelectorAll('.gesture__perm').forEach(p => p.hidden = ok); if(!ok) toast('Bez zgody na ruch użyj przycisku obok.'); }); }
+    alt.addEventListener('click', async () => {
+      if(k === 'lustro' && mg){ mg.style.setProperty('--to', '.9'); await tween(900, v => mg.style.setProperty('--tx', (v*2 - 1).toFixed(3))); mg.style.setProperty('--to', '0'); }
+      if(k === 'oko' && tigSheen){ tigTilt = performance.now() + 1000; await tween(1000, v => tigSheen.style.setProperty('--sx', (-70 + 140*v).toFixed(1) + '%')); }
+      if(k === 'pieczec' && hemArch){ hemArch.classList.add('press'); await new Promise(r => setTimeout(r, reduce ? 0 : 700)); hemArch.classList.remove('press'); }
+      trigger(k);
+    });
+  });
+  /* ---------- the intention is painted with a finger: the field with the most ink chooses it ---------- */
+  const pad = document.querySelector('.inkpad');
+  if(pad){
+    const cv = pad.querySelector('canvas'), cx = cv.getContext('2d'), zones = [...pad.querySelectorAll('[data-zone]')];
+    let dpr = 1, ink = { obs: 0, tig: 0, hem: 0 }, last = null, drawing = false, settle = 0;
+    const size = () => { dpr = Math.min(devicePixelRatio || 1, 2); cv.width = Math.round(pad.clientWidth*dpr); cv.height = Math.round(pad.clientHeight*dpr); ink = { obs: 0, tig: 0, hem: 0 }; zones.forEach(z => z.classList.remove('on')); };
+    new ResizeObserver(size).observe(pad); size();
+    const zoneAt = x => ['obs', 'tig', 'hem'][clamp(Math.floor(x/Math.max(1, pad.clientWidth)*3), 0, 2)];
+    const lead = () => Object.keys(ink).sort((a, b) => ink[b] - ink[a])[0];
+    const dab = (x, y, r, a) => { const g = cx.createRadialGradient(x, y, 0, x, y, r); g.addColorStop(0, `rgba(31,45,82,${a})`); g.addColorStop(0.7, `rgba(31,45,82,${a*0.55})`); g.addColorStop(1, 'rgba(31,45,82,0)'); cx.fillStyle = g; cx.beginPath(); cx.arc(x, y, r, 0, 6.2832); cx.fill(); };
+    const paint = (x, y, p) => {
+      const X = x*dpr, Y = y*dpr;
+      if(last){ const d = Math.hypot(X - last[0], Y - last[1]), n = Math.max(1, Math.ceil(d/(3*dpr))); for(let i = 1; i <= n; i++){ const t = i/n; dab(last[0] + (X - last[0])*t + (Math.random() - 0.5)*2*dpr, last[1] + (Y - last[1])*t + (Math.random() - 0.5)*2*dpr, (7 + 6*p + Math.random()*3)*dpr, 0.2); } }
+      else dab(X, Y, 11*dpr, 0.38);
+      last = [X, Y]; ink[zoneAt(x)] += 1;
+      const k = lead(); zones.forEach(z => z.classList.toggle('on', z.dataset.zone === k));
+    };
+    const at = e => { const r = pad.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top, e.pressure || 0.5]; };
+    pad.addEventListener('pointerdown', e => { drawing = true; last = null; try { pad.setPointerCapture(e.pointerId); } catch(_){} clearTimeout(settle); paint(...at(e)); });
+    pad.addEventListener('pointermove', e => { if(drawing) paint(...at(e)); });
+    const end = () => {
+      if(!drawing) return; drawing = false; last = null; clearTimeout(settle);
+      settle = setTimeout(() => { const k = lead(); if(ink[k] < 12) return; const b = document.querySelector(`.pills [data-int="${k}"]`); if(b && b.getAttribute('aria-selected') !== 'true') b.click(); buzz([8, 30, 8]); }, 450);
+    };
+    ['pointerup', 'pointercancel'].forEach(t => pad.addEventListener(t, end));
   }
   const wdot = document.querySelector('.wordmark .wdot'); let wTaps = [], wBusy = false;
   if(wdot) wdot.addEventListener('click', e => {
