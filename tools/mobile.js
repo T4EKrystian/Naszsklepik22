@@ -1,9 +1,9 @@
 // Phone interactions of the story: tilt, hold, finger painting, breath, the three signs and the finale.
-// Usage: node tools/mobile.js <file.html>   (exit code = number of failed checks)
+// Usage: node tools/mobile.js <file.html | http(s)://url>   (exit code = number of failed checks)
 const path = require('path');
 const { chromium } = require(process.env.PW || '/opt/node22/lib/node_modules/playwright');
 
-const file = path.resolve(process.argv[2]);
+const url = /^https?:\/\//.test(process.argv[2]) ? process.argv[2] : 'file://' + path.resolve(process.argv[2]);
 const results = [];
 const check = (name, ok, info = '') => { results.push({ name, ok }); console.log(`${ok ? 'ok  ' : 'FAIL'} ${name}${info ? '  ' + info : ''}`); };
 
@@ -13,7 +13,7 @@ const check = (name, ok, info = '') => { results.push({ name, ok }); console.log
   const page = await ctx.newPage();
   const errs = [];
   page.on('pageerror', e => errs.push(e.message));
-  await page.goto('file://' + file, { waitUntil: 'load', timeout: 180000 });
+  await page.goto(url, { waitUntil: 'load', timeout: 180000 });
   await page.evaluate(() => { try { localStorage.clear(); } catch (e) {} });
   await page.reload({ waitUntil: 'load' });
   await page.waitForTimeout(1500);

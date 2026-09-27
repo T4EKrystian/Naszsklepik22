@@ -1,9 +1,9 @@
 // DOM audit for a single-file draft. Exit code = number of failing categories.
-// Usage: node tools/audit.js <file.html>
+// Usage: node tools/audit.js <file.html | http(s)://url>
 const path = require('path');
 const { chromium } = require(process.env.PW || '/opt/node22/lib/node_modules/playwright');
 
-const file = path.resolve(process.argv[2]);
+const web = /^https?:\/\//.test(process.argv[2]), file = web ? null : path.resolve(process.argv[2]), url = web ? process.argv[2] : 'file://' + file;
 const fs = require('fs');
 const LIMITS = { SMALL: 0, BODY: 0, CONTRAST: 0, DASH: 0, EYEBROWS: 12, GAPS: 0, HOVERBAR: 0, JSERR: 0, SEAM: 0, PAINT: 0, WALL: 0, PERF: 0, SIZE: 0, STAGE: 0, THREAD: 0, CURTAIN: 0, GESTURE: 0 };
 // STAGE, THREAD, CURTAIN and GESTURE describe the mobile story (szkic 16) and are checked on the phone viewport only
@@ -128,7 +128,7 @@ const inPage = () => {
     const page = await ctx.newPage();
     const errs = [];
     page.on('pageerror', e => errs.push(e.message));
-    await page.goto('file://' + file, { waitUntil: 'load', timeout: 180000 });
+    await page.goto(url, { waitUntil: 'load', timeout: 180000 });
     await page.waitForTimeout(1500);
     await page.evaluate(() => { window.__ink && window.__ink.snap(true); document.querySelectorAll('.fade').forEach(e => e.classList.add('in')); });
     await page.waitForTimeout(300);
@@ -144,7 +144,7 @@ const inPage = () => {
     const peak = await page.evaluate(() => window.__ink.stats ? window.__ink.stats.max : -1);
     r.PERF = peak > PERF_MAX || peak < 0 ? [`${peak} plates rendered in one frame (max ${PERF_MAX})`] : [];
     await page.evaluate(() => window.__ink.snap(true));
-    r.SIZE = fs.statSync(file).size > 14e6 ? [`${(fs.statSync(file).size/1e6).toFixed(1)} MB (max 14)`] : [];
+    r.SIZE = web ? [] : fs.statSync(file).size > 14e6 ? [`${(fs.statSync(file).size/1e6).toFixed(1)} MB (max 14)`] : [];
     // buy bar: on desktop it must sit to one side, clear of centred copy
     if (!v.mobile) {
       const H = await page.evaluate(() => document.documentElement.scrollHeight);

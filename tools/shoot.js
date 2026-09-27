@@ -1,5 +1,5 @@
 // Scroll through a draft like a reader and save one screenshot per step.
-// Usage: node tools/shoot.js <file.html> <outdir> <width> <height> <mobile 0|1> [waitMs]
+// Usage: node tools/shoot.js <file.html | http(s)://url> <outdir> <width> <height> <mobile 0|1> [waitMs]
 const path = require('path');
 const fs = require('fs');
 const { chromium } = require(process.env.PW || '/opt/node22/lib/node_modules/playwright');
@@ -14,7 +14,7 @@ const wait = +(waitArg || 1800);
   const page = await ctx.newPage();
   const errs = [];
   page.on('pageerror', e => errs.push(e.message));
-  await page.goto('file://' + path.resolve(file), { waitUntil: 'load', timeout: 180000 });
+  await page.goto(/^https?:\/\//.test(file) ? file : 'file://' + path.resolve(file), { waitUntil: 'load', timeout: 180000 });
   await page.waitForTimeout(2500);
   const H = await page.evaluate(() => document.documentElement.scrollHeight);
   let y = 0, i = 0;

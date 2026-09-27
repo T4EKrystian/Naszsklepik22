@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#fbf5eb">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M21.6 5.9A11.2 11.2 0 1 0 27 13.2' fill='none' stroke='%23212b42' stroke-width='3.4' stroke-linecap='round'/%3E%3C/svg%3E">
 <title>Talizman Ochronny · intencja</title>
 <meta name="description" content="Talizman Ochronny: bransoletka z obsydianu, tygrysiego oka i hematytu, koraliki 8 mm, 75 zł. W zestawie lniany woreczek i karta z historią kamieni.">
 <meta property="og:title" content="Talizman Ochronny · intencja">
@@ -2695,7 +2696,7 @@ const IMG = {"bead_obs": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wB
       layout(){
         const W = this.el.clientWidth, H = this.el.clientHeight; if(!W || !H || (!this.path && this.shape !== 'bloom' && this.shape !== 'drop')) return false;
         const dpr = Math.min(devicePixelRatio || 1, 1.5); this.cv.width = Math.round(W*dpr); this.cv.height = Math.round(H*dpr);
-        probe.setAttribute('d', this.path);
+        if(this.path) probe.setAttribute('d', this.path);
         if(this.shape === 'bloom' || this.shape === 'drop'){ this.W = W*dpr; this.H = H*dpr; this.pts = []; return true; }
         const sy = H/this.vb[1]*dpr, sx = this.fit === 'h' ? sy : W/this.vb[0]*dpr, L = probe.getTotalLength();
         let est = 0, prev = null;
