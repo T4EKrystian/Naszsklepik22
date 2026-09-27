@@ -2122,6 +2122,8 @@ uniform vec3 uTK;
 uniform sampler2D uMask;
 uniform float uUseMask;
 uniform float uFlat;
+uniform float uCalm;
+uniform float uMargin;
 vec3 permute(vec3 x){ return mod(((x*34.0)+1.0)*x, 289.0); }
 float snoise(vec2 v){
   const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
@@ -2145,6 +2147,7 @@ void main(){
   float n1 = snoise(q*vec2(1.1, 1.6) + uSeed), n2 = snoise(q*4.5 + uSeed*2.3), n3 = snoise(q*13.0 - uSeed);
   float t = clamp(uT, 0.0, 1.0);
   float front = t*uReach*1.08 + 0.07*n1 + 0.025*n2 + 0.008*n3 - 0.06*uFull*(1.0 - t);
+  front = mix(front, min(front, 0.8 + 0.05*n1 + 0.02*n2), uMargin);   // the flood stops short of the far edge: ink on a sheet of paper
   float d = front - uv.x;
   float inside = smoothstep(-0.004, 0.012, d);
   // the tongue narrows as it travels right; at the page edge it fills the whole height
@@ -2155,9 +2158,15 @@ void main(){
   float tide = exp(-max(d, 0.0)*36.0)*inside*(1.0 - 0.55*smoothstep(0.75, 1.0, t));
   float gran = 0.5 + 0.5*snoise(gl_FragCoord.xy*vec2(0.21, 0.19) + uSeed*9.0);
   float cloud = 0.55 + 0.45*smoothstep(-0.6, 0.8, snoise(q*2.2 + uSeed*3.1));
-  float g = 0.74 + 0.42*gran;
-  float dens = inside*band*(0.56*body*cloud*g + 0.07*smoothstep(0.2, 0.9, n2));   // body with back-runs inside the pour
-  float dt = inside*band*0.4*tide*g;                                                // the darker tide line at the front
+  cloud = mix(cloud, 0.8 + 0.2*smoothstep(-0.8, 0.9, snoise(q*0.8 + uSeed*1.7)), min(uCalm, 1.0));          // calm: one large, soft variation instead of clouds
+  float fibre = snoise(gl_FragCoord.xy*vec2(0.95, 0.32) + uSeed*4.0);
+  float c2 = step(1.5, uCalm), cm = min(uCalm, 1.0);
+  float g = mix(0.74 + 0.42*gran, 0.88 + 0.12*gran + mix(0.07, 0.035, c2)*fibre, cm);             // calm: paper tooth instead of blotches
+  cloud *= mix(1.0, mix(1.1 - 0.28*smoothstep(0.0, 1.0, uv.x), 1.05 - 0.12*smoothstep(0.0, 1.0, uv.x), c2), cm*uFull);   // the ink pools near its source and thins as it travels
+  float c2b = step(1.5, uCalm);
+  body = mix(body, 0.72 + 0.28*body, c2b*uFull);                                    // calm: the body stays loaded right up to the front
+  float dens = inside*band*(0.56*body*cloud*g + 0.07*(1.0 - 0.85*c2b)*smoothstep(0.2, 0.9, n2));   // body with back-runs inside the pour
+  float dt = inside*band*0.4*tide*g*(1.0 + 0.7*c2b);                               // the darker tide line at the front
   dens *= 1.0 + 0.75*uFull; dt *= 1.0 + 0.75*uFull;
   float settle = uFlat*max(smoothstep(0.8, 1.0, t), 1.0 - smoothstep(0.0, 0.35, uv.x));
   dens = mix(dens, 0.85, settle); dt *= 1.0 - settle;                                   // a seam settles into the flat paper of the next section
@@ -2244,7 +2253,7 @@ const IMG = {"bead_obs": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wB
       INK = mk('fs', ['uIllus','uArrive','uRes','uArtAsp','uFocus','uSrc','uT','uPoolR','uZoom','uBg','uFit','uLeft']);
       PNT = mk('fsPaint', ['uPhoto','uArrive','uRes','uAsp','uFocus','uT','uFlip','uBg','uLine','uInk','uPre']);
       WSH = mk('fsWash', ['uIllus','uArrive','uRes','uArtAsp','uT','uFit','uPaper','uAlpha','uTint','uUseTint','uFlip','uLeft']);
-      SPL = mk('fsSpill', ['uRes','uT','uPaper','uAlpha','uSeed','uReach','uFull','uDir','uK','uTK','uMask','uUseMask','uFlat']);
+      SPL = mk('fsSpill', ['uRes','uT','uPaper','uAlpha','uSeed','uReach','uFull','uDir','uK','uTK','uMask','uUseMask','uFlat','uCalm','uMargin']);
     } catch(e){ console.warn(e); return null; }
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
@@ -2276,7 +2285,7 @@ const IMG = {"bead_obs": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wB
           const U = SPL.U; gl.useProgram(SPL.pr);
           gl.uniform2f(U.uRes, w, h); gl.uniform1f(U.uT, plate.t); gl.uniform3fv(U.uPaper, plate.paper());
           gl.uniform1f(U.uAlpha, plate.alpha); gl.uniform1f(U.uSeed, plate.seed); gl.uniform1f(U.uReach, plate.reach);
-          gl.uniform1f(U.uFull, plate.full); gl.uniform1f(U.uDir, plate.dir); gl.uniform3fv(U.uK, plate.pigment()); gl.uniform3fv(U.uTK, plate.tidePigment()); gl.uniform1f(U.uFlat, plate.flat);
+          gl.uniform1f(U.uFull, plate.full); gl.uniform1f(U.uDir, plate.dir); gl.uniform3fv(U.uK, plate.pigment()); gl.uniform3fv(U.uTK, plate.tidePigment()); gl.uniform1f(U.uFlat, plate.flat); gl.uniform1f(U.uCalm, plate.calm); gl.uniform1f(U.uMargin, plate.margin);
           gl.uniform1f(U.uUseMask, plate.maskTex ? 1 : 0); if(plate.maskTex){ gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, plate.maskTex); }
           gl.drawArrays(gl.TRIANGLES, 0, 3);
           plate.ctx.clearRect(0, 0, w, h); plate.ctx.drawImage(cv, 0, cv.height - h, w, h, 0, 0, w, h);
@@ -2326,7 +2335,7 @@ const IMG = {"bead_obs": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wB
       this.at = d.at ? +d.at : 0.86; this.dur = d.dur ? +d.dur : 1600; this.delay = d.delay ? +d.delay : 0;
       this.lead = d.lead ? +d.lead : 1; this.intro = d.intro ? +d.intro : 0.32;
       this.left = d.left ? +d.left : 0; this.seed = d.seed ? +d.seed : 1; this.reach = d.reach ? +d.reach : 0.6;
-      this.full = d.full ? +d.full : 0; this.dir = { up: 1, down: 2 }[d.dir] || 0; this.col = d.col ? hex(d.col) : null; this.tcol = d.tide ? hex(d.tide) : null; this.flat = d.flat ? +d.flat : 0;
+      this.full = d.full ? +d.full : 0; this.dir = { up: 1, down: 2 }[d.dir] || 0; this.col = d.col ? hex(d.col) : null; this.tcol = d.tide ? hex(d.tide) : null; this.flat = d.flat ? +d.flat : 0; this.calm = d.calm ? +d.calm : 0; this.margin = d.margin ? +d.margin : 0;
       const tw = el.closest('[data-track]'); this.track = tw ? document.querySelector(tw.dataset.track) : null;   // pinned scenes paint as their chapter is read
       this.ink = d.ink ? hex(d.ink) : [0.12, 0.18, 0.32]; this.pre = d.pre ? +d.pre : 0;
       this.canvas = el.querySelector('canvas'); this.ctx = this.canvas.getContext('2d'); this.dirty = true; this.visible = false;
@@ -2385,9 +2394,11 @@ const IMG = {"bead_obs": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wB
     if(d.seam === 'circle') add('brush', { shape: 'bloom', col: b, rim: deep(b, 0.88), mode: 'scroll', from: '.96', to: '.28', seed, cx: '.1', cy: '.98' });
   });
   /* curtains: a sticky screen inside a tall section; the ink floods it, the title stays unpainted */
+  const CUR = (location.search.match(/curtain=(\w)/) || [])[1] || 'a';
   document.querySelectorAll('.curtain').forEach((c, i) => {
     const d = c.dataset; c.style.setProperty('--a', d.a); c.style.setProperty('--b', d.b);
-    c.innerHTML = `<div class="curtain__stick"><div class="ink spillink" data-art="__spill" data-kind="spill" data-mode="curtain" data-full="1" data-reach="1.22" data-dir="${d.dir === 'left' ? '' : d.dir}" data-seed="${(3.1 + i*4.7).toFixed(2)}" data-paper="${d.a}"${d.tide ? ` data-tide="${d.tide}"` : ''}><canvas></canvas></div><p class="curtain__t"><i>${d.roman}</i><span>${d.name}</span><small>${d.sub}</small></p></div>`;
+    if(CUR !== 'a'){ d.style = CUR; }
+    c.innerHTML = `<div class="curtain__stick"><div class="ink spillink" data-art="__spill" data-kind="spill" data-mode="curtain" data-full="1" data-reach="1.22" data-dir="${d.dir === 'left' ? '' : d.dir}" data-seed="${(3.1 + i*4.7).toFixed(2)}" data-paper="${d.a}"${d.tide ? ` data-tide="${d.tide}"` : ''}${CUR !== 'a' ? ` data-col="#1d2842" data-calm="${'de'.includes(CUR) ? 2 : 1}"${'ce'.includes(CUR) ? ' data-margin="1"' : ''}` : ''}><canvas></canvas></div><p class="curtain__t"><i>${d.roman}</i><span>${d.name}</span><small>${d.sub}</small></p></div>`;
   });
   /* spill windows: a pour of navy ink comes in from the left edge of the page under every illustration */
   if(R) document.querySelectorAll('.spill').forEach((w, i) => {
@@ -2631,10 +2642,11 @@ const IMG = {"bead_obs": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wB
     const p = C.p; if(!p || !p.cw || !R) return;
     const cv = C.mcv || (C.mcv = document.createElement('canvas')), w = p.cw, h = p.ch, x = cv.getContext('2d'), d = C.c.dataset, m = w < 700;
     cv.width = w; cv.height = h; x.fillStyle = '#000'; x.fillRect(0, 0, w, h); x.fillStyle = '#fff'; x.textBaseline = 'alphabetic';
-    const hr = Math.min(h*0.3, w*(m ? 0.46 : 0.3)), hn = hr*0.42, hs = Math.max(15, hn*0.3), x0 = w*(m ? 0.08 : 0.11), yb = h*0.52;
+    const quiet = !!d.style, hr = Math.min(h*(quiet ? 0.2 : 0.3), w*(m ? (quiet ? 0.34 : 0.46) : (quiet ? 0.2 : 0.3))), hn = hr*(quiet ? 0.5 : 0.42), hs = Math.max(15, hn*0.3), x0 = w*(m ? 0.08 : 0.11), yb = h*0.52;
+    if(quiet) x.filter = 'blur(0.7px)';   // a wet resist: the edge of the letters bleeds a little
     x.font = `italic 500 ${hr}px "Cormorant Garamond", Georgia, serif`; x.fillText(d.roman, x0 - hr*0.04, yb);
     x.font = `italic 500 ${hn}px "Cormorant Garamond", Georgia, serif`; x.fillText(d.name, x0, yb + hn*1.12);
-    x.font = `500 ${hs}px "DM Sans", sans-serif`; if('letterSpacing' in x) x.letterSpacing = (hs*0.16) + 'px'; x.fillText(d.sub.toUpperCase(), x0 + 2, yb + hn*1.12 + hs*2.3);
+    if(!quiet){ x.font = `500 ${hs}px "DM Sans", sans-serif`; if('letterSpacing' in x) x.letterSpacing = (hs*0.16) + 'px'; x.fillText(d.sub.toUpperCase(), x0 + 2, yb + hn*1.12 + hs*2.3); }
     p.maskTex = R.texFrom(cv, p.maskTex); p.dirty = true;
   };
   const layResist = () => curtains.forEach(C => { if(C.p){ C.p.resize(); resist(C); } });
