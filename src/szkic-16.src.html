@@ -1240,6 +1240,36 @@ h3.sub{font:italic 500 23px/1.2 var(--serif);color:var(--text);margin:0 0 12px;l
 @media (prefers-reduced-motion:reduce) and (max-width:900px){
   .stage-m,.scrolly__stage{position:relative;top:auto}
 }
+/* ---------- szkic 16: one sheet of paper; every change of colour is a painted seam ---------- */
+.prolog,.chapter+.chapter{border-top:0}
+.seam{position:relative;height:clamp(150px,24vh,280px);background:var(--a);pointer-events:none;overflow:hidden}
+.seam.on-body{background:none}
+.seam[data-seam="line"],.seam[data-seam="thread"]{height:clamp(96px,14vh,150px)}
+.seam[data-seam="rise"]{height:clamp(190px,34vh,380px)}
+.seam[data-seam="rise"][data-vol="L"]{height:clamp(320px,62vh,680px)}
+.seam>.ink,.seam>.brush{position:absolute;inset:0}
+.seam[data-seam="line"]{height:clamp(120px,17vh,190px)}
+.seam>.ink.swash{inset:6% auto 6% -3%;height:auto;aspect-ratio:3.95}
+.seam[data-seam="circle"]{height:clamp(190px,30vh,340px)}
+.no-gl .seam[data-seam="rise"]{background-color:transparent;background-image:linear-gradient(var(--a),var(--b))}
+.brush{display:block;pointer-events:none}
+.brush canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+/* a curtain lies over the first screen of the next chapter: the ink withdraws and the chapter is already there */
+.curtain{display:none;position:relative;z-index:5;height:170svh;margin-bottom:-100svh;pointer-events:none;background:linear-gradient(var(--a) calc(100% - 100svh),transparent 0)}
+.js .curtain{display:block}
+.curtain__stick{position:sticky;top:0;height:100svh;overflow:hidden}
+.curtain__stick>.ink{position:absolute;inset:0}
+.curtain__t{display:none;margin:0}
+.no-gl .curtain{height:auto;margin-bottom:0;background:#1f2d52}
+.no-gl .curtain__stick{position:relative;height:auto;padding:12vh 8vw}
+.no-gl .curtain__t{display:block;color:#fbf5eb;font:italic 500 clamp(40px,6vw,90px)/1.05 var(--serif)}
+.no-gl .curtain__t i{display:block;font-size:2.2em;line-height:1}
+.no-gl .curtain__t small{display:block;font:500 16px/1.4 var(--sans);letter-spacing:.16em;text-transform:uppercase;margin-top:16px}
+.foot__bg{-webkit-mask-image:linear-gradient(transparent,#000 45%);mask-image:linear-gradient(transparent,#000 45%)}
+@media (prefers-reduced-motion:reduce){
+  .curtain{height:52svh;margin-bottom:0;background:var(--b)}
+  .curtain__stick{position:relative;height:52svh}
+}
 </style>
 </head>
 <body>
@@ -1336,6 +1366,7 @@ h3.sub{font:italic 500 23px/1.2 var(--serif);color:var(--text);margin:0 0 12px;l
     </div>
   </div>
 </section>
+<div class="seam" data-seam="line" data-vol="M" data-a="#fbf5eb" data-b="#fbf5eb"></div>
 
 <div class="sbar" id="sbar"><div class="wrap"><span class="sbar__n" id="sbN">Prolog</span><b class="sbar__t" id="sbT">Opowieść o Talizmanie</b><button type="button" class="sbar__toc" id="sbToc" aria-expanded="false" aria-controls="tocp"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 4h12M2 8h12M2 12h8"/></svg><span class="l">Spis rozdziałów</span><span class="s">Rozdziały</span></button></div><div class="thread" id="thread" aria-hidden="true"><svg class="thread__svg" viewBox="0 0 1000 14" preserveAspectRatio="none"><path class="thread__base" d="M0 7C80 4 160 10 240 7S400 4 480 7 640 10 720 7 880 4 1000 7"/><path class="thread__ink" id="threadInk" pathLength="1" d="M0 7C80 4 160 10 240 7S400 4 480 7 640 10 720 7 880 4 1000 7"/></svg><i class="knot" data-sign="oko"><img alt=""></i><i class="knot" data-sign="lustro"><img alt=""></i><i class="knot" data-sign="pieczec"><img alt=""></i><b class="thread__tie"></b></div></div>
 <nav class="tocp" id="tocp" aria-label="Spis rozdziałów" hidden></nav>
@@ -1361,6 +1392,7 @@ h3.sub{font:italic 500 23px/1.2 var(--serif);color:var(--text);margin:0 0 12px;l
     </div>
   </div>
 </section>
+<div class="seam" data-seam="thread" data-vol="Q" data-a="#fbf5eb" data-b="#fbf5eb"></div>
 
 <section class="history" id="rozdzial-1" data-chapter data-n="Rozdział I z VI" data-roman="I" data-title="Skąd wzięły się talizmany" aria-labelledby="c1H">
   <header class="opener">
@@ -1415,9 +1447,9 @@ h3.sub{font:italic 500 23px/1.2 var(--serif);color:var(--text);margin:0 0 12px;l
     </div>
   </div>
 </section>
+<section class="curtain" data-seam="curtain" data-vol="L" data-a="#fbf5eb" data-b="#efe6d9" data-roman="II" data-name="Obsydian" data-sub="lustro i tarcza" data-dir="left" aria-hidden="true"></section>
 
 <div class="stones-body" id="chBody">
-<div class="ink edge up" data-art="e_band" data-kind="wash" data-mode="scrub" data-from="1.1" data-to="0.62" data-left="1" data-tint="#efe6d9" data-paper="#fbf5eb"><canvas aria-hidden="true"></canvas></div>
 <article class="chapter" id="rozdzial-2" data-stone="obs" data-chapter data-n="Rozdział II z VI" data-roman="II" data-title="Obsydian" aria-labelledby="name-obs">
   <div class="wrap">
     <figure class="chapter__art stage-m tint" style="--stage-bg:#efe6d9"><div class="arch spill" data-paper="#efe6d9" data-track="#rozdzial-2" style="--arch:#efe6d9"><div class="ink gr" data-art="g_obs" data-kind="wash" data-mode="scroll" data-lead="1.4" data-intro="0.3" data-alpha=".95" data-paper="#efe6d9"><canvas aria-hidden="true"></canvas></div><div class="ink" data-art="obs" data-mode="scroll" data-intro="0.3"><canvas aria-hidden="true"></canvas></div><button class="redraw" type="button" data-redraw aria-label="Namaluj ponownie: Obsydian"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M16 10a6 6 0 1 1-2-4.5"/><path d="M14.5 2.5v3.4h-3.4"/></svg></button></div><figcaption>Obsydian · szkło wulkaniczne</figcaption></figure>
@@ -1436,6 +1468,7 @@ h3.sub{font:italic 500 23px/1.2 var(--serif);color:var(--text);margin:0 0 12px;l
     </div>
   </div>
 </article>
+<div class="seam" data-seam="rise" data-vol="Q" data-a="#efe6d9" data-b="#f5e6cf"></div>
 <article class="chapter" id="rozdzial-3" data-stone="tig" data-chapter data-n="Rozdział III z VI" data-roman="III" data-title="Tygrysie oko" aria-labelledby="name-tig">
   <div class="wrap">
     <figure class="chapter__art stage-m tint" style="--stage-bg:#f5e6cf"><div class="arch spill" data-paper="#f5e6cf" data-track="#rozdzial-3" style="--arch:#f5e6cf"><div class="ink gr" data-art="g_tig" data-kind="wash" data-mode="scroll" data-lead="1.4" data-intro="0.3" data-alpha=".95" data-paper="#f5e6cf"><canvas aria-hidden="true"></canvas></div><div class="ink" data-art="tig" data-mode="scroll" data-intro="0.3"><canvas aria-hidden="true"></canvas></div><button class="redraw" type="button" data-redraw aria-label="Namaluj ponownie: Tygrysie oko"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M16 10a6 6 0 1 1-2-4.5"/><path d="M14.5 2.5v3.4h-3.4"/></svg></button></div><figcaption>Tygrysie oko · kwarc ze złotym połyskiem</figcaption></figure>
@@ -1454,6 +1487,7 @@ h3.sub{font:italic 500 23px/1.2 var(--serif);color:var(--text);margin:0 0 12px;l
     </div>
   </div>
 </article>
+<section class="curtain" data-seam="curtain" data-vol="L" data-a="#f5e6cf" data-b="#f3e1d5" data-roman="IV" data-name="Hematyt" data-sub="żelazo i krew" data-dir="down" data-tide="#8a4a2e" aria-hidden="true"></section>
 <article class="chapter" id="rozdzial-4" data-stone="hem" data-chapter data-n="Rozdział IV z VI" data-roman="IV" data-title="Hematyt" aria-labelledby="name-hem">
   <div class="wrap">
     <figure class="chapter__art stage-m tint" style="--stage-bg:#f3e1d5"><div class="arch spill" data-paper="#f3e1d5" data-track="#rozdzial-4" style="--arch:#f3e1d5"><div class="ink gr" data-art="g_hem" data-kind="wash" data-mode="scroll" data-lead="1.4" data-intro="0.3" data-alpha=".95" data-paper="#f3e1d5"><canvas aria-hidden="true"></canvas></div><div class="ink" data-art="hem" data-mode="scroll" data-intro="0.3"><canvas aria-hidden="true"></canvas></div><button class="redraw" type="button" data-redraw aria-label="Namaluj ponownie: Hematyt"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M16 10a6 6 0 1 1-2-4.5"/><path d="M14.5 2.5v3.4h-3.4"/></svg></button></div><figcaption>Hematyt · kamień z żelaza</figcaption></figure>
@@ -1473,6 +1507,7 @@ h3.sub{font:italic 500 23px/1.2 var(--serif);color:var(--text);margin:0 0 12px;l
   </div>
 </article>
 </div>
+<div class="seam" data-seam="rise" data-vol="M" data-a="#f3e1d5" data-b="#f2e6d5"></div>
 
 <section class="trio" id="rozdzial-5" data-chapter data-n="Rozdział V z VI" data-roman="V" data-title="Trzy w jednym" aria-labelledby="c5H">
   <header class="opener">
@@ -1520,10 +1555,10 @@ h3.sub{font:italic 500 23px/1.2 var(--serif);color:var(--text);margin:0 0 12px;l
     <div class="nextwrap"><a class="next" href="#rozdzial-6"><span><small>Dalej · rozdział VI</small><b>Jak nosić Talizman</b></span><i><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 10h12M11 5l5 5-5 5"/></svg></i></a></div>
   </div>
 </section>
+<section class="curtain" data-seam="curtain" data-vol="L" data-a="#f2e6d5" data-b="#fbf5eb" data-roman="VI" data-name="Jak nosić" data-sub="Twój rytuał" data-dir="up" aria-hidden="true"></section>
 
 <section class="wear" id="rozdzial-6" data-chapter data-n="Rozdział VI z VI" data-roman="VI" data-title="Jak nosić Talizman" aria-labelledby="c6H">
-  <div class="ink edge" data-art="e_band" data-kind="wash" data-mode="scrub" data-from="1.1" data-to="0.62" data-left="1" data-fy="1" data-tint="#f2e6d5" data-paper="#fbf5eb" style="top:-2px"><canvas aria-hidden="true"></canvas></div>
-  <div class="wrap grid" style="padding-top:clamp(110px,12vw,190px)">
+  <div class="wrap grid" style="padding-top:clamp(56px,6vw,96px)">
     <div class="wear__text">
       <div class="numwrap" style="isolation:isolate"><div class="ink deco enso" data-art="w_enso_s" data-kind="wash" data-mode="once" data-dur="1900" data-alpha=".75" style=""><canvas aria-hidden="true"></canvas></div><div class="ink num" data-art="n6" data-kind="wash" data-mode="once" data-delay="120" data-dur="1200" data-at=".97" style="--asp:1.8081"><canvas aria-hidden="true"></canvas></div></div>
       <span class="eyebrow">Rozdział szósty</span>
@@ -1576,9 +1611,9 @@ h3.sub{font:italic 500 23px/1.2 var(--serif);color:var(--text);margin:0 0 12px;l
     </div>
   </div>
 </section>
+<div class="seam" data-seam="circle" data-vol="Q" data-a="#fbf5eb" data-b="#e9eddf"></div>
 
 <section class="price" id="epilog" data-chapter data-n="Epilog" data-roman="Ep." data-title="Nic tu nie jest przypadkiem" aria-labelledby="epH">
-  <div class="ink edge up" data-art="e_band" data-kind="wash" data-mode="scrub" data-from="1.1" data-to="0.62" data-left="1" data-tint="#e9eddf" data-paper="#fbf5eb"><canvas aria-hidden="true"></canvas></div>
   <header class="opener" style="padding-bottom:0">
     <div class="ink deco " data-art="w_bloom_o" data-kind="wash" data-mode="once" data-delay="400" data-alpha=".6" data-paper="#e9eddf" style="left:6%;top:30%;width:13%;aspect-ratio:1"><canvas aria-hidden="true"></canvas></div>
     <div class="ink deco " data-art="w_dab_s" data-kind="wash" data-mode="once" data-delay="800" data-alpha=".6" data-paper="#e9eddf" style="right:3%;top:74%;width:13%;aspect-ratio:1.556"><canvas aria-hidden="true"></canvas></div>
@@ -1609,9 +1644,9 @@ h3.sub{font:italic 500 23px/1.2 var(--serif);color:var(--text);margin:0 0 12px;l
   </div>
 </section>
 </div>
+<div class="seam" data-seam="rise" data-vol="L" data-a="#e9eddf" data-b="#2f231c"></div>
 
 <section class="gallery" id="album" aria-labelledby="galH">
-  <div class="ink edge up" data-art="e_band" data-kind="wash" data-mode="scrub" data-from="1.1" data-to="0.62" data-left="1" data-tint="#2f231c" data-paper="#e9eddf"><canvas aria-hidden="true"></canvas></div>
   <div class="wrap">
     <div class="ghead"><div><span class="eyebrow">Album</span><h2 id="galH" class="d2 bp"><span class="ln"><span>W ciepłym <em class="a">świetle.</em></span></span></h2></div><p class="fade">Obsydian, tygrysie oko i hematyt: surowe, polerowane i w codziennych chwilach.</p></div>
     <div class="bleed" id="bleed" data-lb="p_materials"><div class="ink paint" data-art="paint_a" data-photo="p_materials" data-mode="paint" data-line="#c9b597" data-from="1.0" data-to="0.12"><canvas aria-hidden="true"></canvas><img data-img="p_materials" alt="Surowy obsydian, tygrysie oko i hematyt na trawertynie"></div></div>
@@ -1622,9 +1657,9 @@ h3.sub{font:italic 500 23px/1.2 var(--serif);color:var(--text);margin:0 0 12px;l
     </div>
   </div>
 </section>
+<div class="seam" data-seam="stroke" data-vol="M" data-a="#2f231c" data-b="#fbf5eb"></div>
 
 <section class="real" aria-labelledby="realH">
-  <div class="ink edge" data-art="e_band" data-kind="wash" data-mode="scrub" data-from="1.1" data-to="0.62" data-left="1" data-fy="1" data-tint="#2f231c" data-paper="#fbf5eb" style="top:-2px"><canvas aria-hidden="true"></canvas></div>
   <div class="wrap">
     <div class="ghead"><div><span class="eyebrow">Z bliska</span><h2 id="realH" class="d2 bp"><span class="ln"><span>Tak wygląda</span></span><span class="ln"><span><em class="a">Twój talizman.</em></span></span></h2></div><p class="fade muted">Prawdziwe proporcje, kolory i faktura koralików: w dłoniach, na nadgarstku i z bliska.</p></div>
     <div class="rgrid m-snap">
@@ -1639,6 +1674,7 @@ h3.sub{font:italic 500 23px/1.2 var(--serif);color:var(--text);margin:0 0 12px;l
     </div>
   </div>
 </section>
+<div class="seam" data-seam="thread" data-vol="Q" data-a="#fbf5eb" data-b="#fbf5eb"></div>
 
 <section class="closing" aria-labelledby="closeH">
   <div class="wrap">
@@ -1651,10 +1687,9 @@ h3.sub{font:italic 500 23px/1.2 var(--serif);color:var(--text);margin:0 0 12px;l
     </div>
   </div>
 </section>
+<div class="seam" data-seam="rise" data-vol="M" data-a="#fbf5eb" data-b="#f2e6d5"></div>
 
 <section class="coll" id="kolekcja" aria-labelledby="collH">
-  <div class="ink edge up" data-art="e_band" data-kind="wash" data-mode="scrub" data-from="1.1" data-to="0.62" data-left="1" data-tint="#f2e6d5" data-paper="#fbf5eb"><canvas aria-hidden="true"></canvas></div>
-  <div class="ink edge" data-art="e_band" data-kind="wash" data-mode="scrub" data-from="1.1" data-to="0.62" data-left="1" data-tint="#2f231c" data-paper="#f2e6d5" style="bottom:-1px"><canvas aria-hidden="true"></canvas></div>
   <div class="wrap">
     <div class="ghead"><div><span class="eyebrow">Kolekcja</span><h2 id="collH" class="d2 bp"><span class="ln"><span>Inne <em class="a">kompozycje.</em></span></span></h2></div><p class="fade muted">Jedna forma, jeden rodzaj kamienia. Wybierz to, które jest Ci dziś najbliższe.</p></div>
     <ul class="cgrid m-snap">
@@ -1666,6 +1701,7 @@ h3.sub{font:italic 500 23px/1.2 var(--serif);color:var(--text);margin:0 0 12px;l
     <p class="cnote fine">Trzy autorskie propozycje z orientacyjnymi cenami. Zdjęcia przedstawiają koncepcje bransoletek; szczegóły i dostępność potwierdzimy przed premierą.</p>
   </div>
 </section>
+<div class="seam" data-seam="stroke" data-vol="M" data-a="#f2e6d5" data-b="#2f231c" data-deep=".78"></div>
 </main>
 
 <footer class="foot">
@@ -1934,7 +1970,7 @@ void main(){
   vec2 uv = vec2(mix(vUv.x, 1.0 - vUv.x, uFlip.x), mix(vUv.y, 1.0 - vUv.y, uFlip.y));
   vec2 auv = mix((uv - 0.5)*s + 0.5, uv, uFit);
   vec3 ill = texture2D(uIllus, auv).rgb;
-  if(uUseTint > 0.5){ float m = 1.0 - ill.r; ill = mix(vec3(1.0), uTint, m); }
+  if(uUseTint > 0.5){ float m = clamp((1.0 - dot(ill, vec3(0.299, 0.587, 0.114)))*2.2, 0.0, 1.0); ill = mix(vec3(1.0), uTint, m); }
   float I = 1.0 - dot(ill, vec3(0.299, 0.587, 0.114));
   vec2 p = auv*vec2(uArtAsp, 1.0);
   float A = texture2D(uArrive, auv).r + 0.012*snoise(p*14.0 + vec2(uT*2.0, -uT*1.3)) + 0.006*snoise(p*48.0);
@@ -1966,6 +2002,10 @@ uniform float uReach;
 uniform float uFull;
 uniform float uDir;
 uniform vec3 uK;
+uniform vec3 uTK;
+uniform sampler2D uMask;
+uniform float uUseMask;
+uniform float uFlat;
 vec3 permute(vec3 x){ return mod(((x*34.0)+1.0)*x, 289.0); }
 float snoise(vec2 v){
   const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
@@ -1982,7 +2022,7 @@ float snoise(vec2 v){
 // ink poured in from beyond the left edge of the page: a tongue of navy wash with a darker tide line at its front.
 // uFull floods the whole plate (curtains), uDir 1 pours upward from the bottom edge (a seam), uK is the pigment
 void main(){
-  vec2 uv = uDir > 0.5 ? vec2(vUv.y, vUv.x) : vUv;
+  vec2 uv = uDir > 1.5 ? vec2(1.0 - vUv.y, vUv.x) : uDir > 0.5 ? vec2(vUv.y, vUv.x) : vUv;
   vec2 res = uDir > 0.5 ? uRes.yx : uRes;
   float casp = res.x/res.y;
   vec2 q = vec2(uv.x*casp, uv.y);
@@ -1999,16 +2039,20 @@ void main(){
   float tide = exp(-max(d, 0.0)*36.0)*inside*(1.0 - 0.55*smoothstep(0.75, 1.0, t));
   float gran = 0.5 + 0.5*snoise(gl_FragCoord.xy*vec2(0.21, 0.19) + uSeed*9.0);
   float cloud = 0.55 + 0.45*smoothstep(-0.6, 0.8, snoise(q*2.2 + uSeed*3.1));
-  float dens = inside*band*(0.56*body*cloud + 0.4*tide)*(0.74 + 0.42*gran);
-  dens += inside*band*0.07*smoothstep(0.2, 0.9, n2);                 // back-runs inside the pour
-  dens *= 1.0 + 0.75*uFull;
-  dens = mix(dens, 0.85, uDir*max(smoothstep(0.8, 1.0, t), 1.0 - smoothstep(0.0, 0.35, uv.x)));   // a seam settles into the flat paper of the next section
-  vec3 T = exp(-uK*dens*1.2);
+  float g = 0.74 + 0.42*gran;
+  float dens = inside*band*(0.56*body*cloud*g + 0.07*smoothstep(0.2, 0.9, n2));   // body with back-runs inside the pour
+  float dt = inside*band*0.4*tide*g;                                                // the darker tide line at the front
+  dens *= 1.0 + 0.75*uFull; dt *= 1.0 + 0.75*uFull;
+  float settle = uFlat*max(smoothstep(0.8, 1.0, t), 1.0 - smoothstep(0.0, 0.35, uv.x));
+  dens = mix(dens, 0.85, settle); dt *= 1.0 - settle;                                   // a seam settles into the flat paper of the next section
+  if(uUseMask > 0.5){ float m = texture2D(uMask, vUv).r; dens *= 1.0 - m*(0.9 + 0.08*gran); dt *= 1.0 - m; }   // the title is left unpainted, like a resist
+  vec3 T = exp(-(uK*dens + uTK*dt)*1.2);
   float a = clamp(1.0 - min(T.r, min(T.g, T.b)), 0.0, 1.0);
   vec3 target = uPaper*T;
   vec3 col = a > 0.0005 ? clamp((target - uPaper*(1.0 - a))/a, 0.0, 1.0) : vec3(0.0);
-  a *= uAlpha;
-  gl_FragColor = vec4(col*a, a);
+  vec4 o = vec4(col*a, a);
+  if(uFull > 0.5) o = mix(o, vec4(target, 1.0), inside*band);   // a flood is opaque: ink on its own sheet, whatever lies under it
+  gl_FragColor = o*uAlpha;
 }
 </script>
 <script>
@@ -2084,18 +2128,20 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
       INK = mk('fs', ['uIllus','uArrive','uRes','uArtAsp','uFocus','uSrc','uT','uPoolR','uZoom','uBg','uFit','uLeft']);
       PNT = mk('fsPaint', ['uPhoto','uArrive','uRes','uAsp','uFocus','uT','uFlip','uBg','uLine','uInk','uPre']);
       WSH = mk('fsWash', ['uIllus','uArrive','uRes','uArtAsp','uT','uFit','uPaper','uAlpha','uTint','uUseTint','uFlip','uLeft']);
-      SPL = mk('fsSpill', ['uRes','uT','uPaper','uAlpha','uSeed','uReach','uFull','uDir','uK']);
+      SPL = mk('fsSpill', ['uRes','uT','uPaper','uAlpha','uSeed','uReach','uFull','uDir','uK','uTK','uMask','uUseMask','uFlat']);
     } catch(e){ console.warn(e); return null; }
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
     gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
     [[INK, 'uIllus'], [PNT, 'uPhoto'], [WSH, 'uIllus']].forEach(([P, a]) => { gl.useProgram(P.pr); gl.uniform1i(P.U[a], 0); gl.uniform1i(P.U.uArrive, 1); });
+    gl.useProgram(SPL.pr); gl.uniform1i(SPL.U.uMask, 0);
     const cache = new Map();
     const tex = img => { const t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t); gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, img);
       [gl.TEXTURE_MIN_FILTER, gl.TEXTURE_MAG_FILTER].forEach(k => gl.texParameteri(gl.TEXTURE_2D, k, gl.LINEAR));
       [gl.TEXTURE_WRAP_S, gl.TEXTURE_WRAP_T].forEach(k => gl.texParameteri(gl.TEXTURE_2D, k, gl.CLAMP_TO_EDGE)); return t; };
     return {
+      texFrom(canvas, t){ if(!t) return tex(canvas); gl.bindTexture(gl.TEXTURE_2D, t); gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, canvas); return t; },
       prepare(key){
         if(cache.has(key)) return cache.get(key);
         let p;
@@ -2114,7 +2160,8 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
           const U = SPL.U; gl.useProgram(SPL.pr);
           gl.uniform2f(U.uRes, w, h); gl.uniform1f(U.uT, plate.t); gl.uniform3fv(U.uPaper, plate.paper());
           gl.uniform1f(U.uAlpha, plate.alpha); gl.uniform1f(U.uSeed, plate.seed); gl.uniform1f(U.uReach, plate.reach);
-          gl.uniform1f(U.uFull, plate.full); gl.uniform1f(U.uDir, plate.dir); gl.uniform3fv(U.uK, plate.pigment());
+          gl.uniform1f(U.uFull, plate.full); gl.uniform1f(U.uDir, plate.dir); gl.uniform3fv(U.uK, plate.pigment()); gl.uniform3fv(U.uTK, plate.tidePigment()); gl.uniform1f(U.uFlat, plate.flat);
+          gl.uniform1f(U.uUseMask, plate.maskTex ? 1 : 0); if(plate.maskTex){ gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, plate.maskTex); }
           gl.drawArrays(gl.TRIANGLES, 0, 3);
           plate.ctx.clearRect(0, 0, w, h); plate.ctx.drawImage(cv, 0, cv.height - h, w, h, 0, 0, w, h);
           return;
@@ -2163,7 +2210,7 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
       this.at = d.at ? +d.at : 0.86; this.dur = d.dur ? +d.dur : 1600; this.delay = d.delay ? +d.delay : 0;
       this.lead = d.lead ? +d.lead : 1; this.intro = d.intro ? +d.intro : 0.32;
       this.left = d.left ? +d.left : 0; this.seed = d.seed ? +d.seed : 1; this.reach = d.reach ? +d.reach : 0.6;
-      this.full = d.full ? +d.full : 0; this.dir = d.dir === 'up' ? 1 : 0; this.col = d.col ? hex(d.col) : null;
+      this.full = d.full ? +d.full : 0; this.dir = { up: 1, down: 2 }[d.dir] || 0; this.col = d.col ? hex(d.col) : null; this.tcol = d.tide ? hex(d.tide) : null; this.flat = d.flat ? +d.flat : 0;
       const tw = el.closest('[data-track]'); this.track = tw ? document.querySelector(tw.dataset.track) : null;   // pinned scenes paint as their chapter is read
       this.ink = d.ink ? hex(d.ink) : [0.12, 0.18, 0.32]; this.pre = d.pre ? +d.pre : 0;
       this.canvas = el.querySelector('canvas'); this.ctx = this.canvas.getContext('2d'); this.dirty = true; this.visible = false;
@@ -2179,7 +2226,9 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
     get texKey(){ return this.photo ? this.photo + '|' + this.key : this.key; }
     paper(){ if(!this.paperC) this.paperC = bgOf(this.el.parentElement); return this.paperC; }
     // absorption per channel: navy by default, or whatever pigment lands exactly on data-col at full strength
-    pigment(){ if(!this.col) return [2.3, 1.7, 0.78]; const p = this.paper(); return this.col.map((c, i) => -Math.log(clamp(c/Math.max(p[i], 0.02), 0.02, 1))/1.02); }
+    pigment(){ return this.absorb(this.col); }
+    tidePigment(){ return this.tcol ? this.absorb(this.tcol) : this.pigment(); }
+    absorb(c){ if(!c) return [2.3, 1.7, 0.78]; const p = this.paper(); return c.map((v, i) => -Math.log(clamp(v/Math.max(p[i], 0.02), 0.02, 1))/1.02); }
     setKey(k){ if(k !== this.key){ this.key = k; this.dirty = true; R.prepare(this.texKey).then(() => this.dirty = true).catch(() => {}); } }
     resize(){ const d = Math.min(devicePixelRatio || 1, this.dprMax); const w = Math.round(this.el.clientWidth*d), h = Math.round(this.el.clientHeight*d); if(w && h && (this.canvas.width !== w || this.canvas.height !== h)){ this.canvas.width = w; this.canvas.height = h; } this.cw = this.canvas.width; this.ch = this.canvas.height; }
     setT(v){ v = clamp(v); if(Math.abs(v - this.t) > 1e-4){ this.t = v; this.dirty = true; } }
@@ -2204,6 +2253,26 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
     Object.assign(u.el.style, { left: (er.left - hr.left - fs*0.05) + 'px', top: (er.bottom - hr.top - fs*0.2) + 'px', width: (er.width + fs*0.12) + 'px', height: (fs*0.19) + 'px' });
   }));
 
+  /* ---------- seams: every change of paper between sections is painted. Built here, before the plates are collected ---------- */
+  const deep = (h, k = 0.9) => '#' + hex(h).map(v => Math.round(clamp(v*k)*255).toString(16).padStart(2, '0')).join('');
+  document.querySelectorAll('.seam[data-seam]').forEach((s, i) => {
+    const d = s.dataset, a = d.a, b = d.b || d.a, seed = (1.7 + i*2.3).toFixed(2);
+    s.setAttribute('aria-hidden', 'true'); s.style.setProperty('--a', a); s.style.setProperty('--b', b); if(a === '#fbf5eb') s.classList.add('on-body');
+    const add = (cls, ds) => { const el = document.createElement('div'); el.className = cls; Object.assign(el.dataset, ds); el.innerHTML = '<canvas></canvas>'; s.appendChild(el); return el; };
+    if(d.seam === 'rise' && R) add('ink spillink', { art: '__spill', kind: 'spill', mode: 'seam', full: '1', dir: 'up', flat: '1', col: b, paper: a, reach: '1.2', seed, alpha: '1' });
+    if(d.seam === 'stroke'){
+      add('brush', { preset: 'wide', d: 'M -30 128 C 160 96 330 150 520 112 S 850 88 1030 120', col: d.deep ? deep(b, +d.deep) : b, fill: b, mode: 'scroll', from: '1', to: '.5', seed });
+      add('brush', { preset: 'medium', w: '.12', d: 'M 20 72 C 260 52 520 84 760 60 S 930 62 990 70', col: d.deep ? deep(b, +d.deep) : b, mode: 'scroll', from: '.98', to: '.46', seed: seed + 7 });
+    }
+    if(d.seam === 'line') add('brush', { preset: 'medium', d: 'M -30 108 C 120 88 260 118 420 100 S 640 90 760 104', col: '#223158', mode: 'scroll', from: '.96', to: '.5', seed, w: '.3' });
+    if(d.seam === 'thread') add('brush', { shape: 'thread', preset: 'hair', d: 'M -20 112 C 180 92 300 126 420 106 S 620 96 760 110 S 940 122 1030 102', col: '#27365e', mode: 'scroll', from: '.98', to: '.5', seed });
+    if(d.seam === 'circle') add('brush', { shape: 'bloom', col: b, rim: deep(b, 0.88), mode: 'scroll', from: '.96', to: '.28', seed, cx: '.1', cy: '.98' });
+  });
+  /* curtains: a sticky screen inside a tall section; the ink floods it, the title stays unpainted */
+  document.querySelectorAll('.curtain').forEach((c, i) => {
+    const d = c.dataset; c.style.setProperty('--a', d.a); c.style.setProperty('--b', d.b);
+    c.innerHTML = `<div class="curtain__stick"><div class="ink spillink" data-art="__spill" data-kind="spill" data-mode="curtain" data-full="1" data-reach="1.22" data-dir="${d.dir === 'left' ? '' : d.dir}" data-seed="${(3.1 + i*4.7).toFixed(2)}" data-paper="${d.a}"${d.tide ? ` data-tide="${d.tide}"` : ''}><canvas></canvas></div><p class="curtain__t"><i>${d.roman}</i><span>${d.name}</span><small>${d.sub}</small></p></div>`;
+  });
   /* spill windows: a pour of navy ink comes in from the left edge of the page under every illustration */
   if(R) document.querySelectorAll('.spill').forEach((w, i) => {
     const el = document.createElement('div'); el.className = 'ink spillink'; el.setAttribute('aria-hidden', 'true');
@@ -2232,7 +2301,7 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
   layout(); document.fonts && document.fonts.ready.then(layout);
   new ResizeObserver(layout).observe(document.body);
 
-  const painters = [];
+  const painters = [], STATS = { max: 0 }, BUDGET = () => SNAP ? 999 : mobile() ? 4 : 6;
   (function loop(){
     const vh = innerHeight;
     for(const p of plates){
@@ -2260,11 +2329,17 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
       }
     }
     for(const f of painters) f(vh);
-    for(const p of plates){ if(p.dirty && p.visible && !p.busy){ p.dirty = false; p.busy = true; R.render(p).catch(() => {}).finally(() => p.busy = false); } }
+    // a frame budget: at most a few plates are painted per frame (oldest first); the rest wait one frame
+    const due = []; for(const p of plates){ if(p.dirty && p.visible && !p.busy) due.push(p); }
+    if(due.length > BUDGET()) due.sort((a, b) => (a.lastPaint || 0) - (b.lastPaint || 0));
+    const now = performance.now(), n = Math.min(due.length, BUDGET());
+    for(let i = 0; i < n; i++){ const p = due[i]; p.dirty = false; p.busy = true; p.lastPaint = now; R.render(p).catch(() => {}).finally(() => p.busy = false); }
+    if(n > STATS.max) STATS.max = n;
     requestAnimationFrame(loop);
   })();
 
   /* ---------- brush: bristle strokes painted along a path (seams, dividers, marks); plain 2D canvas, works without WebGL ---------- */
+  const BRUSH_PRESETS = { hair: { w: 0.05, dry: 0.3, hairs: 6 }, medium: { w: 0.24, dry: 0.45 }, wide: { w: 0.56, dry: 0.62 } };
   const brushes = (() => {
     const NS = 'http://www.w3.org/2000/svg';
     const host = document.createElementNS(NS, 'svg'); host.setAttribute('aria-hidden', 'true');
@@ -2279,65 +2354,122 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
         const d = el.dataset;
         this.el = el; this.cv = el.querySelector('canvas') || el.appendChild(document.createElement('canvas')); this.ctx = this.cv.getContext('2d');
         this.path = d.d; this.vb = (d.vb || '1000 200').split(/[ ,]+/).map(Number);
-        this.wr = d.w ? +d.w : 0.4;                       // brush width as a share of the element's height
+        const P = BRUSH_PRESETS[d.preset] || BRUSH_PRESETS.medium;
+        this.wr = d.w ? +d.w : P.w;                       // brush width as a share of the element's height
         this.col = d.col || '#1f2d52'; this.fill = d.fill || null;   // fill: paper laid down under the stroke (seams)
-        this.seed = d.seed ? +d.seed : 1; this.dry = d.dry ? +d.dry : 0.55; this.mode = d.mode || 'once';
+        this.seed = d.seed ? +d.seed : 1; this.dry = d.dry ? +d.dry : P.dry; this.hairs = P.hairs; this.mode = d.mode || 'once';
+        this.shape = d.shape || 'stroke'; this.fit = d.fit || ''; this.rim = d.rim || this.col; this.cx = d.cx ? +d.cx : 0.1; this.cy = d.cy ? +d.cy : 0.9;
         this.dur = d.dur ? +d.dur : 1400; this.delay = d.delay ? +d.delay : 0; this.at = d.at ? +d.at : 0.88;
         this.from = d.from ? +d.from : 0.98; this.to = d.to ? +d.to : 0.6;
         this.t = 0; this.drawn = -1; this.near = !io; this.pts = null;
         el.__brush = this; io && io.observe(el);
-        new ResizeObserver(() => { this.pts = null; this.drawn = -1; }).observe(el);
+        new ResizeObserver(() => { this.pts = null; this.full = null; this.drawn = -1; }).observe(el);
       }
       layout(){
-        const W = this.el.clientWidth, H = this.el.clientHeight; if(!W || !H || !this.path) return false;
+        const W = this.el.clientWidth, H = this.el.clientHeight; if(!W || !H || (!this.path && this.shape !== 'bloom')) return false;
         const dpr = Math.min(devicePixelRatio || 1, 1.5); this.cv.width = Math.round(W*dpr); this.cv.height = Math.round(H*dpr);
         probe.setAttribute('d', this.path);
-        const L = probe.getTotalLength(), sx = W/this.vb[0]*dpr, sy = H/this.vb[1]*dpr;
+        if(this.shape === 'bloom'){ this.W = W*dpr; this.H = H*dpr; this.pts = []; return true; }
+        const sy = H/this.vb[1]*dpr, sx = this.fit === 'h' ? sy : W/this.vb[0]*dpr, L = probe.getTotalLength();
         let est = 0, prev = null;
         for(let k = 0; k <= 48; k++){ const q = probe.getPointAtLength(L*k/48), x = q.x*sx, y = q.y*sy; if(prev) est += Math.hypot(x - prev[0], y - prev[1]); prev = [x, y]; }
-        const n = Math.max(40, Math.min(1400, Math.ceil(est/2)));
+        const n = Math.max(40, Math.min(900, Math.ceil(est/3)));
         const P = []; for(let k = 0; k <= n; k++){ const q = probe.getPointAtLength(L*k/n); P.push([q.x*sx, q.y*sy]); }
         this.nrm = P.map((_, k) => { const a = P[Math.max(0, k - 2)], b = P[Math.min(n, k + 2)], dx = b[0] - a[0], dy = b[1] - a[1], l = Math.hypot(dx, dy) || 1; return [-dy/l, dx/l]; });
         this.pts = P; this.bw = this.wr*H*dpr;
-        const nb = Math.max(12, Math.min(64, Math.round(this.bw/2.4)));
+        const nb = this.hairs || Math.max(14, Math.min(90, Math.round(this.bw/1.7)));
         this.bristles = Array.from({ length: nb }, (_, i) => ({
           o: (i + 0.5)/nb - 0.5 + (hash(this.seed + i*3.3) - 0.5)*0.7/nb,   // place across the brush
           load: 0.55 + 0.45*hash(i*5.1 + this.seed),                       // how much ink this hair carries
-          lw: this.bw/nb*(1.3 + 1.1*hash(this.seed*7.1 + i*1.37)), a: 0.26 + 0.5*hash(i*9.7 + this.seed*2), ph: hash(i*2.9 + this.seed)*100 }));
+          lw: this.bw/nb*(0.8 + 1.1*hash(this.seed*7.1 + i*1.37)), a: 0.2 + 0.45*hash(i*9.7 + this.seed*2), ph: hash(i*2.9 + this.seed)*100 }));
         return true;
       }
-      press(u){ return Math.min(1, u/0.06)*(1 - 0.62*Math.pow(Math.max(0, (u - 0.7)/0.3), 1.4))*(0.86 + 0.14*vn(u*7 + this.seed*3)); }
-      draw(){
-        if(!this.pts && !this.layout()) return;
-        const c = this.ctx, P = this.pts, N = this.nrm, n = P.length - 1, end = Math.round(n*this.t), W = this.cv.width, H = this.cv.height;
-        c.clearRect(0, 0, W, H); this.drawn = this.t;
-        if(end < 1) return;
-        const half = k => 0.5*this.bw*this.press(k/n);
-        if(this.fill){   // the new paper follows the brush: everything under its centre line, up to the tip
-          c.fillStyle = this.fill; c.beginPath(); c.moveTo(P[0][0] - 2, H + 2);
-          for(let k = 0; k <= end; k++) c.lineTo(P[k][0], P[k][1] + half(k)*0.15);
-          c.lineTo(P[end][0] - H*0.35, H + 2); c.closePath(); c.fill();
-        }
-        // wet body with a darker, pooled rim
+      press(u){ const x = clamp((u - 0.58)/0.42); return Math.pow(Math.min(1, u/0.05), 0.7)*(1 - 0.8*x*x*(3 - 2*x))*(0.84 + 0.16*vn(u*7 + this.seed*3)); }
+      bloom(){   // a pool of the next paper opens from one corner, with a darker rim where the water stops
+        const c = this.ctx, W = this.W, H = this.H, x0 = W*this.cx, y0 = H*this.cy;
+        c.clearRect(0, 0, W, H); this.drawn = this.t; if(this.t <= 0.001) return;
+        const R0 = Math.hypot(Math.max(x0, W - x0), Math.max(y0, H - y0))*1.1*easeOut(this.t), N = 720;
         c.beginPath();
-        for(let k = 0; k <= end; k++){ const h = half(k); c.lineTo(P[k][0] + N[k][0]*h, P[k][1] + N[k][1]*h); }
-        for(let k = end; k >= 0; k--){ const h = half(k); c.lineTo(P[k][0] - N[k][0]*h, P[k][1] - N[k][1]*h); }
-        c.closePath(); c.fillStyle = rgba(this.col, 0.16); c.fill(); c.lineWidth = 1.2; c.strokeStyle = rgba(this.col, 0.1); c.stroke();
-        // hairs: each carries its own load of ink and runs dry towards the end of the stroke
-        c.lineCap = 'round'; c.lineJoin = 'round';
+        for(let k = 0; k <= N; k++){ const a = k/N*Math.PI*2, r = R0*(1 + 0.06*(vn(a*2.2 + this.seed) - 0.5) + 0.025*(vn(a*9 + this.seed*2) - 0.5) + 0.008*(vn(a*40 + this.seed) - 0.5)); c.lineTo(x0 + Math.cos(a)*r, y0 + Math.sin(a)*r); }
+        c.closePath(); c.fillStyle = this.col; c.fill();
+        const fade = 1 - clamp((this.t - 0.82)/0.18);
+        c.lineJoin = 'round'; c.lineWidth = 7; c.strokeStyle = rgba(this.rim, 0.16*fade); c.stroke(); c.lineWidth = 1.6; c.strokeStyle = rgba(this.rim, 0.6*fade); c.stroke();
+      }
+      // the whole stroke is painted once, off screen; scrolling only reveals it up to the brush tip
+      paintFull(){
+        const P = this.pts, N = this.nrm, n = P.length - 1, W = this.cv.width, H = this.cv.height, sd = this.seed;
+        const f = this.full || (this.full = document.createElement('canvas')); f.width = W; f.height = H;
+        const c = f.getContext('2d'); c.clearRect(0, 0, W, H);
+        this.halfs = P.map((_, k) => 0.5*this.bw*this.press(k/n));
+        // ragged edges: each side of the brush wanders on its own
+        const hl = P.map((_, k) => this.halfs[k]*(1 + 0.16*(vn(k*0.05 + sd) - 0.5) + 0.08*(vn(k*0.6 + sd*3) - 0.5)));
+        const hr = P.map((_, k) => this.halfs[k]*(1 + 0.16*(vn(k*0.05 + sd + 40) - 0.5) + 0.08*(vn(k*0.6 + sd*5) - 0.5)));
+        const body = () => { c.beginPath(); for(let k = 0; k <= n; k++) c.lineTo(P[k][0] + N[k][0]*hl[k], P[k][1] + N[k][1]*hl[k]); for(let k = n; k >= 0; k--) c.lineTo(P[k][0] - N[k][0]*hr[k], P[k][1] - N[k][1]*hr[k]); c.closePath(); };
+        // 1. the ink body: dense where the brush is loaded, thinning out towards the tail
+        const fl = !!this.fill, g = c.createLinearGradient(P[0][0], P[0][1], P[n][0], P[n][1]);
+        g.addColorStop(0, rgba(this.col, fl ? 1 : 0.88)); g.addColorStop(0.55, rgba(this.col, fl ? 1 : 0.8)); g.addColorStop(0.85, rgba(this.col, fl ? 0.92 : 0.55)); g.addColorStop(1, rgba(this.col, fl ? 0.75 : 0.3));
+        body(); c.fillStyle = g; c.fill();
+        // 2. dry brush: the paper shows through in streaks where single hairs have run out of ink
+        c.globalCompositeOperation = 'destination-out'; c.lineCap = 'round';
         for(const b of this.bristles){
-          c.strokeStyle = rgba(this.col, b.a); c.lineWidth = b.lw; c.beginPath(); let on = false;
-          for(let k = 0; k <= end; k++){
-            const u = k/n, h = half(k), ink = b.load - this.dry*u*(0.7 + 0.6*vn(u*3 + b.ph));
-            if(vn(u*38 + b.ph) > ink + 0.35 || h < 0.6){ on = false; continue; }
-            const x = P[k][0] + N[k][0]*b.o*2*h, y = P[k][1] + N[k][1]*b.o*2*h;
+          c.lineWidth = b.lw*0.9; c.strokeStyle = `rgba(0,0,0,${0.55 + 0.4*b.load})`; c.beginPath(); let on = false;
+          const edge = Math.abs(b.o)*2;   // hairs at the edge of the brush dry first
+          for(let k = 0; k <= n; k++){
+            const u = k/n, h = this.halfs[k], ink = b.load - this.dry*Math.pow(u, 1.2)*(0.9 + 0.7*vn(u*2.3 + b.ph)) - 0.4*edge*edge*u;
+            const dry = 0.72*vn(u*8 + b.ph) + 0.28*vn(u*31 + b.ph*2) > ink + 0.3;   // long streaks along the stroke, frayed at their ends
+            if(!dry || h < 0.6){ on = false; continue; }
+            const o = b.o + 0.06*(vn(u*7 + b.ph*1.3) - 0.5), x = P[k][0] + N[k][0]*o*2*h, y = P[k][1] + N[k][1]*o*2*h;
             if(on) c.lineTo(x, y); else { c.moveTo(x, y); on = true; }
           }
           c.stroke();
         }
-        if(this.t < 1){   // wet tip where the brush still touches the paper
-          const k = end, h = half(k) + 1, g = c.createRadialGradient(P[k][0], P[k][1], 0, P[k][0], P[k][1], h*1.2);
-          g.addColorStop(0, rgba(this.col, 0.22)); g.addColorStop(1, rgba(this.col, 0)); c.fillStyle = g; c.fillRect(P[k][0] - h*1.3, P[k][1] - h*1.3, h*2.6, h*2.6);
+        c.globalCompositeOperation = 'source-over';
+        // 3. hair texture and a pooled, darker rim where the wet ink stops
+        c.lineCap = 'round'; c.lineJoin = 'round';
+        this.bristles.forEach((b, i) => {
+          if(i % 3) return;
+          c.lineWidth = Math.max(0.6, b.lw*0.45); c.strokeStyle = rgba(this.col, 0.18*b.a); c.beginPath(); let on = false;
+          for(let k = 0; k <= n*0.8; k++){
+            const u = k/n, h = this.halfs[k], o = b.o + 0.06*(vn(u*7 + b.ph*1.3) - 0.5), x = P[k][0] + N[k][0]*o*2*h, y = P[k][1] + N[k][1]*o*2*h;
+            if(on) c.lineTo(x, y); else { c.moveTo(x, y); on = true; }
+          }
+          c.stroke();
+        });
+        body(); c.lineWidth = Math.max(1, this.bw*0.012); c.strokeStyle = rgba(this.col, this.fill ? 0.18 : 0.3); c.stroke();
+      }
+      draw(){
+        if(!this.pts && !this.layout()) return;
+        if(this.shape === 'bloom') return this.bloom();
+        if(!this.full || this.full.width !== this.cv.width) this.paintFull();
+        const c = this.ctx, P = this.pts, N = this.nrm, n = P.length - 1, end = Math.round(n*this.t), W = this.cv.width, H = this.cv.height;
+        c.clearRect(0, 0, W, H); this.drawn = this.t;
+        if(end < 1) return;
+        const half = k => this.halfs[k];
+        if(this.fill){   // the new paper lies under the brush's path; the stroke paints its edge
+          c.fillStyle = this.fill; c.beginPath(); c.moveTo(P[0][0] - 2, H + 2);
+          for(let k = 0; k <= n; k++) c.lineTo(P[k][0], P[k][1] + half(k)*0.2);
+          c.lineTo(W + 2, P[n][1]); c.lineTo(W + 2, H + 2); c.closePath(); c.fill();
+        }
+        if(this.t > 0.995) c.drawImage(this.full, 0, 0);
+        else {   // reveal the painted stroke up to the tip, with a soft rounded front
+          c.save(); c.beginPath();
+          for(let k = 0; k <= end; k++){ const h = half(k)*1.6 + 3; c.lineTo(P[k][0] + N[k][0]*h, P[k][1] + N[k][1]*h); }
+          const h = half(end)*1.6 + 3, tx = N[end][1], ty = -N[end][0];
+          c.arc(P[end][0], P[end][1], h, Math.atan2(N[end][1], N[end][0]), Math.atan2(-N[end][1], -N[end][0]), tx*N[end][1] - ty*N[end][0] < 0);
+          for(let k = end; k >= 0; k--){ const h = half(k)*1.6 + 3; c.lineTo(P[k][0] - N[k][0]*h, P[k][1] - N[k][1]*h); }
+          c.closePath(); c.clip(); c.drawImage(this.full, 0, 0); c.restore();
+        }
+        if(this.shape === 'thread'){   // three beads strung on the thread: obsidian, tiger's eye, hematite
+          const R = H*0.085, BEADS = [['#15151b', '#4a4c5c', 0.43], ['#6e4318', '#dca651', 0.5], ['#34363e', '#b3b8c4', 0.57]];
+          BEADS.forEach(([dk, lt, u], j) => {
+            const k = Math.round(n*u); if(k > end) return;
+            const pop = clamp((this.t - u)/0.05), x = P[k][0], y = P[k][1], r = R*(0.6 + 0.4*pop);
+            const g = c.createRadialGradient(x - r*0.35, y - r*0.4, r*0.1, x, y, r); g.addColorStop(0, lt); g.addColorStop(0.55, dk); g.addColorStop(1, dk);
+            c.globalAlpha = 0.92*pop; c.fillStyle = g; c.beginPath(); c.arc(x, y, r, 0, Math.PI*2); c.fill();
+            if(j === 1){ c.globalAlpha = 0.35*pop; c.fillStyle = '#f3cf8a'; c.fillRect(x - r*0.9, y - r*0.12, r*1.8, r*0.22); }   // the silk band of tiger's eye
+            c.globalAlpha = 0.5*pop; c.fillStyle = '#fff'; c.beginPath(); c.ellipse(x - r*0.35, y - r*0.42, r*0.22, r*0.13, -0.5, 0, Math.PI*2); c.fill();
+            c.globalAlpha = 1;
+          });
         }
       }
       tick(vh){
@@ -2352,27 +2484,35 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
         if(this.near && Math.abs(this.t - this.drawn) > 0.002) this.draw();
       }
     }
-    const list = [...document.querySelectorAll('.brush[data-d]')].map(el => new Stroke(el));
+    const list = [...document.querySelectorAll('.brush[data-d], .brush[data-shape]')].map(el => new Stroke(el));
     painters.push(vh => list.forEach(b => b.tick(vh)));
     return list;
   })();
 
   /* ---------- curtains: ink floods the whole screen between chapters, the paper changes underneath, then the ink withdraws ---------- */
   const curtains = [...document.querySelectorAll('.curtain')].map(c => ({ c, p: plateOf(c.querySelector('.spillink')), title: c.querySelector('.curtain__t'), b: false, full: false }));
+  // the title is a resist: drawn white on black, the shader leaves those pixels unpainted
+  const resist = C => {
+    const p = C.p; if(!p || !p.cw || !R) return;
+    const cv = C.mcv || (C.mcv = document.createElement('canvas')), w = p.cw, h = p.ch, x = cv.getContext('2d'), d = C.c.dataset, m = w < 700;
+    cv.width = w; cv.height = h; x.fillStyle = '#000'; x.fillRect(0, 0, w, h); x.fillStyle = '#fff'; x.textBaseline = 'alphabetic';
+    const hr = Math.min(h*0.3, w*(m ? 0.46 : 0.3)), hn = hr*0.42, hs = Math.max(15, hn*0.3), x0 = w*(m ? 0.08 : 0.11), yb = h*0.52;
+    x.font = `italic 500 ${hr}px "Cormorant Garamond", Georgia, serif`; x.fillText(d.roman, x0 - hr*0.04, yb);
+    x.font = `italic 500 ${hn}px "Cormorant Garamond", Georgia, serif`; x.fillText(d.name, x0, yb + hn*1.12);
+    x.font = `500 ${hs}px "DM Sans", sans-serif`; if('letterSpacing' in x) x.letterSpacing = (hs*0.16) + 'px'; x.fillText(d.sub.toUpperCase(), x0 + 2, yb + hn*1.12 + hs*2.3);
+    p.maskTex = R.texFrom(cv, p.maskTex); p.dirty = true;
+  };
+  const layResist = () => curtains.forEach(C => { if(C.p){ C.p.resize(); resist(C); } });
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(layResist);
+  curtains.forEach(C => C.p && new ResizeObserver(() => resist(C)).observe(C.p.el));
   painters.push(vh => curtains.forEach(C => {
     const r = C.c.getBoundingClientRect(); if(r.bottom < -vh || r.top > vh*2) return;
     const enter = clamp((vh - r.top)/vh), run = clamp(-r.top/Math.max(1, r.height - vh));
-    const goal = run < 0.5 ? enter : 1 - clamp((run - 0.5)/0.45);
+    const goal = reduce ? 1 : run < 0.4 ? enter : 1 - clamp((run - 0.4)/0.56);
     if(C.p) C.p.ease(goal, SNAP ? 1 : 0.2);
     const t = C.p ? C.p.t : goal, flooded = t > 0.96;
     if(flooded && !C.full) document.dispatchEvent(new CustomEvent('inkfull'));
     C.full = flooded;
-    const wantB = run > 0.25 || r.bottom < vh*0.5;
-    if(wantB !== C.b && (flooded || run >= 0.98 || run <= 0.02)){
-      C.b = wantB; C.c.classList.toggle('b', wantB);
-      if(C.p){ C.p.paperC = hex(wantB ? C.c.dataset.b : C.c.dataset.a); C.p.dirty = true; }
-    }
-    if(C.title){ const o = clamp((t - 0.7)/0.22); C.title.style.opacity = o; C.title.style.transform = `translateY(calc(-50% + ${Math.round((1 - o)*18)}px))`; }
   }));
 
   /* ---------- headings are painted once they arrive, and stay painted ---------- */
@@ -2690,7 +2830,7 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
   }));
   const chapters = [...document.querySelectorAll('.chapter')];
   const TINT = { obs:'#efe6d9', tig:'#f5e6cf', hem:'#f3e1d5' }, chBody = document.getElementById('chBody');
-  chapters.forEach(c => new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) chBody.style.backgroundColor = TINT[c.dataset.stone]; }), {rootMargin:'-45% 0px -50% 0px'}).observe(c));
+  chapters.forEach(c => { c.style.backgroundColor = TINT[c.dataset.stone]; });
 
   /* ---------- stone chapters: reference cards fold on phones, stay open on desktop ---------- */
   const mdets = [...document.querySelectorAll('.mdet')]; let mdMode = null;
@@ -3093,7 +3233,7 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
   const rc = CH.findIndex(c => c.id === resume);
   if(rc >= 2) setTimeout(() => { if(scrollY > 200 || Layers.any()) return; toast(`Ostatnio czytane: ${CH[rc].r} · ${CH[rc].t}`, { label: 'Wróć', fn: () => goTo(CH[rc].id) }, 7000); }, 1600);
 
-  window.__ink = { plates, brushes, curtains, heads, hls, applyHead, snap: v => { SNAP = !!v; plates.forEach(p => { if(p.mode === 'scroll') p.introState = 'done'; }); } };
+  window.__ink = { plates, brushes, curtains, heads, hls, applyHead, stats: STATS, snap: v => { SNAP = !!v; plates.forEach(p => { if(p.mode === 'scroll') p.introState = 'done'; }); } };
   window.__ui = { Layers, openSize, openLb, openDrawer, toast, galList, openFinale };
 })();
 

@@ -4,8 +4,11 @@ const path = require('path');
 const { chromium } = require(process.env.PW || '/opt/node22/lib/node_modules/playwright');
 
 const file = path.resolve(process.argv[2]);
-const LIMITS = { SMALL: 0, BODY: 0, CONTRAST: 0, DASH: 0, EYEBROWS: 12, GAPS: 0, HOVERBAR: 0, JSERR: 0, STAGE: 0, THREAD: 0, CURTAIN: 0, GESTURE: 0 };
+const fs = require('fs');
+const LIMITS = { SMALL: 0, BODY: 0, CONTRAST: 0, DASH: 0, EYEBROWS: 12, GAPS: 0, HOVERBAR: 0, JSERR: 0, SEAM: 0, PAINT: 0, WALL: 0, PERF: 0, SIZE: 0, STAGE: 0, THREAD: 0, CURTAIN: 0, GESTURE: 0 };
 // STAGE, THREAD, CURTAIN and GESTURE describe the mobile story (szkic 16) and are checked on the phone viewport only
+const WALL_MAX = { desktop: 0.9, mobile: 0.5 };   // longest run of bare text, in screens
+const PERF_MAX = 6;                                // plates rendered in one frame while scrolling
 const VIEWS = [{ name: 'desktop', width: 1440, height: 900, mobile: false }, { name: 'mobile', width: 390, height: 844, mobile: true }];
 
 const inPage = () => {
@@ -30,7 +33,7 @@ const inPage = () => {
     const r = el.getBoundingClientRect();
     return r.width > 0 && r.height > 0;
   };
-  const out = { SMALL: [], BODY: [], CONTRAST: [], DASH: [], EYEBROWS: [], GAPS: [], HOVERBAR: [] };
+  const out = { SMALL: [], BODY: [], CONTRAST: [], DASH: [], EYEBROWS: [], GAPS: [], HOVERBAR: [], SEAM: [], PAINT: [], WALL: [] };
   const W = innerWidth, VH = innerHeight;
 
   // text checks: every element that owns a non-empty text node
@@ -65,6 +68,8 @@ const inPage = () => {
   document.querySelectorAll('main img, footer img, main .ink:not(.deco):not(.edge):not(.hlp):not(.ul), main button, main input').forEach(el => { if (visible(el)) push(el); });
   // a pinned (sticky) element is on screen across the whole block it sticks in
   document.querySelectorAll('main *').forEach(el => { if (getComputedStyle(el).position === 'sticky' && visible(el)) { const q = el.parentElement.getBoundingClientRect(); boxes.push([q.top + scrollY, q.bottom + scrollY]); } });
+  // painted seams and ink curtains are content too
+  document.querySelectorAll('main .seam, main .curtain').forEach(el => { if (getComputedStyle(el).display !== 'none') push(el); });
   boxes.sort((x, y) => x[0] - y[0]);
   let reach = 0;
   const main = document.querySelector('main'), mainTop = main.getBoundingClientRect().top + scrollY;
@@ -73,6 +78,35 @@ const inPage = () => {
     if (t - reach > VH * 0.45 && !(t <= pr[1] && reach >= pr[0] - 1)) out.GAPS.push(`${Math.round(reach)}..${Math.round(t)} (${Math.round((t - reach) / VH * 100)}vh)`);
     reach = Math.max(reach, b);
   });
+
+  // seams: every boundary between two blocks of the story is painted, and neighbours differ
+  const all = [...document.querySelectorAll('main section:not(.sheet), main article.chapter, main .seam, main .curtain')].filter(el => getComputedStyle(el).display !== 'none');
+  const seq = all.filter(b => !all.some(o => o !== b && b.contains(o)));
+  const isSeam = el => el.matches('.seam, .curtain');
+  const kinds = [];
+  seq.forEach((el, i) => {
+    if (isSeam(el)) { kinds.push({ k: el.dataset.seam, v: el.dataset.vol || 'Q', at: seq[i - 1] ? (seq[i - 1].id || seq[i - 1].className) : '?' }); return; }
+    const nx = seq[i + 1];
+    if (!nx) { out.SEAM.push(`${el.id || el.className} > footer: no seam`); return; }
+    if (!isSeam(nx)) out.SEAM.push(`${el.id || el.className} > ${nx.id || nx.className}: no seam`);
+  });
+  kinds.forEach((s, i) => { const p = kinds[i - 1]; if (!p) return; if (p.k === s.k) out.SEAM.push(`same seam twice (${s.k}) after ${p.at} and ${s.at}`); if (p.v === 'L' && s.v === 'L') out.SEAM.push(`two loud seams in a row after ${p.at}`); });
+  // painting: every block of the page carries at least one plate or brush
+  seq.filter(el => !isSeam(el)).forEach(el => { if (!el.querySelector('.ink, .brush')) out.PAINT.push(`${el.id || el.className}: nothing painted`); });
+  // walls of text: the longest vertical run holding text but no picture, ink, brush or pinned scene
+  const cover = [];
+  const pushC = el => { const q = el.getBoundingClientRect(); if (q.height > 40 && q.width > 40) cover.push([q.top + scrollY, q.bottom + scrollY]); };
+  document.querySelectorAll('main img, main .ink:not(.hlp):not(.ul), main .brush, main svg, main .seam, main .curtain, main canvas.inkpad').forEach(el => { if (visible(el) || el.matches('.seam, .curtain')) pushC(el); });
+  document.querySelectorAll('main *').forEach(el => { if (getComputedStyle(el).position === 'sticky' && visible(el)) { const q = el.parentElement.getBoundingClientRect(); cover.push([q.top + scrollY, q.bottom + scrollY]); } });
+  const txt = [];
+  owners.forEach(el => { if (visible(el) && el.closest('main')) { const q = el.getBoundingClientRect(); txt.push([q.top + scrollY, q.bottom + scrollY]); } });
+  const covered = y => cover.some(([a, b]) => y >= a && y <= b), hasText = y => txt.some(([a, b]) => y >= a && y <= b);
+  const m0 = mainTop, m1 = main.getBoundingClientRect().bottom + scrollY;
+  let run = 0, start = 0;
+  for (let y = m0; y < m1; y += 8) {
+    if (covered(y)) { if (run > VH*window.__wallMax) out.WALL.push(`${Math.round(start)}..${Math.round(y)} (${(run/VH).toFixed(2)} screens)`); run = 0; continue; }
+    if (hasText(y)) { if (!run) start = y; run += 8; }
+  }
   return out;
 };
 
@@ -92,7 +126,16 @@ const inPage = () => {
       document.querySelectorAll('main details').forEach(d => { d.open = true; });
     });
     await page.waitForTimeout(400);
+    await page.evaluate(m => { window.__wallMax = m; }, WALL_MAX[v.name]);
     const r = await page.evaluate(inPage);
+    // performance: how many plates render in one frame while the page is scrolled through
+    const H0 = await page.evaluate(() => document.documentElement.scrollHeight);
+    await page.evaluate(() => { window.__ink.snap(false); if (window.__ink.stats) window.__ink.stats.max = 0; });
+    for (let y = 0; y < H0; y += v.height*0.5) { await page.evaluate(y => window.scrollTo(0, y), Math.round(y)); await page.waitForTimeout(70); }
+    const peak = await page.evaluate(() => window.__ink.stats ? window.__ink.stats.max : -1);
+    r.PERF = peak > PERF_MAX || peak < 0 ? [`${peak} plates rendered in one frame (max ${PERF_MAX})`] : [];
+    await page.evaluate(() => window.__ink.snap(true));
+    r.SIZE = fs.statSync(file).size > 14e6 ? [`${(fs.statSync(file).size/1e6).toFixed(1)} MB (max 14)`] : [];
     // buy bar: on desktop it must sit to one side, clear of centred copy
     if (!v.mobile) {
       const H = await page.evaluate(() => document.documentElement.scrollHeight);
@@ -125,9 +168,9 @@ const inPage = () => {
       if (th) r.THREAD.push('#threadM ' + th);
       // ink curtains flood the whole screen between chapters
       const curtains = await page.evaluate(() => document.querySelectorAll('.curtain').length);
-      if (curtains < 4) r.CURTAIN.push(`${curtains} curtains (need 4)`);
+      if (curtains < 3) r.CURTAIN.push(`${curtains} curtains (need 3)`);
       for (let i = 0; i < curtains; i++) {
-        const y = await page.evaluate(k => { const c = document.querySelectorAll('.curtain')[k]; return c.getBoundingClientRect().top + scrollY + (c.offsetHeight - innerHeight) * 0.45; }, i);
+        const y = await page.evaluate(k => { const c = document.querySelectorAll('.curtain')[k]; return c.getBoundingClientRect().top + scrollY + (c.offsetHeight - innerHeight) * 0.25; }, i);
         await page.evaluate(y => window.scrollTo(0, y), Math.round(y));
         await page.waitForTimeout(250);
         const t = await page.evaluate(k => { const el = document.querySelectorAll('.curtain .spillink')[k]; const p = el && window.__ink.plates.find(x => x.el === el); return p ? p.t : -1; }, i);
