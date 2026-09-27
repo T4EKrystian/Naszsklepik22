@@ -7,8 +7,18 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M21.6 5.9A11.2 11.2 0 1 0 27 13.2' fill='none' stroke='%23212b42' stroke-width='3.4' stroke-linecap='round'/%3E%3C/svg%3E">
 <title>Talizman Ochronny · intencja</title>
 <meta name="description" content="Talizman Ochronny: bransoletka z obsydianu, tygrysiego oka i hematytu, koraliki 8 mm, 75 zł. W zestawie lniany woreczek i karta z historią kamieni.">
+<link rel="canonical" href="https://naszsklepik22.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="intencja">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:url" content="https://naszsklepik22.vercel.app/">
 <meta property="og:title" content="Talizman Ochronny · intencja">
-<meta property="og:description" content="Obsydian, tygrysie oko i hematyt: trzy warstwy jednej tarczy. Bransoletka z koralików 8 mm, 75 zł.">
+<meta property="og:description" content="Obsydian, tygrysie oko i hematyt: ochrona, odwaga i spokój. Bransoletka z koralików 8 mm, 75 zł.">
+<meta property="og:image" content="https://naszsklepik22.vercel.app/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Talizman Ochronny: bransoletka z obsydianu, tygrysiego oka i hematytu, 75 zł">
+<meta name="twitter:card" content="summary_large_image">
 <script>document.documentElement.classList.add('js');setTimeout(function(){document.documentElement.classList.add('dev-done')},4000)</script>
 <style>
 @font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:400 500;font-display:swap;src:url({{a:facc157bdd80}}) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
@@ -3518,7 +3528,7 @@ const IMG = {"bead_obs": "{{a:1f04eafc9fff}}", "bead_tig": "{{a:4bf01d578791}}",
   paintSaved();
   shareBtn.addEventListener('click', async () => {
     popIt(shareBtn);
-    const data = { title: 'Talizman Ochronny · intencja', text: 'Obsydian, tygrysie oko i hematyt: trzy warstwy jednej tarczy.', url: location.href };
+    const data = { title: 'Talizman Ochronny · intencja', text: 'Obsydian, tygrysie oko i hematyt: ochrona, odwaga i spokój.', url: location.href };
     if(navigator.share){ try { await navigator.share(data); } catch(e){} return; }
     try { await navigator.clipboard.writeText(location.href); toast('Link skopiowany. Wklej go, gdzie chcesz.'); } catch(e){ toast('Skopiuj adres z paska przeglądarki.'); }
   });

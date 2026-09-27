@@ -8,7 +8,7 @@ Strona produktu i opowieść o bransoletce z obsydianu, tygrysiego oka i hematyt
 |---|---|
 | `src/szkic-16.src.html` | źródło strony: tu się edytuje |
 | `src/assets/` | obrazy i fonty (`manifest.json`), w źródle jako `{{a:ID}}` |
-| `public/` | **to idzie na Vercel**: `index.html` i pliki `a/` |
+| `public/` | **to idzie na Vercel**: `index.html`, pliki `a/` i `og.jpg` (obrazek podglądu linku) |
 | `szkic-16-talizman.html` | ta sama strona w jednym pliku (podgląd bez serwera, audyty) |
 | `tools/` | build i testy |
 | `docs/s16/` | storyboard, pomysły, decyzje |
@@ -24,6 +24,8 @@ python3 tools/build.py src/szkic-16.src.html src/assets szkic-16-talizman.html  
 ```
 
 W wersji `--web` pliki w `public/a/` mają w nazwie hash treści, dlatego serwer może je trzymać w cache przez rok.
+
+Obrazek podglądu linku (`og:image`, 1200×630) powstaje z `tools/og.html`. Po zmianie ceny, nazwy albo zdjęcia wygeneruj go ponownie: `node tools/og.js`.
 
 ## Testy
 
