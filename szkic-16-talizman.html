@@ -2993,6 +2993,7 @@ const IMG = {"bead_obs": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wB
     threadInk.style.strokeDashoffset = (1 - clamp(-r.top/(r.height - vh))).toFixed(4);
     tmInk.style.strokeDashoffset = (1 - clamp(-r.top/(r.height - vh))).toFixed(4);
     let k = 0; CH.forEach((c, i) => { if(c.el.getBoundingClientRect().top < vh*0.4) k = i; });
+    if(document.body.classList.contains('inked')){ const j = CH.findIndex(c => c.id === 'rozdzial-2'); if(j > k) k = j; }   // under the curtain's title the bar already names chapter II
     if(k !== chOn){
       chOn = k; const c = CH[k]; sbN.textContent = c.n; sbT.textContent = mobile() && c.r !== '·' ? `${c.r} · ${c.t}` : c.t; tocLinks.forEach((a, i) => a.classList.toggle('on', i === k));
       if(k >= 1 && inside) try { localStorage.setItem('intencja-czytam', c.id); } catch(e){}
