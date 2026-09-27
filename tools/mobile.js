@@ -79,10 +79,13 @@ const check = (name, ok, info = '') => { results.push({ name, ok }); console.log
   check('holding the circle breathes, letting go pauses', /wdech/.test(during) && /przytrzymaj/.test(after), `${during} / ${after}`);
 
   // the one curtain waits for its screen to pin, then floods it
-  const cur = async f => { await page.evaluate(f => { const c = document.querySelector('.curtain'); scrollTo(0, c.getBoundingClientRect().top + scrollY + (f < 0 ? f*innerHeight : (c.offsetHeight - innerHeight)*f)); }, f); await page.waitForTimeout(2000);
-    return page.evaluate(() => { const el = document.querySelector('.curtain .spillink'); const p = window.__ink.plates.find(x => x.el === el); return p ? +p.t.toFixed(2) : -1; }); };
+  // the software renderer is slow, so the pinned check waits for the ink (up to 8 s) instead of a fixed time
+  const curT = () => page.evaluate(() => { const el = document.querySelector('.curtain .spillink'); const p = window.__ink.plates.find(x => x.el === el); return p ? +p.t.toFixed(2) : -1; });
+  const cur = async (f, want) => { await page.evaluate(f => { const c = document.querySelector('.curtain'); scrollTo(0, c.getBoundingClientRect().top + scrollY + (f < 0 ? f*innerHeight : (c.offsetHeight - innerHeight)*f)); }, f); await page.waitForTimeout(2000);
+    for (let k = 0; want && k < 30 && (await curT()) < want; k++) await page.waitForTimeout(200);
+    return curT(); };
   const n = await page.evaluate(() => document.querySelectorAll('.curtain').length);
-  const dry = n ? await cur(-0.3) : -1, wet = n ? await cur(0.3) : -1;
+  const dry = n ? await cur(-0.3) : -1, wet = n ? await cur(0.3, 0.9) : -1;
   check('one curtain, dry until pinned, then it covers the screen', n === 1 && dry === 0 && wet >= 0.9, `n=${n} before=${dry} pinned=${wet}`);
 
   check('no JS errors', errs.length === 0, errs.slice(0, 3).join(' | '));
