@@ -11,6 +11,30 @@ const WALL_MAX = { desktop: 0.9, mobile: 0.5 };   // longest run of bare text, i
 const PERF_MAX = 6;                                // plates rendered in one frame while scrolling
 const VIEWS = [{ name: 'desktop', width: 1440, height: 900, mobile: false }, { name: 'mobile', width: 390, height: 844, mobile: true }];
 
+// walls of text: the longest vertical run of reading text (paragraphs, list items) with no picture, ink, brush, control or pinned scene beside it
+const wallPage = max => {
+  const VH = innerHeight, out = [];
+  const shown = el => { const cs = getComputedStyle(el), q = el.getBoundingClientRect(); return cs.display !== 'none' && cs.visibility !== 'hidden' && +cs.opacity > 0 && q.width > 0 && q.height > 0 && !el.closest('[hidden],[aria-hidden="true"],.sheet,.drawer'); };
+  const Y = el => { const q = el.getBoundingClientRect(); return [q.top + scrollY, q.bottom + scrollY]; };
+  const cover = [], txt = [];
+  document.querySelectorAll('main img, main .ink:not(.hlp):not(.ul), main .brush, main svg, main button, main input, main label, main summary, main .btn, main canvas').forEach(el => { if (shown(el) && el.getBoundingClientRect().height > 30) cover.push(Y(el)); });
+  document.querySelectorAll('main .seam, main .curtain').forEach(el => { if (getComputedStyle(el).display !== 'none') cover.push(Y(el)); });
+  document.querySelectorAll('main *').forEach(el => { if (getComputedStyle(el).position === 'sticky' && shown(el)) cover.push(Y(el.parentElement)); });
+  document.querySelectorAll('main p, main li, main dd, main blockquote, main q').forEach(el => { if (shown(el) && !el.closest('button, summary, label, .btn') && el.innerText.trim().length > 20) txt.push(Y(el)); });
+  const main = document.querySelector('main'), [m0, m1] = Y(main);
+  const covered = y => cover.some(([a, b]) => y >= a && y <= b), hasText = y => txt.some(([a, b]) => y >= a && y <= b);
+  let run = 0, start = 0;
+  let last = m0;
+  const close = y => { if (run > VH*max) out.push(`${Math.round(start)}..${Math.round(y)} (${(run/VH).toFixed(2)} screens)`); run = 0; };
+  for (let y = m0; y < m1; y += 8) {
+    if (covered(y)) { close(last); continue; }
+    if (!hasText(y)) continue;
+    if (!run) start = y; run += 8; last = y;
+  }
+  close(last);
+  return out;
+};
+
 const inPage = () => {
   const EXCLUDE = 'script,style,[hidden],[aria-hidden="true"],.sheet,.drawer,.lb,.tocp,.toast,.fly,.wbead';
   const lum = c => {
@@ -33,7 +57,7 @@ const inPage = () => {
     const r = el.getBoundingClientRect();
     return r.width > 0 && r.height > 0;
   };
-  const out = { SMALL: [], BODY: [], CONTRAST: [], DASH: [], EYEBROWS: [], GAPS: [], HOVERBAR: [], SEAM: [], PAINT: [], WALL: [] };
+  const out = { SMALL: [], BODY: [], CONTRAST: [], DASH: [], EYEBROWS: [], GAPS: [], HOVERBAR: [], SEAM: [], PAINT: [] };
   const W = innerWidth, VH = innerHeight;
 
   // text checks: every element that owns a non-empty text node
@@ -93,20 +117,6 @@ const inPage = () => {
   kinds.forEach((s, i) => { const p = kinds[i - 1]; if (!p) return; if (p.k === s.k) out.SEAM.push(`same seam twice (${s.k}) after ${p.at} and ${s.at}`); if (p.v === 'L' && s.v === 'L') out.SEAM.push(`two loud seams in a row after ${p.at}`); });
   // painting: every block of the page carries at least one plate or brush
   seq.filter(el => !isSeam(el)).forEach(el => { if (!el.querySelector('.ink, .brush')) out.PAINT.push(`${el.id || el.className}: nothing painted`); });
-  // walls of text: the longest vertical run holding text but no picture, ink, brush or pinned scene
-  const cover = [];
-  const pushC = el => { const q = el.getBoundingClientRect(); if (q.height > 40 && q.width > 40) cover.push([q.top + scrollY, q.bottom + scrollY]); };
-  document.querySelectorAll('main img, main .ink:not(.hlp):not(.ul), main .brush, main svg, main .seam, main .curtain, main canvas.inkpad').forEach(el => { if (visible(el) || el.matches('.seam, .curtain')) pushC(el); });
-  document.querySelectorAll('main *').forEach(el => { if (getComputedStyle(el).position === 'sticky' && visible(el)) { const q = el.parentElement.getBoundingClientRect(); cover.push([q.top + scrollY, q.bottom + scrollY]); } });
-  const txt = [];
-  owners.forEach(el => { if (visible(el) && el.closest('main')) { const q = el.getBoundingClientRect(); txt.push([q.top + scrollY, q.bottom + scrollY]); } });
-  const covered = y => cover.some(([a, b]) => y >= a && y <= b), hasText = y => txt.some(([a, b]) => y >= a && y <= b);
-  const m0 = mainTop, m1 = main.getBoundingClientRect().bottom + scrollY;
-  let run = 0, start = 0;
-  for (let y = m0; y < m1; y += 8) {
-    if (covered(y)) { if (run > VH*window.__wallMax) out.WALL.push(`${Math.round(start)}..${Math.round(y)} (${(run/VH).toFixed(2)} screens)`); run = 0; continue; }
-    if (hasText(y)) { if (!run) start = y; run += 8; }
-  }
   return out;
 };
 
@@ -120,14 +130,13 @@ const inPage = () => {
     page.on('pageerror', e => errs.push(e.message));
     await page.goto('file://' + file, { waitUntil: 'load', timeout: 180000 });
     await page.waitForTimeout(1500);
-    await page.evaluate(() => {
-      window.__ink && window.__ink.snap(true);
-      document.querySelectorAll('.fade').forEach(e => e.classList.add('in'));
-      document.querySelectorAll('main details').forEach(d => { d.open = true; });
-    });
+    await page.evaluate(() => { window.__ink && window.__ink.snap(true); document.querySelectorAll('.fade').forEach(e => e.classList.add('in')); });
+    await page.waitForTimeout(300);
+    const WALL = await page.evaluate(wallPage, WALL_MAX[v.name]);
+    await page.evaluate(() => document.querySelectorAll('main details').forEach(d => { d.open = true; }));
     await page.waitForTimeout(400);
-    await page.evaluate(m => { window.__wallMax = m; }, WALL_MAX[v.name]);
     const r = await page.evaluate(inPage);
+    r.WALL = WALL;
     // performance: how many plates render in one frame while the page is scrolled through
     const H0 = await page.evaluate(() => document.documentElement.scrollHeight);
     await page.evaluate(() => { window.__ink.snap(false); if (window.__ink.stats) window.__ink.stats.max = 0; });

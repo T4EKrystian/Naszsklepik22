@@ -1266,6 +1266,47 @@ h3.sub{font:italic 500 23px/1.2 var(--serif);color:var(--text);margin:0 0 12px;l
 .no-gl .curtain__t i{display:block;font-size:2.2em;line-height:1}
 .no-gl .curtain__t small{display:block;font:500 16px/1.4 var(--sans);letter-spacing:.16em;text-transform:uppercase;margin-top:16px}
 .foot__bg{-webkit-mask-image:linear-gradient(transparent,#000 45%);mask-image:linear-gradient(transparent,#000 45%)}
+/* hairlines: the rules between rows are single hairs of the brush */
+html.hair :is(.pricerow,.desc,.stones button,.faqlist li,.steps li,.chapter__facts div,.forwho li,.howto>div,.who li,.intent,.reasons li,.pcard .row,.card-acc details,.hook,.bridge li,.mdet,.spec,.toc,.rnote dl,.ritual,.solo){border-top-color:transparent;background-image:var(--hair1);background-repeat:no-repeat;background-size:100% 10px;background-position:left 0 top -4px}
+html.hair :is(.faqlist li,.steps li,.forwho li,.howto>div,.who li,.reasons li,.bridge li,.card-acc details,.mdet,.chapter__facts div):nth-child(3n+2){background-image:var(--hair2)}
+html.hair :is(.faqlist li,.steps li,.forwho li,.howto>div,.who li,.reasons li,.bridge li,.card-acc details,.mdet,.chapter__facts div):nth-child(3n){background-image:var(--hair3)}
+html.hair :is(.ritual,.solo,.card-acc details:last-child,.stones li:last-child button){border-bottom-color:transparent;background-image:var(--hair1),var(--hair3);background-position:left 0 top -4px,left 0 bottom -4px}
+html.hair :is(.spec div,.toc a,.rnote dl div){border-bottom-color:transparent;background-image:var(--hair2);background-repeat:no-repeat;background-size:100% 10px;background-position:left 0 bottom -4px}
+html.hair :is(.spec div,.toc a,.rnote dl div):nth-child(2n){background-image:var(--hair3)}
+@media (max-width:900px){html.hair .mdet:last-of-type{border-bottom-color:transparent;background-image:var(--hair1),var(--hair3);background-position:left 0 top -4px,left 0 bottom -4px}}
+/* the price stands in an open enso that closes around the 3 in the epilogue */
+.pricerow strong{position:relative;isolation:isolate;padding:0 8px}
+.pricerow .enso-o{position:absolute;left:-16px;top:-24px;width:118px;height:92px;z-index:-1;mix-blend-mode:multiply}
+.pdp .beadline{position:relative;height:44px;margin:6px 0 -4px}
+.pdp .beadline>.brush{position:absolute;inset:0}
+/* ---------- szkic 16: figures painted with the brush instead of lists ---------- */
+.layers{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center;max-width:1160px;text-align:left}
+.shield{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:center;width:100%;margin:0}
+.shield__art{position:relative;aspect-ratio:340/300}
+.shield__art>.brush{position:absolute;inset:0;mix-blend-mode:multiply}
+.shield__k{display:grid;gap:14px}
+.shield__k span{display:block;position:relative;padding-left:34px;font-size:15px;line-height:1.4;color:var(--muted)}
+.shield__k b{display:block;font:italic 500 23px/1.15 var(--serif);color:var(--text)}
+.shield__k i{position:absolute;left:0;top:9px;width:24px;height:9px;border-radius:9px 3px 8px 2px;background:var(--k);transform:rotate(-4deg)}
+.tempo{display:block;border-top:0;padding-top:0}
+.tempo h3{margin:0 0 26px}
+.tempo__rows{list-style:none;display:grid;gap:22px}
+.tempo__rows li{position:relative;display:grid;grid-template-columns:minmax(0,1fr);gap:0;padding:38px 0 0;border:0}
+.tempo__rows li::before{content:none}
+.tempo__rows .brush{position:absolute;left:0;top:0;height:36px;width:100%;mix-blend-mode:multiply}
+.tempo__rows li.long .brush{width:calc(100% + var(--bleed) + 40px)}
+.tempo__rows b{font:500 23px/1.2 var(--serif)}
+.tempo__rows span{font-size:17px;color:var(--text-2)}
+.tempo{overflow:visible}
+.trio{overflow-x:clip}
+.rmark{position:relative;width:96px;height:56px;margin:0 0 12px}
+.rmark>.brush{position:absolute;inset:0;mix-blend-mode:multiply}
+@media (max-width:900px){
+  .layers{grid-template-columns:1fr;gap:18px}
+  .shield{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+  .shield__k b{font-size:21px}.shield__k span{font-size:14px;padding-left:30px}
+  .tempo__rows li.long .brush{width:calc(100% + var(--pad) + 10px)}
+}
 @media (prefers-reduced-motion:reduce){
   .curtain{height:52svh;margin-bottom:0;background:var(--b)}
   .curtain__stick{position:relative;height:52svh}
@@ -1288,7 +1329,7 @@ h3.sub{font:italic 500 23px/1.2 var(--serif);color:var(--text);margin:0 0 12px;l
       <span class="eyebrow">Bransoletka z trzech kamieni</span>
       <h1 id="h1" class="d1 bp"><span class="ln"><span>Talizman</span></span><span class="ln"><span>Ochronny.</span></span></h1>
       <p class="tag">Niektóre rzeczy nosi się <em>nie dla ozdoby.</em></p>
-      <div class="pricerow"><strong>75 zł</strong><span>Obsydian · tygrysie oko · hematyt<br>koraliki 8 mm · uniwersalny charakter</span></div>
+      <div class="pricerow"><strong><span class="brush enso-o" data-preset="medium" data-vb="118 92" data-fit="h" data-w=".09" data-d="M 24 66 C 8 44 18 14 54 10 C 88 7 110 28 104 54 C 100 72 86 82 66 84" data-col="#7f5a36" data-even="1" data-mode="once" data-dur="1500" data-delay="600" aria-hidden="true"><canvas></canvas></span>75 zł</strong><span>Obsydian · tygrysie oko · hematyt<br>koraliki 8 mm · uniwersalny charakter</span></div>
       <div class="sizes" role="radiogroup" aria-label="Rozmiar">
         <label><input type="radio" name="size" value="S"><span><b>S</b>16 cm</span></label>
         <label><input type="radio" name="size" value="M" checked><span><b>M</b>18 cm</span></label>
@@ -1305,16 +1346,17 @@ h3.sub{font:italic 500 23px/1.2 var(--serif);color:var(--text);margin:0 0 12px;l
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></svg>14 dni na zwrot</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M7 9h10l-1 11H8L7 9z"/><path d="M9.5 9c0-3 1-5 2.5-5s2.5 2 2.5 5"/><path d="M9 6.5c1.5 1 4.5 1 6 0"/></svg>Woreczek i karta w zestawie</li>
       </ul>
-      <p class="desc">Talizman Ochronny to bransoletka z trzech naturalnych kamieni, którym od tysięcy lat przypisuje się jedno wspólne zadanie: <mark class="hl">ochronę spokoju, jasności myśli i siły</mark>, które w codziennym biegu tak łatwo się rozpraszają.</p>
+      <p class="desc">Trzy naturalne kamienie, którym od tysięcy lat przypisuje się jedno zadanie: <mark class="hl">ochronę spokoju, jasności myśli i siły.</mark></p>
+      <div class="beadline" aria-hidden="true"><div class="brush" data-shape="thread" data-preset="hair" data-vb="600 44" data-fit="h" data-w=".06" data-d="M -10 24 C 120 18 260 30 380 22 S 540 20 610 25" data-col="#27365e" data-mode="once" data-dur="1600" data-at=".95"><canvas></canvas></div></div>
       <ul class="stones">
-        <li><button type="button" data-go="rozdzial-2"><img data-img="bead_obs" alt=""><span><b>Obsydian</b> działa jak tarcza: mówi się, że pochłania napięcie i ciężar z otoczenia.</span><i>rozdz. II</i></button></li>
-        <li><button type="button" data-go="rozdzial-3"><img data-img="bead_tig" alt=""><span><b>Tygrysie oko</b> to kamień odwagi: wspiera pewność siebie i jasność, gdy przychodzi czas na ważne decyzje.</span><i>rozdz. III</i></button></li>
-        <li><button type="button" data-go="rozdzial-4"><img data-img="bead_hem" alt=""><span><b>Hematyt</b> jest kotwicą: najcięższy z trójki, uważany za kamień spokoju i uziemienia, przypomina, że stoisz pewnie.</span><i>rozdz. IV</i></button></li>
+        <li><button type="button" data-go="rozdzial-2"><img data-img="bead_obs" alt=""><span><b>Obsydian</b> tarcza: bierze na siebie napięcie z zewnątrz.</span><i>rozdz. II</i></button></li>
+        <li><button type="button" data-go="rozdzial-3"><img data-img="bead_tig" alt=""><span><b>Tygrysie oko</b> odwaga i jasność przy ważnych decyzjach.</span><i>rozdz. III</i></button></li>
+        <li><button type="button" data-go="rozdzial-4"><img data-img="bead_hem" alt=""><span><b>Hematyt</b> kotwica: spokój, oparcie, pewny grunt.</span><i>rozdz. IV</i></button></li>
       </ul>
-      <p class="triple">Razem tworzą to, co od pokoleń nazywa się potrójną ochroną: trzy warstwy jednej tarczy. Jedna oczyszcza, druga pilnuje granic, trzecia trzyma przy ziemi.</p>
+      <p class="triple">Razem: <em class="a">trzy warstwy jednej tarczy.</em></p>
       <div class="hook">
         <h3 class="sub">Nie ma tu przypadku</h3>
-        <p>Ani w doborze tych trzech kamieni, ani w ich połączeniu, ani w cenie, która sprowadza się w numerologii do trójki, czyli liczby pełni i ochrony.</p>
+        <p>Nawet cena sprowadza się w numerologii do trójki, liczby pełni i ochrony.</p>
         <div class="hook__math">7 + 5 = 12 <span>i</span> 1 + 2 = 3</div>
         <a class="link" href="#opowiesc">O każdej z tych rzeczy opowiadamy niżej ↓</a>
       </div>
@@ -1537,17 +1579,26 @@ h3.sub{font:italic 500 23px/1.2 var(--serif);color:var(--text);margin:0 0 12px;l
         <h3>Hematyt trzyma przy ziemi.</h3><p>Daje oparcie, którego potrzebują dwa pierwsze. Bez niego oczyszczanie i odwaga byłyby jak dom bez fundamentu.</p>
       </article>
     </div>
-    <div class="layers fade">
-      <h3 class="sub">Potrójna ochrona</h3>
-      <p class="serif-lead">Dlatego mówi się o nich „potrójna ochrona”: <mark class="hl">to trzy warstwy jednej tarczy.</mark> Zewnętrzna odbija, środkowa czuwa, wewnętrzna stabilizuje.</p>
-      <p class="muted" style="margin-top:14px">Od pokoleń taki zestaw uchodzi za najpełniejszy dla osób, które chcą jednocześnie chronić się, widzieć jasno i nie zgubić przy tym siebie.</p>
+    <div class="layers">
+      <figure class="shield" role="img" aria-label="Tarcza z trzech warstw: obsydian odbija, tygrysie oko czuwa, hematyt stabilizuje">
+        <div class="shield__art">
+          <div class="brush" data-preset="medium" data-vb="340 300" data-fit="h" data-w=".07" data-d="M 50 214 A 128 128 0 1 1 286 232" data-col="#23242f" data-even="1" data-mode="once" data-dur="1300" data-delay="0"><canvas aria-hidden="true"></canvas></div>
+          <div class="brush" data-preset="medium" data-vb="340 300" data-fit="h" data-w=".055" data-d="M 100 148 A 88 88 0 1 1 268 176" data-col="#a8742e" data-even="1" data-mode="once" data-dur="1300" data-delay="520"><canvas aria-hidden="true"></canvas></div>
+          <div class="brush" data-preset="medium" data-vb="340 300" data-fit="h" data-w=".045" data-d="M 124 218 A 50 50 0 1 1 204 150" data-col="#5d5960" data-even="1" data-mode="once" data-dur="1300" data-delay="1040"><canvas aria-hidden="true"></canvas></div>
+        </div>
+        <figcaption class="shield__k"><span><i style="--k:#23242f"></i><b>odbija</b>obsydian, warstwa zewnętrzna</span><span><i style="--k:#a8742e"></i><b>czuwa</b>tygrysie oko, warstwa środkowa</span><span><i style="--k:#5d5960"></i><b>stabilizuje</b>hematyt, warstwa wewnętrzna</span></figcaption>
+      </figure>
+      <div class="layers__t fade">
+        <h3 class="sub">Potrójna ochrona</h3>
+        <p class="serif-lead">Trzy warstwy <mark class="hl">jednej tarczy.</mark> Zewnętrzna odbija, środkowa czuwa, wewnętrzna stabilizuje.</p>
+      </div>
     </div>
     <div class="tempo">
       <div class="fade"><h3>Trzy różne <em class="a">tempa czasu.</em></h3></div>
-      <ol class="fade">
-        <li><div><b>Obsydian: kilka sekund</b><span>Lawa stygnie tak gwałtownie, że jej cząsteczki nie zdążą ułożyć się w kryształ.</span></div></li>
-        <li><div><b>Tygrysie oko: 2,5 mld lat</b><span>Złote smugi w jego wnętrzu to pradawne żelazo zamknięte w krysztale.</span></div></li>
-        <li><div><b>Hematyt: 164 000 lat z człowiekiem</b><span>Najstarszy kamień w historii człowieka: najpierw był czerwonym pigmentem.</span></div></li>
+      <ol class="tempo__rows">
+        <li><div class="brush" data-shape="drop" data-rim="#10162b" data-vb="600 60" data-fit="h" data-d="M 4 30 L 24 30" data-col="#1f2d52" data-mode="once" data-dur="1400" data-delay="0"><canvas aria-hidden="true"></canvas></div><b>Obsydian</b><span>kilka sekund w stygnącej lawie</span></li>
+        <li><div class="brush" data-preset="medium" data-vb="600 60" data-fit="h" data-w=".34" data-d="M 4 30 C 60 27 120 33 190 29" data-col="#1f2d52" data-mode="once" data-dur="1400" data-delay="450"><canvas aria-hidden="true"></canvas></div><b>Hematyt</b><span>164 000 lat z człowiekiem</span></li>
+        <li class="long"><div class="brush" data-preset="medium" data-vb="600 60" data-fit="h" data-w=".34" data-d="M 4 30 C 200 24 420 36 640 28 S 900 30 1000 30" data-col="#1f2d52" data-mode="once" data-dur="1400" data-delay="900"><canvas aria-hidden="true"></canvas></div><b>Tygrysie oko</b><span>2,5 mld lat w głębi ziemi</span></li>
       </ol>
     </div>
     <p class="trio__close fade">Ogień, czas i żelazo: <em class="a">na jednej ręce.</em></p>
@@ -1635,10 +1686,10 @@ h3.sub{font:italic 500 23px/1.2 var(--serif);color:var(--text);margin:0 0 12px;l
     <h3 class="fade">Dlaczego akurat <em class="a" style="color:var(--sage-accent)">trójka chroni</em></h3>
     <p class="fade">Trójka od zawsze uchodziła za liczbę pełni i bezpieczeństwa. I nie jest przypadkiem, że spotykamy ją w każdej kulturze świata.</p>
     <ul class="reasons m-snap">
-      <li class="fade"><span class="kick">Pełnia</span><b>Pierwsza liczba kompletna.</b><span>Starożytni matematycy nazywali ją pierwszą prawdziwą liczbą, bo jako pierwsza ma początek, środek i koniec. Jeden to punkt. Dwa to napięcie między dwiema stronami. Dopiero trzy tworzy całość, w której nic nie zostaje otwarte.</span></li>
-      <li class="fade"><span class="kick">Stabilność</span><svg viewBox="0 0 46 40" fill="none" stroke="currentColor" stroke-width="1"><path d="M23 3 43 37H3z"/></svg><b>Najstabilniejszy kształt.</b><span>Trójkąt to jedyna figura, której nie da się zniekształcić bez złamania boku. Dlatego stoją na nim mosty, dachy i wieże. Trzy punkty oparcia zawsze trzymają, dwa nigdy.</span></li>
-      <li class="fade"><span class="kick">Powtarza się wszędzie</span><b>Omne trinum perfectum.</b><span>Wszystko, co potrójne, jest doskonałe. Ciało, umysł i dusza. Przeszłość, teraźniejszość i przyszłość. W baśniach bohater dostaje trzy życzenia i trzy próby. A my do dziś powtarzamy: do trzech razy sztuka.</span></li>
-      <li class="fade"><span class="kick">Lekkość</span><b>W numerologii: radość.</b><span>Trójce przypisuje się twórczą energię, ekspresję i lekkość, czyli dokładnie to, co zostaje, kiedy odchodzi lęk. I to jest sens tej bransoletki: chronimy się nie po to, żeby się zamknąć, <mark class="hl">tylko po to, żeby móc żyć pełniej.</mark></span></li>
+      <li class="fade"><div class="rmark"><div class="brush" data-shape="thread" data-preset="hair" data-vb="96 56" data-fit="h" data-w=".06" data-d="M 2 30 C 30 26 60 34 94 29" data-col="#3e4a2b" data-mode="once" data-dur="1200"><canvas aria-hidden="true"></canvas></div></div><span class="kick">Pełnia</span><b>Pierwsza liczba kompletna.</b><span>Starożytni matematycy nazywali ją pierwszą prawdziwą liczbą, bo jako pierwsza ma początek, środek i koniec. Jeden to punkt. Dwa to napięcie między dwiema stronami. Dopiero trzy tworzy całość, w której nic nie zostaje otwarte.</span></li>
+      <li class="fade"><div class="rmark"><div class="brush" data-preset="medium" data-vb="96 56" data-fit="h" data-w=".07" data-d="M 44 6 L 80 50 L 8 50 L 42 9" data-col="#3e4a2b" data-mode="once" data-dur="1400"><canvas aria-hidden="true"></canvas></div></div><span class="kick">Stabilność</span><b>Najstabilniejszy kształt.</b><span>Trójkąt to jedyna figura, której nie da się zniekształcić bez złamania boku. Dlatego stoją na nim mosty, dachy i wieże. Trzy punkty oparcia zawsze trzymają, dwa nigdy.</span></li>
+      <li class="fade"><div class="rmark"><div class="brush" data-preset="medium" data-vb="96 56" data-fit="h" data-w=".08" data-d="M 16 8 C 15 24 17 38 16 50" data-col="#3e4a2b" data-mode="once" data-dur="700" data-delay="0"><canvas aria-hidden="true"></canvas></div><div class="brush" data-preset="medium" data-vb="96 56" data-fit="h" data-w=".08" data-d="M 40 8 C 39 24 41 38 40 50" data-col="#3e4a2b" data-mode="once" data-dur="700" data-delay="260"><canvas aria-hidden="true"></canvas></div><div class="brush" data-preset="medium" data-vb="96 56" data-fit="h" data-w=".08" data-d="M 64 8 C 63 24 65 38 64 50" data-col="#3e4a2b" data-mode="once" data-dur="700" data-delay="520"><canvas aria-hidden="true"></canvas></div></div><span class="kick">Powtarza się wszędzie</span><b>Omne trinum perfectum.</b><span>Wszystko, co potrójne, jest doskonałe. Ciało, umysł i dusza. Przeszłość, teraźniejszość i przyszłość. W baśniach bohater dostaje trzy życzenia i trzy próby. A my do dziś powtarzamy: do trzech razy sztuka.</span></li>
+      <li class="fade"><div class="rmark"><div class="brush" data-preset="medium" data-vb="96 56" data-fit="h" data-w=".08" data-d="M 6 50 C 30 48 52 34 88 8" data-col="#3e4a2b" data-mode="once" data-dur="1200"><canvas aria-hidden="true"></canvas></div></div><span class="kick">Lekkość</span><b>W numerologii: radość.</b><span>Trójce przypisuje się twórczą energię, ekspresję i lekkość, czyli dokładnie to, co zostaje, kiedy odchodzi lęk. I to jest sens tej bransoletki: chronimy się nie po to, żeby się zamknąć, <mark class="hl">tylko po to, żeby móc żyć pełniej.</mark></span></li>
     </ul>
     <div class="price__close fade"><p>75 zł. Trzy kamienie. <em class="a" style="color:var(--sage-accent)">Trzy warstwy ochrony.</em></p><button class="btn btn--olive" type="button" data-add><span>Dodaj do sakiewki · 75 zł</span><i><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 10h12M11 5l5 5-5 5"/></svg></i></button></div>
   </div>
@@ -2358,7 +2409,7 @@ const IMG = {"bead_obs": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wB
         this.wr = d.w ? +d.w : P.w;                       // brush width as a share of the element's height
         this.col = d.col || '#1f2d52'; this.fill = d.fill || null;   // fill: paper laid down under the stroke (seams)
         this.seed = d.seed ? +d.seed : 1; this.dry = d.dry ? +d.dry : P.dry; this.hairs = P.hairs; this.mode = d.mode || 'once';
-        this.shape = d.shape || 'stroke'; this.fit = d.fit || ''; this.rim = d.rim || this.col; this.cx = d.cx ? +d.cx : 0.1; this.cy = d.cy ? +d.cy : 0.9;
+        this.even = !!d.even; this.shape = d.shape || 'stroke'; this.fit = d.fit || ''; this.rim = d.rim || this.col; this.cx = d.cx ? +d.cx : 0.1; this.cy = d.cy ? +d.cy : 0.9;
         this.dur = d.dur ? +d.dur : 1400; this.delay = d.delay ? +d.delay : 0; this.at = d.at ? +d.at : 0.88;
         this.from = d.from ? +d.from : 0.98; this.to = d.to ? +d.to : 0.6;
         this.t = 0; this.drawn = -1; this.near = !io; this.pts = null;
@@ -2366,10 +2417,10 @@ const IMG = {"bead_obs": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wB
         new ResizeObserver(() => { this.pts = null; this.full = null; this.drawn = -1; }).observe(el);
       }
       layout(){
-        const W = this.el.clientWidth, H = this.el.clientHeight; if(!W || !H || (!this.path && this.shape !== 'bloom')) return false;
+        const W = this.el.clientWidth, H = this.el.clientHeight; if(!W || !H || (!this.path && this.shape !== 'bloom' && this.shape !== 'drop')) return false;
         const dpr = Math.min(devicePixelRatio || 1, 1.5); this.cv.width = Math.round(W*dpr); this.cv.height = Math.round(H*dpr);
         probe.setAttribute('d', this.path);
-        if(this.shape === 'bloom'){ this.W = W*dpr; this.H = H*dpr; this.pts = []; return true; }
+        if(this.shape === 'bloom' || this.shape === 'drop'){ this.W = W*dpr; this.H = H*dpr; this.pts = []; return true; }
         const sy = H/this.vb[1]*dpr, sx = this.fit === 'h' ? sy : W/this.vb[0]*dpr, L = probe.getTotalLength();
         let est = 0, prev = null;
         for(let k = 0; k <= 48; k++){ const q = probe.getPointAtLength(L*k/48), x = q.x*sx, y = q.y*sy; if(prev) est += Math.hypot(x - prev[0], y - prev[1]); prev = [x, y]; }
@@ -2386,9 +2437,9 @@ const IMG = {"bead_obs": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wB
       }
       press(u){ const x = clamp((u - 0.58)/0.42); return Math.pow(Math.min(1, u/0.05), 0.7)*(1 - 0.8*x*x*(3 - 2*x))*(0.84 + 0.16*vn(u*7 + this.seed*3)); }
       bloom(){   // a pool of the next paper opens from one corner, with a darker rim where the water stops
-        const c = this.ctx, W = this.W, H = this.H, x0 = W*this.cx, y0 = H*this.cy;
+        const c = this.ctx, W = this.W, H = this.H, drop = this.shape === 'drop', x0 = drop ? H*0.5 : W*this.cx, y0 = drop ? H*0.52 : H*this.cy;
         c.clearRect(0, 0, W, H); this.drawn = this.t; if(this.t <= 0.001) return;
-        const R0 = Math.hypot(Math.max(x0, W - x0), Math.max(y0, H - y0))*1.1*easeOut(this.t), N = 720;
+        const R0 = (drop ? H*0.34 : Math.hypot(Math.max(x0, W - x0), Math.max(y0, H - y0))*1.1)*easeOut(this.t), N = drop ? 120 : 720;
         c.beginPath();
         for(let k = 0; k <= N; k++){ const a = k/N*Math.PI*2, r = R0*(1 + 0.06*(vn(a*2.2 + this.seed) - 0.5) + 0.025*(vn(a*9 + this.seed*2) - 0.5) + 0.008*(vn(a*40 + this.seed) - 0.5)); c.lineTo(x0 + Math.cos(a)*r, y0 + Math.sin(a)*r); }
         c.closePath(); c.fillStyle = this.col; c.fill();
@@ -2407,7 +2458,8 @@ const IMG = {"bead_obs": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wB
         const body = () => { c.beginPath(); for(let k = 0; k <= n; k++) c.lineTo(P[k][0] + N[k][0]*hl[k], P[k][1] + N[k][1]*hl[k]); for(let k = n; k >= 0; k--) c.lineTo(P[k][0] - N[k][0]*hr[k], P[k][1] - N[k][1]*hr[k]); c.closePath(); };
         // 1. the ink body: dense where the brush is loaded, thinning out towards the tail
         const fl = !!this.fill, g = c.createLinearGradient(P[0][0], P[0][1], P[n][0], P[n][1]);
-        g.addColorStop(0, rgba(this.col, fl ? 1 : 0.88)); g.addColorStop(0.55, rgba(this.col, fl ? 1 : 0.8)); g.addColorStop(0.85, rgba(this.col, fl ? 0.92 : 0.55)); g.addColorStop(1, rgba(this.col, fl ? 0.75 : 0.3));
+        const e = fl || this.even;
+        g.addColorStop(0, rgba(this.col, fl ? 1 : 0.9)); g.addColorStop(0.55, rgba(this.col, fl ? 1 : e ? 0.88 : 0.8)); g.addColorStop(0.85, rgba(this.col, fl ? 0.92 : e ? 0.8 : 0.55)); g.addColorStop(1, rgba(this.col, fl ? 0.75 : e ? 0.62 : 0.3));
         body(); c.fillStyle = g; c.fill();
         // 2. dry brush: the paper shows through in streaks where single hairs have run out of ink
         c.globalCompositeOperation = 'destination-out'; c.lineCap = 'round';
@@ -2439,7 +2491,7 @@ const IMG = {"bead_obs": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wB
       }
       draw(){
         if(!this.pts && !this.layout()) return;
-        if(this.shape === 'bloom') return this.bloom();
+        if(this.shape === 'bloom' || this.shape === 'drop') return this.bloom();
         if(!this.full || this.full.width !== this.cv.width) this.paintFull();
         const c = this.ctx, P = this.pts, N = this.nrm, n = P.length - 1, end = Math.round(n*this.t), W = this.cv.width, H = this.cv.height;
         c.clearRect(0, 0, W, H); this.drawn = this.t;
@@ -2486,6 +2538,24 @@ const IMG = {"bead_obs": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wB
     }
     const list = [...document.querySelectorAll('.brush[data-d], .brush[data-shape]')].map(el => new Stroke(el));
     painters.push(vh => list.forEach(b => b.tick(vh)));
+    // hairlines: every thin rule on the page is one hair of the same brush, painted once and shared as an image
+    const hair = seed => new Promise(res => {
+      const host = document.createElement('div'); host.setAttribute('aria-hidden', 'true');
+      Object.assign(host.style, { position: 'absolute', left: '-9999px', top: '0', width: '1400px', height: '10px' });
+      Object.assign(host.dataset, { preset: 'hair', w: '.17', d: 'M 0 5 C 350 4.5 700 5.5 1050 4.9 S 1380 5.2 1400 5', vb: '1400 10', col: '#34271e', seed: String(seed), even: '1' });
+      host.innerHTML = '<canvas></canvas>'; document.body.appendChild(host);
+      try {
+        const st = new Stroke(host); if(!st.layout()){ host.remove(); res(null); return; } st.paintFull();
+        const out = document.createElement('canvas'); out.width = st.full.width; out.height = st.full.height;
+        const x = out.getContext('2d'); x.globalAlpha = 0.42; x.drawImage(st.full, 0, 0); host.remove();
+        out.toBlob(b => res(b ? URL.createObjectURL(b) : null));
+      } catch(e){ host.remove(); res(null); }
+    });
+    Promise.all([3.1, 7.7, 12.9].map(hair)).then(urls => {
+      if(urls.some(u => !u)) return;
+      urls.forEach((u, i) => document.documentElement.style.setProperty(`--hair${i + 1}`, `url("${u}")`));
+      document.documentElement.classList.add('hair');
+    });
     return list;
   })();
 
