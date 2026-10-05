@@ -332,3 +332,34 @@ Zasady:
 - Tempo zmywania nie zależy od liczby klatek.
 - Wibracja pojawia się raz, przy upadku kropli.
 - Ograniczony ruch i brak WebGL dają spokojny tytuł na papierze.
+
+## Porządek według opisu właściciela (27.09)
+
+Klient: „na stronie robi się lekki chaos, sprawdź plik opisik, bo tam jest wszystko”. Decyzje: zostaje obecna strona z rozdziałami I–VI w tej samej kolejności, tekst pochodzi z opisu właściciela z naszymi poprawkami, a o efektach decyduję ja.
+
+Co wypadło:
+- **Gry i dodatki na telefonie:** gesty kamieni, malowanie intencji, oddech, nić z koralikami w pasku zakupu, znaki, arkusz finału i album.
+- **Nadmiar przejść.** Zostały tylko dwa rodzaje:
+  - spokojny szew `horizon` tam, gdzie zmienia się kolor papieru;
+  - jedna plama tuszu przed rozdziałem II.
+- **Przypinane sceny na telefonie.** Ilustracje przewijają się razem z tekstem i malują się, gdy wchodzą na ekran.
+- **Powtórzenia na karcie produktu.** Opis, pielęgnacja, linia koralików, trójka i FAQ zostały zastąpione jednym blokiem „O bransoletce” z opisu właściciela.
+
+Nowy układ:
+- **Rozdział I** jest osią czasu: data, tytuł i krótki tekst, z małą ilustracją przy każdym punkcie.
+- **Rozdziały II–IV** mają te same stałe punkty z opisu:
+  - otwarte: Symbol, Właściwości, Pochodzenie;
+  - zwinięte: Dla kogo, Jak pracować, Jak dbać, Początek wierzeń.
+- **Rozdział V** to: Potrójna ochrona, zakup, trzy tempa czasu.
+- **Rozdział VI** to: Która ręka (otwarte) oraz zwinięte Pierwsze założenie, Na co dzień, Odświeżanie i Gdy bransoletka się zerwie.
+- **Epilog** to rachunek 7 + 5 = 12, 1 + 2 = 3 i cztery powody z opisu (zwinięte).
+
+Dłuższe punkty są na telefonie zwinięte (`details[data-fold]`), a na komputerze otwarte.
+
+Zasady pilnuje `tools/audit.js`:
+- **SEAM:** zmiana papieru wymaga szwu i dozwolony jest tylko `horizon`;
+- **PICTURE:** kamienie i dłonie są namalowane, gdy są na ekranie;
+- **CALM:** brak gier i dodatków;
+- **LENGTH:** najwyżej 36 ekranów telefonu przy zwiniętych punktach.
+
+Strona na telefonie skróciła się z 51 do około 31 ekranów.
